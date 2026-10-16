@@ -59,18 +59,51 @@ def test_repeated_old_capture_does_not_consume_next_card(logged,monkeypatch):
     assert result['game']['pending']['card']['id']=='test-1'
 
 
-@pytest.mark.parametrize('change',[{'pokemon':'Pikachu'},{'card_id':'wrong-print'}, {'field':'hp','value':120},
-                                  {'field':'set','value':'Autre extension'}, {'field':'stage','value':'Niveau 2'},
-                                  {'field':'type','value':'Eau'}, {'field':'illustrator','value':'Autre artiste'},
-                                  {'field':'rarity','value':'Rare Holo'}, {'field':'pokedex','value':25}])
-def test_wrong_card_or_visible_attribute_is_rejected_automatically(logged,monkeypatch,change):
-    r=row()
-    if 'field' in change:r['clues'][change['field']]['value']=change['value']
-    else:r.update(change)
+@pytest.mark.parametrize('change',[{'pokemon':'Pikachu'},{'card_id':'wrong-print'}])
+def test_unidentifiable_card_is_rejected(logged,monkeypatch,change):
+    r=row();r.update(change)
     result=upload_result(logged,monkeypatch,[r])
-    assert result['status']=='error',result
-    g=logged.get('/api/game').json()
-    assert g['history']==[] and g['version']==0 and g['pending']['card']['id']=='xy10-63'
+    assert result['status']=='error'
+    assert logged.get('/api/game').json()['history']==[]
+
+
+@pytest.mark.parametrize('field,value,key,expected',[
+    ('hp','120 PV','hp',120),('set','Autre extension','set_name','Autre extension'),
+    ('stage','Niveau 2','stage','Stage2'),('type','Eau','types',['Water']),
+    ('illustrator','Autre artiste','illustrator','Autre artiste'),
+    ('rarity','RARE HOLO','rarity','Rare Holo'),('pokedex','25','pokedex',[25])])
+def test_visible_values_override_catalog_and_survive_reload(logged,monkeypatch,field,value,key,expected):
+    from backend.app.catalog import catalog
+    baseline=catalog()['xy10-63'][key]
+    r=row();r['clues'][field]['value']=value
+    result=upload_result(logged,monkeypatch,[r])
+    assert result['status']=='done',result
+    g=result['game']
+    assert g['solved'] and g['history'][0]['card'][key]==expected
+    assert g['recommendation'][key]==expected
+    assert logged.get('/api/game').json()['history'][0]['card'][key]==expected
+    assert catalog()['xy10-63'][key]==baseline
+
+
+def test_another_card_is_used_even_when_lucario_is_pending(logged,monkeypatch):
+    result=upload_result(logged,monkeypatch,[row(name='Autre Pokémon')])
+    assert result['status']=='done',result
+    assert result['game']['history'][0]['card']['id']=='test-1'
+    assert result['game']['solved']
+
+
+def test_another_card_can_continue_toward_lucario(logged,monkeypatch):
+    cs=clues(pokedex={'color':'gray','arrow':'up'},type={'color':'gray'},stage={'color':'gray'},
+             hp={'color':'yellow','arrow':'up'},rarity={'color':'gray'},set={'color':'gray','arrow':'down'},illustrator={'color':'gray'})
+    result=upload_result(logged,monkeypatch,[row(name='Autre Pokémon',cs=cs)])
+    assert result['status']=='done',result
+    assert result['game']['history'][0]['card']['id']=='test-1'
+    assert result['game']['pending']['card']['id']=='xy10-63'
+    assert not result['game']['solved']
+
+
+def test_lucario_rarity_correct_before_first_capture(logged):
+    assert logged.get('/api/game').json()['pending']['card']['rarity']=='Rare Holo'
 
 
 def test_visible_values_are_checked_against_known_printing(base_card):
@@ -122,3 +155,58 @@ def test_all_green_keeps_the_played_print_not_a_metadata_twin(logged,monkeypatch
     result=upload_result(logged,monkeypatch,[row()])
     assert result['status']=='done' and result['game']['solved']
     assert result['game']['recommendation']['id']=='xy10-63' and result['game']['pending'] is None
+
+
+def test_observed_hp_changes_next_deduction_not_only_history(logged,monkeypatch):
+    # Catalog Lucario has 110 HP: gray/down would exclude the 100 HP target.
+    # The screen says 140 HP, making gray/down consistent with that target.
+    r=row(cs=other_clues());r['clues']['hp']={'color':'gray','arrow':'down','value':140}
+    result=upload_result(logged,monkeypatch,[r])
+    assert result['status']=='done',result
+    assert result['game']['pending']['card']['id']=='test-1'
+    assert result['game']['history'][0]['card']['hp']==140
+    again=upload_result(logged,monkeypatch,[r])
+    assert again['status']=='done' and again['duplicate']
+
+
+def test_observations_do_not_change_another_session(logged,monkeypatch):
+    from fastapi.testclient import TestClient
+    from backend.app.main import app
+    r=row();r['clues']['hp']['value']=140
+    assert upload_result(logged,monkeypatch,[r])['status']=='done'
+    with TestClient(app) as other:
+        other.post('/api/session');g=other.post('/api/games').json()
+        assert g['pending']['card']['hp']==110
+        assert g['history']==[]
+
+
+def test_existing_attempt_schema_migration_preserves_rows(tmp_path,monkeypatch):
+    from sqlalchemy import create_engine
+    from backend.app import db as module
+    engine=create_engine('sqlite:///'+str(tmp_path/'legacy.sqlite3'))
+    module.Base.metadata.create_all(engine)
+    with engine.begin() as db:
+        db.exec_driver_sql('ALTER TABLE attempts DROP COLUMN observed_card')
+        db.exec_driver_sql("INSERT INTO attempts (id,game_id,card_id,clues,remaining,created) VALUES (1,'legacy','xy10-63','{}',10,'2026-01-01')")
+    monkeypatch.setattr(module,'engine',engine)
+    module.init_db();module.init_db()
+    with engine.connect() as db:
+        assert db.exec_driver_sql('SELECT card_id,remaining,observed_card FROM attempts').fetchall()==[('xy10-63',10,None)]
+    engine.dispose()
+
+
+def test_suggestion_remains_default_when_only_attributes_differ(base_card):
+    from backend.app.capture import resolve_capture
+    twin=dict(base_card,id='xy10-other',hp=140,rarity='Common')
+    r=row();r['clues']['hp']['value']=140;r['clues']['rarity']['value']='Commune'
+    result=VisionResult.model_validate({'rows':[r]})
+    _,actual=resolve_capture(result,base_card,[],{base_card['id']:base_card,twin['id']:twin})
+    assert actual['id']==base_card['id'] and actual['hp']==140 and actual['rarity']=='Common'
+
+
+def test_visible_extension_identifies_another_printing(base_card):
+    from backend.app.capture import resolve_capture
+    twin=dict(base_card,id='other-63',set_id='other',set_name='Autre extension',release_date='2020-01-01')
+    r=row();r['clues']['set']['value']='Autre extension · 2020'
+    _,actual=resolve_capture(VisionResult.model_validate({'rows':[r]}),base_card,[],{base_card['id']:base_card,twin['id']:twin})
+    assert actual['id']=='other-63' and actual['set_id']=='other'

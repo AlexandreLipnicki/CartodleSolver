@@ -66,3 +66,18 @@ def test_cached_accent_insensitive_search(logged):
     assert search_cards('IMPACT DES DESTINS')
     assert search_cards('xy10-63')[0]['id']=='xy10-63'
     assert search_cards('l')==[]
+
+
+def test_observed_values_do_not_leak_between_index_queries(base_card):
+    from backend.app.search_index import IndexedCards
+    from backend.app.engine import filter_cards
+    from .test_engine import clues
+    cards=IndexedCards([base_card,dict(base_card,id='other',hp=120)])
+    by_id={c['id']:c for c in cards}
+    observed=dict(base_card,hp=120)
+    a={'card_id':base_card['id'],'clues':clues().model_dump(),'observed_card':observed}
+    b={'card_id':base_card['id'],'clues':clues().model_dump()}
+    assert filter_cards(cards,[a],by_id)==filter_cards(list(cards),[a],by_id)
+    assert {c['id'] for c in filter_cards(cards,[a],by_id)[0]}=={base_card['id'],'other'}
+    assert [c['id'] for c in filter_cards(cards,[b],by_id)[0]]==[base_card['id']]
+    assert filter_cards(cards,[a],by_id)==filter_cards(list(cards),[a],by_id)

@@ -1,4 +1,4 @@
-"""Bind OCR to the server's expected printing, never to a catalog-wide guess."""
+"""Resolve the played card and preserve screenshot values within its game."""
 import re
 from .engine import norm
 from .models import FIELDS
@@ -29,7 +29,7 @@ def visible_mismatches(row, card):
             ok=text in ({norm(card.get('stage')),norm(card.get('stage_label'))}|aliases.get(norm(card.get('stage')),set()))
         elif field=='set':
             year=(card.get('release_date') or '')[:4]
-            label=re.sub(r'\s*\(\d{4}\)\s*$','',text).strip()
+            label=re.sub(r'\s*(?:[·•—–-]\s*)?\(?(?:19|20)\d{2}\)?\s*$','',text).strip()
             years=re.findall(r'\b(?:19|20)\d{2}\b',text)
             ok=(text==year or text in {norm(card.get('set_name')),norm(card.get('set_id'))} or (label==norm(card.get('set_name')) and all(y==year for y in years)))
         elif field=='rarity':
@@ -44,26 +44,102 @@ def signature(clues):
     return tuple((getattr(clues,f).color,getattr(clues,f).arrow) for f in FIELDS)
 
 
-def expected_row(result,card,previous,by_id):
-    matches=[];problems=[]
+def observed_card(row, card, by_id):
+    """Read values as observations, never as a reason to reject a printing."""
+    import json
+    from .settings import ROOT
+    translations=json.loads((ROOT/'config/tcgdex-fr.json').read_text(encoding='utf-8'))
+    result=dict(card)
+    for field in FIELDS:
+        value=getattr(row.clues,field).value
+        if value is None or not str(value).strip():continue
+        value=str(value).strip();text=norm(value)
+        if field in ('hp','pokedex'):
+            numbers=[int(n) for n in re.findall(r'\d+',value)]
+            if numbers:
+                if field=='hp' and len(numbers)!=1:raise ValueError('Les PV sont illisibles. Collez une capture recadrée.')
+                result['hp' if field=='hp' else 'pokedex']=numbers[0] if field=='hp' else numbers
+            elif field=='hp':raise ValueError('Les PV sont illisibles. Collez une capture recadrée.')
+        elif field=='type':
+            aliases={norm(k):k for k in translations['types']}
+            aliases.update({norm(v):k for k,v in translations['types'].items()})
+            parts=[p.strip() for p in re.split(r'[/,;+|&]',value) if p.strip()]
+            if any(norm(p) not in aliases for p in parts):raise ValueError('Le type est illisible. Collez une capture recadrée.')
+            result['types']=[aliases[norm(p)] for p in parts]
+            result['type_labels']=[translations['types'].get(t,t) for t in result['types']]
+        elif field=='stage':
+            aliases={'base':'Basic','de base':'Basic','basic':'Basic'}
+            for n in (1,2):
+                for label in (f'niveau {n}',f'stade {n}',f'stage {n}',f'stage{n}',f'niv. {n}',f'niv {n}',str(n)):aliases[label]=f'Stage{n}'
+            aliases.update({norm(k):k for k in translations['stage']})
+            aliases.update({norm(v):k for k,v in translations['stage'].items()})
+            if text not in aliases:raise ValueError('Le stade est illisible. Collez une capture recadrée.')
+            result['stage']=aliases[text];result['stage_label']=translations['stage'].get(result['stage'],value)
+        elif field=='rarity':
+            aliases={norm(k):k for k in translations['rarity']}
+            aliases.update({norm(v):k for k,v in translations['rarity'].items()})
+            result['rarity']=aliases.get(text,value)
+            result['rarity_label']=translations['rarity'].get(result['rarity'],value)
+        elif field=='illustrator':result['illustrator']=value
+        elif field=='set':
+            label=re.sub(r'\s*(?:[·•—–-]\s*)?\(?(?:19|20)\d{2}\)?\s*$','',text).strip()
+            years=re.findall(r'\b(?:19|20)\d{2}\b',text)
+            sets={c['set_id']:c for c in by_id.values() if label in {norm(c.get('set_name')),norm(c.get('set_id'))}}
+            if len(sets)==1:
+                selected=next(iter(sets.values()))
+                for key in ('set_id','set_name','series_id','series_name','release_date','chronology'):result[key]=selected.get(key)
+                if years and (result.get('release_date') or '')[:4]!=years[0]:result['release_date']=None;result['chronology']=None
+            elif text.isdigit() and len(text)==4:
+                if not (result.get('release_date') or '').startswith(text):result['release_date']=None;result['chronology']=None
+            else:
+                result.update(set_id='observed:'+text,set_name=value,series_id=None,series_name=None,release_date=None,chronology=None)
+    return result
+
+
+def resolve_capture(result, expected, previous, by_id):
+    """Ignore exact old rows; prefer the suggestion, otherwise use the actual row."""
+    fresh=[]
     for row in result.rows:
-        # Old rows can be present in the screenshot, but never become new attempts.
-        errors=visible_mismatches(row,card)
-        if not errors:
-            matches.append(row)
-        elif norm(row.pokemon) in {norm(card.get('name')),norm(card.get('names',{}).get('en'))}:
-            problems.extend(errors)
-    unique={signature(r.clues):r for r in matches}
-    if len(unique)==1:
-        return next(iter(unique.values()))
-    if len(unique)>1:
-        raise ValueError('Plusieurs lignes différentes correspondent à la carte attendue. Collez une capture recadrée sur son résultat ; aucun indice n’a été enregistré.')
-    if problems:
-        raise ValueError('La capture ne correspond pas à '+card['name']+' ('+card['id']+') : '+', '.join(sorted(set(problems)))+'. Recollez le résultat de la carte proposée.')
-    # An exact replay is harmless; the currently pending card remains unchanged.
-    for row in result.rows:
+        old_match=False
         for attempt in previous:
-            old=by_id.get(attempt['card_id'])
-            if old and not visible_mismatches(row,old) and signature(row.clues)==tuple((attempt['clues'][f]['color'],attempt['clues'][f]['arrow']) for f in FIELDS):
-                return None
-    raise ValueError('La carte attendue est '+card['name']+' ('+card['id']+'). Son résultat n’est pas lisible dans cette capture. Recollez une capture de cette carte ; aucun indice n’a été enregistré.')
+            old=attempt.get('observed_card') or by_id.get(attempt['card_id'])
+            if old and not visible_mismatches(row,old) and signature(row.clues)==signature_from_dict(attempt['clues']):
+                old_match=True;break
+        if not old_match:fresh.append(row)
+    if not fresh:return None
+    proposed=[r for r in fresh if (r.card_id==expected['id'] if r.card_id else norm(r.pokemon) in {norm(expected['name']),norm(expected.get('names',{}).get('en'))})]
+    selected=proposed or fresh
+    unique={r.model_dump_json():r for r in selected}
+    if len(unique)!=1:raise ValueError('Plusieurs nouvelles lignes sont visibles. Collez une capture recadrée sur le dernier résultat ; aucun indice n’a été enregistré.')
+    row=next(iter(unique.values()))
+    if row.card_id:
+        base=by_id.get(row.card_id)
+        if not base or base.get('category')!='Pokemon':raise ValueError('Identifiant de carte illisible ou inconnu. Collez une capture recadrée.')
+        if norm(row.pokemon) not in {norm(base['name']),norm(base.get('names',{}).get('en'))}:raise ValueError('Le nom et l’identifiant lus ne correspondent pas. Collez une capture recadrée.')
+    else:
+        candidates=[c for c in by_id.values() if c.get('category')=='Pokemon' and c.get('active',True) and norm(row.pokemon) in {norm(c.get('name')),norm(c.get('names',{}).get('en'))}]
+        if not candidates:raise ValueError('Le nom de la carte est illisible ou absent du catalogue. Collez une capture recadrée.')
+        # Visible attributes help identify an alternative printing. Discrepancies
+        # still become authoritative observations after that identification.
+        identity_row=row.model_copy(deep=True)
+        for field in FIELDS:
+            if field!='set':getattr(identity_row.clues,field).value=None
+        identified=[c for c in candidates if not visible_mismatches(identity_row,c)]
+        if identified:candidates=identified
+        if any(c['id']==expected['id'] for c in candidates):
+            matches=[expected]
+        else:
+            scores=[(len(visible_mismatches(row,c)),c) for c in candidates]
+            best=min(s for s,c in scores)
+            matches=[c for s,c in scores if s==best]
+        base=next((c for c in matches if c['id']==expected['id']),matches[0])
+        if len(matches)>1 and base['id']!=expected['id']:
+            # No invented metadata when multiple printings remain indistinguishable.
+            base=dict(base,image_url=None,image_path=None,number='?',identity_uncertain=True)
+            for key in ('hp','pokedex','types','type_labels','stage','stage_label','rarity','rarity_label','set_id','set_name','series_id','series_name','release_date','chronology','illustrator'):
+                if any(c.get(key)!=matches[0].get(key) for c in matches[1:]):base[key]=[] if key in ('pokedex','types','type_labels') else None
+    return row,observed_card(row,base,by_id)
+
+
+def signature_from_dict(clues):
+    return tuple((clues[f]['color'],clues[f]['arrow']) for f in FIELDS)

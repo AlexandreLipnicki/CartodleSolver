@@ -100,22 +100,22 @@ def history(db,g):
     return list(db.scalars(select(Attempt).where(Attempt.game_id==g.id).order_by(Attempt.id)))
 
 def attempts_data(rows):
-    return [dict(card_id=a.card_id,clues=json.loads(a.clues)) for a in rows]
+    return [dict(card_id=a.card_id,clues=json.loads(a.clues),observed_card=json.loads(a.observed_card) if a.observed_card else None) for a in rows]
 
 def state(db,u):
     g=owned_game(db,u); hist=history(db,g); attempts=attempts_data(hist)
     valid,uncertain=filter_cards(pokemon_cards(),attempts,catalog())
     rec=catalog().get(g.recommendation) if g.recommendation else None
-    if rec and not any(c['id']==rec['id'] for c in valid):
-        rec=recommend(valid,attempts)
+    if rec:
+        rec=next((c for c in valid if c['id']==rec['id']),None) or recommend(valid,attempts)
     solved=bool(hist) and all(json.loads(hist[-1].clues)[f]['color']=='green' for f in FIELDS)
-    if solved:rec=catalog().get(hist[-1].card_id)
+    if solved:rec=json.loads(hist[-1].observed_card) if hist[-1].observed_card else catalog().get(hist[-1].card_id)
     pending=dict(card=rec,number=len(hist)+1,status='awaiting_capture') if rec and not solved else None
     return dict(pending=pending,probable_solution=len(valid)==1 and not uncertain and not solved,id=g.id,version=g.version,total=len(pokemon_cards()),remaining=len(valid),uncertain=len(uncertain),
                 recommendation=rec,solved=solved,
                 constraints=summarize(valid,uncertain,attempts,catalog()),
                 warnings=warnings(attempts),
-                history=[dict(id=a.id,card=catalog().get(a.card_id),clues=json.loads(a.clues),remaining=a.remaining,created=a.created) for a in hist])
+                history=[dict(id=a.id,card=json.loads(a.observed_card) if a.observed_card else catalog().get(a.card_id),clues=json.loads(a.clues),remaining=a.remaining,created=a.created) for a in hist])
 
 def warnings(attempts):
     messages=[]
@@ -172,7 +172,7 @@ def new_game(u=Depends(user)):
         db.add(g); db.flush(); current.game_id=g.id
         return state(db,current)
 
-def apply_batch(db,u,body,replace=False):
+def apply_batch(db,u,body,replace=False,observed=None):
     g=owned_game(db,u)
     if body.game_id!=g.id: raise HTTPException(409,'Une nouvelle partie a été créée. Rechargez avant d’enregistrer ces indices.')
     # Optimistic update holds SQLite's write lock; prevents stale simultaneous analyses.
@@ -187,10 +187,11 @@ def apply_batch(db,u,body,replace=False):
     for entry in body.attempts:
         c=catalog().get(entry.card_id)
         if not c or c['category']!='Pokemon': raise HTTPException(422,'Carte introuvable dans la base locale.')
-        item=entry.model_dump()
+        c=(observed or {}).get(entry.card_id,c)
+        item=dict(entry.model_dump(),observed_card=(observed or {}).get(entry.card_id))
         if entry.card_id in known:
-            if all((known[entry.card_id]['clues'][f]['color'],known[entry.card_id]['clues'][f]['arrow']) == (item['clues'][f]['color'],item['clues'][f]['arrow']) for f in FIELDS): continue
-            raise HTTPException(409,'Une autre lecture de cette carte existe déjà. Corrigez ou annulez le dernier essai.')
+            if known[entry.card_id].get('observed_card')==item.get('observed_card') and all((known[entry.card_id]['clues'][f]['color'],known[entry.card_id]['clues'][f]['arrow']) == (item['clues'][f]['color'],item['clues'][f]['arrow']) for f in FIELDS): continue
+            if not observed:raise HTTPException(409,'Une autre lecture de cette carte existe déjà. Corrigez ou annulez le dernier essai.')
         trial=current+[item]
         valid,uncertain=filter_cards(pokemon_cards(),trial,catalog())
         if not valid and not uncertain:
@@ -203,12 +204,12 @@ def apply_batch(db,u,body,replace=False):
             diagnosis='Vérifiez en priorité : '+', '.join(labels[f] for f in (conflicts or ordered[:3]))+'.'
             raise HTTPException(409,{'message':'Ces indices éliminent toutes les cartes. '+diagnosis+' Aucun nouvel essai n’a été enregistré.',
                                      'card_id':entry.card_id,'fields':conflicts or ordered[:3], 'remaining_by_field':counts,
-                                     'advice':'Vérifiez les couleurs, flèches et l’impression exacte dans le formulaire de correction.'})
-        db.add(Attempt(game_id=g.id,card_id=entry.card_id,clues=entry.clues.model_dump_json(),remaining=len(valid)))
+                                     'advice':'Recollez une capture recadrée du dernier résultat.'})
+        db.add(Attempt(game_id=g.id,card_id=entry.card_id,clues=entry.clues.model_dump_json(),observed_card=json.dumps(item['observed_card'],ensure_ascii=False) if item['observed_card'] else None,remaining=len(valid)))
         current=trial; known[entry.card_id]=item; added+=1
     valid,uncertain=filter_cards(pokemon_cards(),current,catalog())
     rec=recommend(valid,current)
-    if current and all(current[-1]['clues'][f]['color']=='green' for f in FIELDS):rec=catalog()[current[-1]['card_id']]
+    if current and all(current[-1]['clues'][f]['color']=='green' for f in FIELDS):rec=current[-1].get('observed_card') or catalog()[current[-1]['card_id']]
     g.recommendation=rec['id'] if rec else None
     db.flush()
     return state(db,u)
@@ -251,7 +252,7 @@ def candidates(offset:int=0,uncertain:bool=False,u=Depends(user)):
     return {'cards':selected[offset:offset+40],'uncertain':len(pending),'total':len(selected)}
 
 def finish_capture(job,result):
-    from .capture import expected_row
+    from .capture import resolve_capture
     with Session.begin() as db:
         u=db.get(UserSession,job['owner'])
         if not u or u.expires<int(time.time()):raise ValueError('Session expirée. Rechargez la page avant de coller la capture.')
@@ -262,11 +263,12 @@ def finish_capture(job,result):
         expected=current['recommendation']
         if not expected or expected['id']!=job['expected_card_id'] or current['solved']:
             raise ValueError('La carte attendue a changé. Recollez le résultat de la carte actuellement proposée.')
-        row=expected_row(result,expected,attempts_data(history(db,g)),catalog())
-        if row is None:
+        resolved=resolve_capture(result,expected,attempts_data(history(db,g)),catalog())
+        if resolved is None:
             return current,True
-        body=BatchInput(game_id=g.id,expected_version=g.version,attempts=[AttemptInput(card_id=expected['id'],clues=row.clues)])
-        return apply_batch(db,u,body),False
+        row,observed=resolved
+        body=BatchInput(game_id=g.id,expected_version=g.version,attempts=[AttemptInput(card_id=observed['id'],clues=row.clues)])
+        return apply_batch(db,u,body,observed={observed['id']:observed}),False
 
 
 async def work(job_id,content):
@@ -281,7 +283,7 @@ async def work(job_id,content):
     except Exception as exc:
         job['status']='error'
         if isinstance(exc,HTTPException):
-            job['error']=('La lecture donne des indices contradictoires. Recollez une capture plus nette du résultat de la carte proposée ; aucun nouvel indice n’a été enregistré.' if exc.status_code==409 else 'La capture n’a pas pu être enregistrée. Recollez le résultat de la carte proposée.')
+            job['error']=('La lecture donne des indices contradictoires. Recollez une capture plus nette du dernier résultat ; aucun nouvel indice n’a été enregistré.' if exc.status_code==409 else 'La capture n’a pas pu être enregistrée. Recollez votre dernier résultat.')
         else:
             job['error']=str(exc) if isinstance(exc,ValueError) else 'L’analyse a échoué. Recollez une capture plus nette.'
         log.warning('Vision job failed: %s',type(exc).__name__)

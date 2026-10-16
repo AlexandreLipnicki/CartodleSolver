@@ -38,7 +38,7 @@ async def analyze(content: bytes, on_start=None, expected=None):
                 response=await client.post(settings.ollama_url.rstrip('/')+'/api/chat',json={
                     'model':settings.ollama_model, 'stream':False,
                     'format':VisionResult.model_json_schema(), 'options':{'temperature':0},
-                    'messages':[{'role':'user','content':PROMPT+(('\nCarte attendue : '+expected['name']+' — '+str(expected.get('set_name'))+' — n° '+expected['number']+'. Utilise ce contexte pour repérer la ligne, jamais pour remplir une valeur absente. Lis les valeurs de la carte jouée, pas celles de la cible mystère. Les anciennes lignes peuvent être présentes.') if expected else ''),'images':[base64.b64encode(content).decode()]}]})
+                    'messages':[{'role':'user','content':PROMPT+(('\nCarte attendue : '+expected['name']+' — '+str(expected.get('set_name'))+' — n° '+expected['number']+'. Cette carte est seulement la proposition par défaut : si une autre carte est visible, lis son vrai nom et ses valeurs. Ne remplis jamais une valeur absente avec ce contexte. Lis les valeurs de la carte jouée, pas celles de la cible mystère. Les anciennes lignes peuvent être présentes.') if expected else ''),'images':[base64.b64encode(content).decode()]}]})
                 response.raise_for_status()
                 raw=response.json()['message']['content']
                 return VisionResult.model_validate_json(raw)

@@ -79,11 +79,20 @@ def complete(c):
 
 def filter_cards(cards, attempts, by_id):
     from .search_index import IndexedCards
+    observed={a['card_id']:a['observed_card'] for a in attempts if a.get('observed_card')}
     if isinstance(cards,IndexedCards):
-        return cards.filtered(attempts,by_id)
+        valid, uncertain=cards.filtered(attempts,by_id)
+        if not observed: return valid,uncertain
+        # Only re-evaluate corrected printings; keep the shared bitset index intact.
+        replacements=[observed[c['id']] for c in cards if c['id'] in observed]
+        extra_valid,extra_uncertain=filter_cards(replacements,attempts,by_id)
+        order={c['id']:i for i,c in enumerate(cards)}
+        return (sorted([c for c in valid if c['id'] not in observed]+extra_valid,key=lambda c:order[c['id']]),
+                sorted([c for c in uncertain if c['id'] not in observed]+extra_uncertain,key=lambda c:order[c['id']]))
     valid, uncertain = [], []
-    prepared=[(by_id[a['card_id']], Clues.model_validate(a['clues'])) for a in attempts]
+    prepared=[(a.get('observed_card') or by_id[a['card_id']], Clues.model_validate(a['clues'])) for a in attempts]
     for c in cards:
+        c=observed.get(c['id'],c)
         unknown=not complete(c); incompatible=False
         for guess, clues in prepared:
             for f in FIELDS:
@@ -154,7 +163,7 @@ def summarize(valid,uncertain,attempts,by_id=None):
         else: result[field]={'values':ordered[:12],'count':len(ordered)}
         excluded=set()
         for attempt in attempts:
-            guess=(by_id or {}).get(attempt['card_id'])
+            guess=attempt.get('observed_card') or (by_id or {}).get(attempt['card_id'])
             clue=attempt['clues'][field]
             if not guess or clue['color']=='green': continue
             if field=='type' and clue['color']!='gray': continue

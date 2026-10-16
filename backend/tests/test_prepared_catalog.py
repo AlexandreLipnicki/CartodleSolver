@@ -54,5 +54,8 @@ def test_bundled_catalog_integrity_and_coverage():
     assert manifest['pokemon']>18000 and manifest['complete_pokemon']>17000
     assert all(c.get('name') for c in cards)
     assert next(c for c in cards if c['id']=='xy10-63')['name']=='Lucario'
+    assert next(c for c in cards if c['id']=='xy10-63')['rarity']=='Rare Holo'
+    with sqlite3.connect(path) as db:
+        assert db.execute("SELECT rarity FROM cards WHERE id='xy10-63'").fetchone()==('Rare Holo',)
     assert manifest['source_commit'] and manifest['source_url'].endswith('tcgdex/cards-database')
     assert 'storage/' not in json.dumps(manifest)

@@ -41,6 +41,7 @@ class Attempt(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     game_id: Mapped[str] = mapped_column(ForeignKey('games.id'), index=True)
     card_id: Mapped[str] = mapped_column(String)
+    observed_card: Mapped[str | None] = mapped_column(Text, nullable=True)
     clues: Mapped[str] = mapped_column(Text)
     remaining: Mapped[int] = mapped_column(Integer)
     created: Mapped[str] = mapped_column(String, default=now)
@@ -55,3 +56,7 @@ Session = sessionmaker(engine, expire_on_commit=False)
 
 def init_db():
     Base.metadata.create_all(engine)
+    # Additive migration: retain existing games and their legacy catalog fallback.
+    with engine.begin() as db:
+        if 'observed_card' not in {r[1] for r in db.exec_driver_sql('PRAGMA table_info(attempts)')}:
+            db.exec_driver_sql('ALTER TABLE attempts ADD COLUMN observed_card TEXT')

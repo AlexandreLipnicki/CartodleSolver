@@ -16,7 +16,9 @@ def catalog():
     # Avoid constructing 20,000 ORM entities just to decode their JSON payloads.
     with engine.connect() as db:
         cards = [json.loads(row[0]) for row in db.execute(text('SELECT payload FROM cards ORDER BY id'))]
-    return Catalog(cards)
+    from .settings import ROOT
+    overrides=json.loads((ROOT/'config/card-overrides.json').read_text(encoding='utf-8'))
+    return Catalog([dict(c,**overrides.get(c['id'],{})) for c in cards])
 
 
 def pokemon_cards():

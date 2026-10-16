@@ -49,7 +49,7 @@ class CandidateIndex:
 
     def _mask_locked(self, field, guess, clue, rule_key):
         from .engine import compare
-        key = (field, guess['id'], clue.color, clue.arrow, rule_key)
+        key = (field, json.dumps(guess,sort_keys=True,separators=(',',':')), clue.color, clue.arrow, rule_key)
         if key in self.cache:
             self.cache.move_to_end(key)
             return self.cache[key]
@@ -71,7 +71,7 @@ class CandidateIndex:
         # Rules are part of the cache key; server rule changes cannot reuse stale masks.
         rule_key = json.dumps(rules(), sort_keys=True, separators=(',', ':'))
         for attempt in attempts:
-            guess = by_id[attempt['card_id']]
+            guess = attempt.get('observed_card') or by_id[attempt['card_id']]
             clues = Clues.model_validate(attempt['clues'])
             for field in FIELDS:
                 remaining &= self._mask(field, guess, getattr(clues, field), rule_key)
