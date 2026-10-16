@@ -81,7 +81,7 @@ Redémarrez ensuite le serveur pour rafraîchir le cache des métadonnées. N’
 
 `storage/cartosolver.sqlite3` conserve cartes, sessions, parties, essais et recommandations. Les contraintes sont recalculées à partir des essais persistants. SQLite utilise WAL et des transactions avec contrôle de version : une analyse issue d’une ancienne version ne peut pas écraser une correction plus récente. Sauvegardez `storage/` **serveur arrêté**, ainsi que `.env` séparément dans un emplacement sécurisé.
 
-Les captures ne sont pas stockées côté serveur. Elles sont redimensionnées au maximum à 2400 pixels et transmises temporairement au modèle. Les analyses en cours sont perdues lors d’un redémarrage ; recollez la capture si nécessaire. Les illustrations TCGdex sont mises en cache dans `storage/images/` ; la résolution utilise uniquement SQLite, sans appel à une API Pokémon externe.
+Les captures ne sont pas stockées côté serveur. Elles sont redimensionnées au maximum à 2400 pixels et transmises temporairement au modèle. Les analyses en cours sont perdues lors d’un redémarrage ; recollez la capture si nécessaire. Les illustrations TCGdex sont mises en cache dans `storage/images/` et dans le cache privé du navigateur pour conserver les miniatures des essais, y compris après rechargement ; la résolution utilise uniquement SQLite, sans appel à une API Pokémon externe.
 
 ## Règles et limites explicites
 

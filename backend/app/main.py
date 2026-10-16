@@ -80,7 +80,10 @@ async def security(request:Request,call_next):
     response.headers['X-Frame-Options']='DENY'
     response.headers['Content-Security-Policy']="default-src 'self'; img-src 'self' blob: data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
     if request.url.path.startswith('/api/'):
-        response.headers['Cache-Control']='no-store'
+        # Successful artwork responses keep their private browser cache policy.
+        # Games, sessions, analysis results and image errors remain uncached.
+        if not (request.url.path.startswith('/api/images/') and response.status_code==200):
+            response.headers['Cache-Control']='no-store'
     return response
 
 def user(request:Request):
@@ -328,7 +331,7 @@ async def image(card_id:str,u=Depends(user)):
     if not c or not c.get('image_path'): return Response(status_code=404)
     folder=settings.storage/'images'; folder.mkdir(exist_ok=True)
     key=hashlib.sha256(card_id.encode()).hexdigest(); cached=folder/f'{key}.webp'; missing=folder/f'{key}.missing'
-    if cached.exists(): return FileResponse(cached,media_type='image/webp')
+    if cached.exists(): return FileResponse(cached,media_type='image/webp',headers={'Cache-Control':'private, max-age=31536000, immutable'})
     if missing.exists() and time.time()-missing.stat().st_mtime<86400: return Response(status_code=404)
     throttle(('images',u.token_hash),120,60)
     try:
@@ -346,7 +349,7 @@ async def image(card_id:str,u=Depends(user)):
         from PIL import Image
         with Image.open(io.BytesIO(data)) as im:
             im.thumbnail((1000,1400)); temp=folder/f'{key}.{uuid.uuid4().hex}.tmp'; im.convert('RGB').save(temp,format='WEBP'); temp.replace(cached)
-        return FileResponse(cached,media_type='image/webp')
+        return FileResponse(cached,media_type='image/webp',headers={'Cache-Control':'private, max-age=31536000, immutable'})
     except httpx.HTTPStatusError as exc:
         if exc.response.status_code==404: missing.touch()
         return Response(status_code=404)

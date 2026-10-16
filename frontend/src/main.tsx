@@ -19,8 +19,10 @@ async function api<T>(url:string,options:RequestInit={}):Promise<T>{
  return res.json()
 }
 function CardImage({card,small=false}:{card:Card;small?:boolean}){
+ return <CardArtwork key={card.id} card={card} small={small}/>
+}
+function CardArtwork({card,small}:{card:Card;small:boolean}){
  const [failed,setFailed]=useState(false),[loaded,setLoaded]=useState(false)
- useEffect(()=>{setFailed(false);setLoaded(false)},[card.id])
  return <div className={'card-visual '+(small?'small':'')}>
   {!loaded&&<div className={'card-fallback '+(small?'small':'')}><div className="orb"/><span>{card.name||card.names.en||card.id}</span>{failed&&<small>Illustration indisponible</small>}</div>}
   {!failed&&<img className={small?'card-image small':'card-image'} style={{opacity:loaded?1:0}} src={'/api/images/'+encodeURIComponent(card.id)} alt={`${card.name} — ${card.set_name} · ${card.number}`} onLoad={()=>setLoaded(true)} onError={()=>setFailed(true)}/>}

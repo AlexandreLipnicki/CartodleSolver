@@ -73,6 +73,7 @@ def test_search_local(logged):
     r=logged.get('/api/cards?q=xy10-63');assert r.json()[0]['name']=='Lucario'
     r=logged.get('/api/game/candidates');assert r.json()['total']==2
     assert logged.get('/api/health').json()['status']=='ok'
+    assert logged.get('/api/game').headers['cache-control']=='no-store'
 
 def image_bytes():
     b=io.BytesIO();Image.new('RGB',(50,50),'white').save(b,format='PNG');return b.getvalue()
@@ -134,7 +135,9 @@ def test_image_proxy_cache(logged,monkeypatch,base_card):
     monkeypatch.setattr(httpx,'AsyncClient',lambda **kwargs:original(transport=httpx.MockTransport(handler),**kwargs))
     response=logged.get('/api/images/xy10-63')
     assert response.status_code==200 and response.headers['content-type']=='image/webp'
-    assert logged.get('/api/images/xy10-63').status_code==200
+    assert response.headers['cache-control']=='private, max-age=31536000, immutable'
+    cached=logged.get('/api/images/xy10-63')
+    assert cached.status_code==200 and cached.headers['cache-control']==response.headers['cache-control']
     assert calls==['https://assets.tcgdex.net/fr/xy/xy10/63/high.webp']
     assert Image.open(io.BytesIO(response.content)).format=='WEBP'
     for p in (settings.storage/'images').glob('*'):p.unlink()
