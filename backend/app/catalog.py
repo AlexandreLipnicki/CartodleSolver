@@ -3,11 +3,14 @@ from functools import lru_cache
 from sqlalchemy import text
 from .db import engine
 from .search_index import IndexedCards
+from .normalization import normalize_card,set_index
 
 
 class Catalog(dict):
     def __init__(self, cards):
+        cards=[normalize_card(c) for c in cards]
         super().__init__((c['id'], c) for c in cards)
+        self.set_index=set_index(cards)
         self.pokemon = IndexedCards(c for c in cards if c.get('category') == 'Pokemon' and c.get('active', True))
 
 

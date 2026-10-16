@@ -6,3 +6,7 @@
 
 Génération : `node scripts/render-vision-fixture.mjs`.
 Test avec un vrai Ollama : `.venv/bin/python scripts/check-vision.py backend/tests/fixtures/cartodle/lucario.recreated.png --expected backend/tests/fixtures/cartodle/lucario.expected.json`.
+
+# Partie Ronflex
+
+`ronflex-game.json` est la transcription manuelle de la capture utilisateur, dans l’ordre chronologique Lucario → Pyroli → Mew → Ronflex Pokémon GO → Ronflex Origine Perdue → Ronflex Galerie. Les identifiants TCGdex de référence servent aux assertions ; chaque ligne OCR laisse `card_id` à null et utilise les noms affichés sans suffixe V. Les tests rejouent aussi les lignes précédentes et vérifient le filtrage cumulatif sur le catalogue complet. Aucune lecture réelle de cette image par Ollama n’est revendiquée.

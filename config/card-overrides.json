@@ -1,3 +1,10 @@
 {
-  "xy10-63": {"rarity": "Rare Holo", "rarity_label": "Rare Holo"}
+  "xy10-63": {
+    "rarity": "Rare Holo",
+    "rarity_label": "Rare Holo"
+  },
+  "swsh11tg-TG10": {
+    "rarity": "Rare Galerie",
+    "rarity_label": "Rare Galerie"
+  }
 }

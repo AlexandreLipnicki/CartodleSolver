@@ -35,7 +35,7 @@ class CandidateIndex:
                 self.complete |= bit
             keys = dict(pokedex=tuple(c.get('pokedex') or []), type=tuple(sorted(c.get('types') or [])),
                         hp=c.get('hp'), stage=c.get('stage'), rarity=c.get('rarity'),
-                        set=(c.get('set_id'), c.get('series_id'), c.get('release_date')),
+                        set=(c.get('set_id'), c.get('series_id'), c.get('release_date'), c.get('release_year')),
                         illustrator=c.get('illustrator'))
             for field, key in keys.items():
                 previous = self.groups[field].get(key)

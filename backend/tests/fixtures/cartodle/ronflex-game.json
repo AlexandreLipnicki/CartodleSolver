@@ -1,0 +1,266 @@
+[
+  {
+    "card_id": "xy10-63",
+    "row": {
+      "pokemon": "Lucario",
+      "card_id": null,
+      "clues": {
+        "pokedex": {
+          "value": 448,
+          "color": "gray",
+          "arrow": "down"
+        },
+        "type": {
+          "value": "Métal",
+          "color": "gray",
+          "arrow": null
+        },
+        "stage": {
+          "value": "Niveau 1",
+          "color": "gray",
+          "arrow": null
+        },
+        "hp": {
+          "value": 110,
+          "color": "gray",
+          "arrow": "up"
+        },
+        "rarity": {
+          "value": "Rare Holo",
+          "color": "gray",
+          "arrow": "up"
+        },
+        "set": {
+          "value": "Impact des Destins 2016",
+          "color": "gray",
+          "arrow": "up"
+        },
+        "illustrator": {
+          "value": "Hitoshi Ariga",
+          "color": "gray",
+          "arrow": null
+        }
+      }
+    }
+  },
+  {
+    "card_id": "swsh7-169",
+    "row": {
+      "pokemon": "Pyroli",
+      "card_id": null,
+      "clues": {
+        "pokedex": {
+          "value": 136,
+          "color": "gray",
+          "arrow": "up"
+        },
+        "type": {
+          "value": "Feu",
+          "color": "gray",
+          "arrow": null
+        },
+        "stage": {
+          "value": "De base",
+          "color": "green",
+          "arrow": null
+        },
+        "hp": {
+          "value": 210,
+          "color": "gray",
+          "arrow": "down"
+        },
+        "rarity": {
+          "value": "Ultra Rare",
+          "color": "yellow",
+          "arrow": null
+        },
+        "set": {
+          "value": "Évolution Céleste 2021",
+          "color": "yellow",
+          "arrow": "up"
+        },
+        "illustrator": {
+          "value": "5ban Graphics",
+          "color": "gray",
+          "arrow": null
+        }
+      }
+    }
+  },
+  {
+    "card_id": "swsh3-69",
+    "row": {
+      "pokemon": "Mew",
+      "card_id": null,
+      "clues": {
+        "pokedex": {
+          "value": 151,
+          "color": "gray",
+          "arrow": "down"
+        },
+        "type": {
+          "value": "Psy",
+          "color": "gray",
+          "arrow": null
+        },
+        "stage": {
+          "value": "De base",
+          "color": "green",
+          "arrow": null
+        },
+        "hp": {
+          "value": 180,
+          "color": "gray",
+          "arrow": "down"
+        },
+        "rarity": {
+          "value": "Rare Holo V",
+          "color": "gray",
+          "arrow": "up"
+        },
+        "set": {
+          "value": "Ténèbres Embrasées 2020",
+          "color": "yellow",
+          "arrow": "up"
+        },
+        "illustrator": {
+          "value": "PLANETA Mochizuki",
+          "color": "gray",
+          "arrow": null
+        }
+      }
+    }
+  },
+  {
+    "card_id": "swsh10.5-055",
+    "row": {
+      "pokemon": "Ronflex",
+      "card_id": null,
+      "clues": {
+        "pokedex": {
+          "value": 143,
+          "color": "green",
+          "arrow": null
+        },
+        "type": {
+          "value": "Incolore",
+          "color": "green",
+          "arrow": null
+        },
+        "stage": {
+          "value": "De base",
+          "color": "green",
+          "arrow": null
+        },
+        "hp": {
+          "value": 150,
+          "color": "green",
+          "arrow": null
+        },
+        "rarity": {
+          "value": "Rare Holo",
+          "color": "gray",
+          "arrow": "up"
+        },
+        "set": {
+          "value": "Pokémon GO 2022",
+          "color": "yellow",
+          "arrow": "up"
+        },
+        "illustrator": {
+          "value": "N-DESIGN Inc.",
+          "color": "gray",
+          "arrow": null
+        }
+      }
+    }
+  },
+  {
+    "card_id": "swsh11-143",
+    "row": {
+      "pokemon": "Ronflex",
+      "card_id": null,
+      "clues": {
+        "pokedex": {
+          "value": 143,
+          "color": "green",
+          "arrow": null
+        },
+        "type": {
+          "value": "Incolore",
+          "color": "green",
+          "arrow": null
+        },
+        "stage": {
+          "value": "De base",
+          "color": "green",
+          "arrow": null
+        },
+        "hp": {
+          "value": 150,
+          "color": "green",
+          "arrow": null
+        },
+        "rarity": {
+          "value": "Rare Holo",
+          "color": "gray",
+          "arrow": "up"
+        },
+        "set": {
+          "value": "Origine Perdue 2022",
+          "color": "green",
+          "arrow": null
+        },
+        "illustrator": {
+          "value": "0313",
+          "color": "gray",
+          "arrow": null
+        }
+      }
+    }
+  },
+  {
+    "card_id": "swsh11tg-TG10",
+    "row": {
+      "pokemon": "Ronflex",
+      "card_id": null,
+      "clues": {
+        "pokedex": {
+          "value": 143,
+          "color": "green",
+          "arrow": null
+        },
+        "type": {
+          "value": "Incolore",
+          "color": "green",
+          "arrow": null
+        },
+        "stage": {
+          "value": "De base",
+          "color": "green",
+          "arrow": null
+        },
+        "hp": {
+          "value": 150,
+          "color": "green",
+          "arrow": null
+        },
+        "rarity": {
+          "value": "Rare Galerie",
+          "color": "green",
+          "arrow": null
+        },
+        "set": {
+          "value": "Origine Perdue 2022",
+          "color": "green",
+          "arrow": null
+        },
+        "illustrator": {
+          "value": "Kouki Saitou",
+          "color": "green",
+          "arrow": null
+        }
+      }
+    }
+  }
+]

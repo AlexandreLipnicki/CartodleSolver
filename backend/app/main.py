@@ -103,22 +103,33 @@ def history(db,g):
     return list(db.scalars(select(Attempt).where(Attempt.game_id==g.id).order_by(Attempt.id)))
 
 def attempts_data(rows):
-    return [dict(card_id=a.card_id,clues=json.loads(a.clues),observed_card=json.loads(a.observed_card) if a.observed_card else None) for a in rows]
+    from .capture import observed_card
+    from .models import VisionRow
+    result=[]
+    for attempt in rows:
+        clues=json.loads(attempt.clues)
+        snapshot=json.loads(attempt.observed_card) if attempt.observed_card else None
+        if snapshot:
+            # Replay stored observations with current normalization, including
+            # year bounds lost by older versions, without rewriting user history.
+            row=VisionRow(pokemon=snapshot.get('name') or attempt.card_id,card_id=attempt.card_id,clues=clues)
+            snapshot=observed_card(row,snapshot,catalog())
+        result.append(dict(card_id=attempt.card_id,clues=clues,observed_card=snapshot))
+    return result
 
 def state(db,u):
     g=owned_game(db,u); hist=history(db,g); attempts=attempts_data(hist)
     valid,uncertain=filter_cards(pokemon_cards(),attempts,catalog())
     rec=catalog().get(g.recommendation) if g.recommendation else None
-    if rec:
-        rec=next((c for c in valid if c['id']==rec['id']),None) or recommend(valid,attempts)
+    rec=next((c for c in valid if rec and c['id']==rec['id']),None) or recommend(valid,attempts)
     solved=bool(hist) and all(json.loads(hist[-1].clues)[f]['color']=='green' for f in FIELDS)
-    if solved:rec=json.loads(hist[-1].observed_card) if hist[-1].observed_card else catalog().get(hist[-1].card_id)
+    if solved:rec=attempts[-1]['observed_card'] or catalog().get(hist[-1].card_id)
     pending=dict(card=rec,number=len(hist)+1,status='awaiting_capture') if rec and not solved else None
     return dict(pending=pending,probable_solution=len(valid)==1 and not uncertain and not solved,id=g.id,version=g.version,total=len(pokemon_cards()),remaining=len(valid),uncertain=len(uncertain),
                 recommendation=rec,solved=solved,
                 constraints=summarize(valid,uncertain,attempts,catalog()),
                 warnings=warnings(attempts),
-                history=[dict(id=a.id,card=json.loads(a.observed_card) if a.observed_card else catalog().get(a.card_id),clues=json.loads(a.clues),remaining=a.remaining,created=a.created) for a in hist])
+                history=[dict(id=a.id,card=item['observed_card'] or catalog().get(a.card_id),clues=item['clues'],remaining=a.remaining,created=a.created) for a,item in zip(hist,attempts)])
 
 def warnings(attempts):
     messages=[]

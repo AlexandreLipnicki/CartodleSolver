@@ -1,19 +1,22 @@
 """Pure deterministic deduction. None means metadata/rule is insufficient, never False."""
 import json
 import math
-import unicodedata
 from collections import Counter
 from functools import lru_cache
 from .models import Clues, FIELDS
+from .normalization import norm,rarity,set_identity
 from .settings import settings
 
 @lru_cache(maxsize=1)
 def rules():
     return json.loads(settings.rules_path.read_text(encoding='utf-8'))
 
-@lru_cache(maxsize=8192)
-def norm(s):
-    return ' '.join(''.join(ch for ch in unicodedata.normalize('NFKD', s) if not unicodedata.combining(ch)).casefold().split()) if s else None
+
+def rarity_tables():
+    current=rules()
+    return ({rarity(k):v for k,v in current.get('rarity_groups',{}).items()},
+            {rarity(k):v for k,v in current.get('rarity_order',{}).items()})
+
 
 def series(c):
     return rules().get('set_series_overrides',{}).get(c['set_id'],c.get('series_id'))
@@ -45,11 +48,11 @@ def compare(target, guess, field, clue):
         if a is None or b is None: return None
         return a==b if color=='green' else a!=b
     if field == 'rarity':
-        a,b=target.get('rarity'),guess.get('rarity')
+        a,b=rarity(target.get('rarity')),rarity(guess.get('rarity'))
         if not a or not b: return None
         if color=='green': return a==b
         if a==b: return False
-        groups, order=rules().get('rarity_groups',{}),rules().get('rarity_order',{})
+        groups,order=rarity_tables()
         if a not in groups or b not in groups: return None
         if (groups[a]==groups[b]) != (color=='yellow'): return False
         if arrow:
@@ -57,19 +60,28 @@ def compare(target, guess, field, clue):
             return order[a]>order[b] if arrow=='up' else order[a]<order[b]
         return True
     if field == 'set':
-        a,b=target.get('set_id'),guess.get('set_id')
-        if not a or not b: return None
-        if color=='green': return a==b
-        if a==b: return False
-        result=True
+        a,b=set_identity(target.get('set_id')),set_identity(guess.get('set_id'))
+        if color=='green': return a==b if a and b else None
+        if a and b and a==b:return False
+        result=True if a and b else None
         sa,sb=series(target),series(guess)
         if rules().get('series_proximity_verified') and sa and sb:
             if (sa==sb)!=(color=='yellow'): return False
         else: result=None
         if arrow:
             da,db=target.get('release_date'),guess.get('release_date')
-            if not da or not db or da==db: return None if result is not False else False
-            if not (da>db if arrow=='up' else da<db): return False
+            if target.get('release_year') and da and int(da[:4])!=int(target['release_year']):da=None
+            if guess.get('release_year') and db and int(db[:4])!=int(guess['release_year']):db=None
+            if da and db and da!=db:
+                if not (da>db if arrow=='up' else da<db):return False
+            else:
+                # A visible year still supplies a bound when OCR/source disagree
+                # on the year or the extension name could not be resolved.
+                ya=target.get('release_year') or (da[:4] if da else None)
+                yb=guess.get('release_year') or (db[:4] if db else None)
+                if ya and yb and int(ya)!=int(yb):
+                    if not (int(ya)>int(yb) if arrow=='up' else int(ya)<int(yb)):return False
+                else:result=None if result is not False else False
         return result
     raise ValueError(field)
 
@@ -106,8 +118,8 @@ def filter_cards(cards, attempts, by_id):
     return valid,uncertain
 
 def features(c):
-    return (c['pokedex'][0], frozenset(c['types']), c['stage'], c['hp'], c['rarity'],
-            c['set_id'], series(c), c['release_date'], norm(c['illustrator']))
+    return (c['pokedex'][0], frozenset(c['types']), c['stage'], c['hp'], rarity(c['rarity']),
+            set_identity(c['set_id']), series(c), c['release_date'], norm(c['illustrator']))
 
 
 def _outcome(t,g,groups,order):
@@ -123,7 +135,7 @@ def _outcome(t,g,groups,order):
 
 
 def outcome(t,g):
-    return _outcome(features(t),features(g),rules().get('rarity_groups',{}),rules().get('rarity_order',{}))
+    return _outcome(features(t),features(g),*rarity_tables())
 
 
 def sample(items,n):
@@ -140,7 +152,7 @@ def recommend(valid, attempts):
     # Bounded deterministic approximation for large sets; exact below 160 guesses/512 targets.
     targets=sample(sorted(valid,key=lambda c:c['id']),512)
     encoded=[features(t) for t in targets]
-    groups,order=rules().get('rarity_groups',{}),rules().get('rarity_order',{})
+    groups,order=rarity_tables()
     def score(g):
         guess=features(g)
         counts=Counter(_outcome(t,guess,groups,order) for t in encoded)

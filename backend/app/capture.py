@@ -2,6 +2,7 @@
 import re
 from .engine import norm
 from .models import FIELDS
+from .normalization import normalize_card,rarity,pokemon_names,set_label,set_index,set_identity
 
 LABELS={'pokedex':'Pokédex','type':'type','stage':'stade','hp':'PV','rarity':'rareté','set':'extension','illustrator':'illustrateur'}
 
@@ -10,7 +11,7 @@ def visible_mismatches(row, card):
     mismatches=[]
     if row.card_id and row.card_id!=card['id']:
         mismatches.append('impression')
-    names={norm(card.get('name')),norm(card.get('names',{}).get('en'))}
+    names=pokemon_names(card)
     if norm(row.pokemon) not in names:
         mismatches.append('Pokémon')
     for field in FIELDS:
@@ -28,12 +29,16 @@ def visible_mismatches(row, card):
             aliases={'basic':{'base','de base','basic'},'stage1':{'niveau 1','stade 1','stage 1','stage1','niv. 1','niv 1','1'},'stage2':{'niveau 2','stade 2','stage 2','stage2','niv. 2','niv 2','2'}}
             ok=text in ({norm(card.get('stage')),norm(card.get('stage_label'))}|aliases.get(norm(card.get('stage')),set()))
         elif field=='set':
-            year=(card.get('release_date') or '')[:4]
-            label=re.sub(r'\s*(?:[·•—–-]\s*)?\(?(?:19|20)\d{2}\)?\s*$','',text).strip()
+            year=str(card.get('release_year') or (card.get('release_date') or '')[:4])
+            label=set_label(value)
             years=re.findall(r'\b(?:19|20)\d{2}\b',text)
-            ok=(text==year or text in {norm(card.get('set_name')),norm(card.get('set_id'))} or (label==norm(card.get('set_name')) and all(y==year for y in years)))
+            names={norm(card.get('set_name')),norm(card.get('set_id'))}
+            if set_identity(card.get('set_id'))!=card.get('set_id'):
+                names.add(re.sub(r'\s+galerie (?:de dresseurs|de galar|galar)$','',norm(card.get('set_name')) or ''))
+                names.add(set_identity(card.get('set_id')))
+            ok=(text==year or text in names or (label in names and all(y==year for y in years)))
         elif field=='rarity':
-            ok=text in {norm(card.get('rarity')),norm(card.get('rarity_label'))}
+            ok=rarity(value)==rarity(card.get('rarity'))
         else:
             ok=text==norm(card.get('illustrator'))
         if not ok:mismatches.append(LABELS[field])
@@ -49,7 +54,7 @@ def observed_card(row, card, by_id):
     import json
     from .settings import ROOT
     translations=json.loads((ROOT/'config/tcgdex-fr.json').read_text(encoding='utf-8'))
-    result=dict(card)
+    result=normalize_card(card)
     for field in FIELDS:
         value=getattr(row.clues,field).value
         if value is None or not str(value).strip():continue
@@ -76,23 +81,23 @@ def observed_card(row, card, by_id):
             if text not in aliases:raise ValueError('Le stade est illisible. Collez une capture recadrée.')
             result['stage']=aliases[text];result['stage_label']=translations['stage'].get(result['stage'],value)
         elif field=='rarity':
-            aliases={norm(k):k for k in translations['rarity']}
-            aliases.update({norm(v):k for k,v in translations['rarity'].items()})
-            result['rarity']=aliases.get(text,value)
-            result['rarity_label']=translations['rarity'].get(result['rarity'],value)
+            result=normalize_card(dict(result,rarity=value,rarity_label=value))
         elif field=='illustrator':result['illustrator']=value
         elif field=='set':
-            label=re.sub(r'\s*(?:[·•—–-]\s*)?\(?(?:19|20)\d{2}\)?\s*$','',text).strip()
+            label=set_label(value)
             years=re.findall(r'\b(?:19|20)\d{2}\b',text)
-            sets={c['set_id']:c for c in by_id.values() if label in {norm(c.get('set_name')),norm(c.get('set_id'))}}
+            lookup=by_id.set_index if hasattr(by_id,'set_index') else set_index(by_id.values())
+            sets=lookup.get(label,{})
             if len(sets)==1:
                 selected=next(iter(sets.values()))
                 for key in ('set_id','set_name','series_id','series_name','release_date','chronology'):result[key]=selected.get(key)
+                result['release_year']=int(years[0]) if years else int(result['release_date'][:4]) if result.get('release_date') else None
                 if years and (result.get('release_date') or '')[:4]!=years[0]:result['release_date']=None;result['chronology']=None
             elif text.isdigit() and len(text)==4:
+                result['release_year']=int(text)
                 if not (result.get('release_date') or '').startswith(text):result['release_date']=None;result['chronology']=None
             else:
-                result.update(set_id='observed:'+text,set_name=value,series_id=None,series_name=None,release_date=None,chronology=None)
+                result.update(set_id='observed:'+text,set_name=value,series_id=None,series_name=None,release_date=None,chronology=None,release_year=int(years[0]) if years else None)
     return result
 
 
@@ -107,7 +112,7 @@ def resolve_capture(result, expected, previous, by_id):
                 old_match=True;break
         if not old_match:fresh.append(row)
     if not fresh:return None
-    proposed=[r for r in fresh if (r.card_id==expected['id'] if r.card_id else norm(r.pokemon) in {norm(expected['name']),norm(expected.get('names',{}).get('en'))})]
+    proposed=[r for r in fresh if (r.card_id==expected['id'] if r.card_id else norm(r.pokemon) in pokemon_names(expected))]
     selected=proposed or fresh
     unique={r.model_dump_json():r for r in selected}
     if len(unique)!=1:raise ValueError('Plusieurs nouvelles lignes sont visibles. Collez une capture recadrée sur le dernier résultat ; aucun indice n’a été enregistré.')
@@ -115,9 +120,9 @@ def resolve_capture(result, expected, previous, by_id):
     if row.card_id:
         base=by_id.get(row.card_id)
         if not base or base.get('category')!='Pokemon':raise ValueError('Identifiant de carte illisible ou inconnu. Collez une capture recadrée.')
-        if norm(row.pokemon) not in {norm(base['name']),norm(base.get('names',{}).get('en'))}:raise ValueError('Le nom et l’identifiant lus ne correspondent pas. Collez une capture recadrée.')
+        if norm(row.pokemon) not in pokemon_names(base):raise ValueError('Le nom et l’identifiant lus ne correspondent pas. Collez une capture recadrée.')
     else:
-        candidates=[c for c in by_id.values() if c.get('category')=='Pokemon' and c.get('active',True) and norm(row.pokemon) in {norm(c.get('name')),norm(c.get('names',{}).get('en'))}]
+        candidates=[c for c in by_id.values() if c.get('category')=='Pokemon' and c.get('active',True) and norm(row.pokemon) in pokemon_names(c)]
         if not candidates:raise ValueError('Le nom de la carte est illisible ou absent du catalogue. Collez une capture recadrée.')
         # Visible attributes help identify an alternative printing. Discrepancies
         # still become authoritative observations after that identification.
@@ -126,6 +131,10 @@ def resolve_capture(result, expected, previous, by_id):
             if field!='set':getattr(identity_row.clues,field).value=None
         identified=[c for c in candidates if not visible_mismatches(identity_row,c)]
         if identified:candidates=identified
+        artist=row.clues.illustrator.value
+        if artist:
+            matching_artist=[c for c in candidates if norm(c.get('illustrator'))==norm(str(artist))]
+            if matching_artist:candidates=matching_artist
         if any(c['id']==expected['id'] for c in candidates):
             matches=[expected]
         else:
