@@ -1,0 +1,1 @@
+{"name":"cartosolver-tools","private":true,"type":"module","scripts":{"import":"node scripts/parse-tcgdex.mjs"},"devDependencies":{"typescript":"~5.9.3","@playwright/test":"^1.58.2"}}

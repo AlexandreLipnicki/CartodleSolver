@@ -1,0 +1,32 @@
+services:
+  cartosolver:
+    build: .
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      CARTO_OLLAMA_URL: http://ollama:11434
+      CARTO_OLLAMA_MODEL: ${CARTO_OLLAMA_MODEL:-qwen2.5vl:7b}
+      CARTO_SECURE_COOKIES: ${CARTO_SECURE_COOKIES:-false}
+      CARTO_ALLOWED_ORIGINS: ${CARTO_ALLOWED_ORIGINS:-}
+      CARTO_INVITE_CODE: ${CARTO_INVITE_CODE:-}
+    volumes:
+      - ./data:/app/data:ro
+      - carto-storage:/app/storage
+    depends_on:
+      - ollama
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"]
+      interval: 30s
+      timeout: 5s
+      start_period: 180s
+      retries: 3
+  ollama:
+    image: ollama/ollama:0.11.10
+    volumes:
+      - ollama-models:/root/.ollama
+    restart: unless-stopped
+    # Aucun port publié : Ollama est accessible uniquement au backend.
+volumes:
+  carto-storage:
+  ollama-models:

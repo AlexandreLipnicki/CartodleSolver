@@ -1,0 +1,13 @@
+.venv/
+.env
+__pycache__/
+.pytest_cache/
+node_modules/
+frontend/dist/
+storage/*
+!storage/.gitkeep
+data/*
+!data/.gitkeep
+playwright-report/
+test-results/
+*.tsbuildinfo
