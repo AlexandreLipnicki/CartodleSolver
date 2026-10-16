@@ -20,7 +20,7 @@ from starlette.concurrency import run_in_threadpool
 from .settings import ROOT, settings
 from .db import Session, init_db, UserSession, Game, Attempt, Meta
 from .models import BatchInput, LoginInput, Clues, FIELDS
-from .catalog import catalog, pokemon_cards
+from .catalog import catalog, pokemon_cards, search_cards
 from .engine import filter_cards, recommend, summarize, norm, complete, rules, compare
 from . import vision
 
@@ -44,10 +44,11 @@ async def lifespan(app):
     init_db(); access_code()
     with Session() as db:
         indexed=db.get(Meta,'import') is not None
-    if not indexed and settings.auto_import and any(settings.data.rglob('*.ts')):
+    if settings.auto_import and ((settings.data/'catalog.fr.sqlite3').exists() or (not indexed and any(settings.data.rglob('*.ts')))):
         from .importer import import_data
         await run_in_threadpool(import_data,settings.data)
     catalog.cache_clear(); catalog()
+    await run_in_threadpool(lambda:pokemon_cards().filtered([],catalog()))
     yield
     for task in tasks: task.cancel()
     if tasks: await asyncio.gather(*tasks,return_exceptions=True)
@@ -113,6 +114,8 @@ def state(db,u):
     g=owned_game(db,u); hist=history(db,g); attempts=attempts_data(hist)
     valid,uncertain=filter_cards(pokemon_cards(),attempts,catalog())
     rec=catalog().get(g.recommendation) if g.recommendation else None
+    if rec and not any(c['id']==rec['id'] for c in valid):
+        rec=recommend(valid,attempts)
     return dict(id=g.id,version=g.version,total=len(pokemon_cards()),remaining=len(valid),uncertain=len(uncertain),
                 recommendation=rec,solved=len(valid)==1 and not uncertain,
                 constraints=summarize(valid,uncertain,attempts,catalog()),
@@ -131,7 +134,8 @@ def warnings(attempts):
 def health():
     with Session() as db:
         report=db.get(Meta,'import')
-    return {'status':'ok','indexed':bool(report),'cards':len(catalog())}
+    active=sum(bool(c.get('active',True)) for c in catalog().values())
+    return {'status':'ok','indexed':bool(report),'cards':active,'archived_cards':len(catalog())-active,'pokemon':len(pokemon_cards())}
 
 @app.post('/api/login')
 def login(body:LoginInput,request:Request,response:Response):
@@ -243,7 +247,7 @@ def undo(version:int,game_id:str,u=Depends(user)):
 def search(q:str='',u=Depends(user)):
     query=norm(q) or ''
     if len(query)<2: return []
-    return [c for c in pokemon_cards() if query in norm(' '.join([c.get('name') or '',c['id'],c.get('set_name') or '',c['number']]))][:40]
+    return search_cards(query)
 
 @app.get('/api/game/candidates')
 def candidates(offset:int=0,uncertain:bool=False,u=Depends(user)):

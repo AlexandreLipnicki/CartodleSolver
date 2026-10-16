@@ -164,3 +164,15 @@ def test_old_game_cannot_write_to_new_game(logged):
     logged.post('/api/games')
     assert logged.post('/api/game/attempts',json=old).status_code==409
     assert logged.get('/api/game').json()['history']==[]
+
+def test_catalog_refresh_cannot_show_retired_recommendation(logged):
+    from backend.app.catalog import catalog
+    from backend.app.db import CardRecord
+    with Session.begin() as db:
+        row=db.get(CardRecord,'xy10-63');c=json.loads(row.payload);c['active']=False;row.payload=json.dumps(c)
+    catalog.cache_clear()
+    g=logged.get('/api/game').json()
+    assert not g['recommendation'] or g['recommendation']['id']!='xy10-63'
+    assert g['history']==[] and g['remaining']==1
+    health=logged.get('/api/health').json()
+    assert health['cards']==1 and health['archived_cards']==1

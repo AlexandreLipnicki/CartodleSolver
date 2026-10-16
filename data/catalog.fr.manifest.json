@@ -1,0 +1,33 @@
+{
+  "total": 22242,
+  "pokemon": 18838,
+  "invalid": [],
+  "metadata": 244,
+  "sets": 201,
+  "merged_translations": 9,
+  "source_commit": "4199850a6af49665db0080fa2bb9ef751750a406",
+  "source_url": "https://github.com/tcgdex/cards-database",
+  "license": "MIT; docs/TCGDEX-LICENSE.txt",
+  "locale": "fr",
+  "international_total": 23864,
+  "source_missing_french": 1622,
+  "missing_french": 0,
+  "excluded_without_french": 1622,
+  "complete_pokemon": 17724,
+  "pokemon_to_verify": 1114,
+  "missing_fields": {
+    "pokedex": 0,
+    "types": 4,
+    "stage": 806,
+    "hp": 0,
+    "rarity": 0,
+    "set_name": 41,
+    "series_id": 0,
+    "release_date": 0,
+    "illustrator": 237
+  },
+  "pocket_cards": 2116,
+  "schema_version": 1,
+  "sha256": "15ba5d9e181c1feb13e0470a5d49b561930578438e4129dd2a5b2fb623acfbdc",
+  "bytes": 24526848
+}

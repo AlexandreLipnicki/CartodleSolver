@@ -5,16 +5,16 @@ React/TypeScript, FastAPI, SQLite et lecture d’images par Ollama. La déductio
 
 ## Démarrage sur Windows
 
-Prérequis : **Python 3.11+**, **Node.js 22 ou 24 LTS** (npm inclus), Ollama avec un modèle vision et les fichiers officiels TCGdex. Python et Ollama seuls ne suffisent pas : Node est nécessaire pour construire l’interface et parser TypeScript.
+Prérequis : **Python 3.11+**, **Node.js 22 ou 24 LTS** (npm inclus) et Ollama avec un modèle vision. Le catalogue français SQLite est désormais inclus dans le dépôt. Python et Ollama seuls ne suffisent pas : Node est nécessaire pour construire l’interface ; le parsing TypeScript sert seulement à reconstruire les données sources.
 
-1. Copiez votre dépôt `cards-database` dans `data/cards-database/`. Vous pouvez aussi copier **le contenu de son dossier `data/`** directement dans `data/`, ou définir `CARTO_DATA` dans `.env`. Ne renommez pas les sous-dossiers : les imports TypeScript expriment les liens entre cartes, extensions et séries.
+1. Téléchargez la dernière version du dépôt et conservez les fichiers `data/catalog.fr.sqlite3`, `data/catalog.fr.manifest.json` et `data/catalog.fr.quality.json` ensemble. **Aucun téléchargement ni ajout manuel de TCGdex n’est nécessaire.** Le catalogue contient 22 242 cartes avec un nom français, dont 18 838 Pokémon.
 2. Copiez `.env.example` en `.env` ; renseignez `CARTO_OLLAMA_MODEL` avec le nom exact d’un de vos modèles vision (`ollama list`). Le modèle par défaut peut être installé avec `ollama pull qwen2.5vl:7b`.
 3. Lancez Ollama, puis double-cliquez sur **`LANCER_CARTOSOLVER.bat`**.
 4. Attendez la compilation et l’import initial. La fenêtre du navigateur s’ouvre **uniquement lorsque le serveur répond**. Le code d’accès est dans `storage/access-code.txt` (ou la valeur que vous avez définie dans `CARTO_INVITE_CODE`). Ne partagez pas le dossier `storage`.
 
-Le lanceur prépare `.venv`, installe les dépendances verrouillées, construit l’interface, vérifie la base et démarre un seul serveur qui sert l’interface et l’API. Il garde la véritable erreur visible si une étape échoue. Les lancements suivants conservent la base et les parties. Arrêt : Ctrl+C dans le terminal.
+Le lanceur prépare `.venv`, installe les dépendances verrouillées, construit l’interface si nécessaire, vérifie la base et démarre un seul serveur qui sert l’interface et l’API. Il garde la véritable erreur visible si une étape échoue. Les lancements suivants conservent la base et les parties. Arrêt : Ctrl+C dans le terminal.
 
-Si vous n’avez pas encore les données et disposez de Git : `python scripts/fetch-data.py` télécharge la version officielle auditée. Ce script préserve les données déjà présentes. Les données et les captures ne sont pas commitées dans ce dépôt.
+Le catalogue SQLite est commité dans ce dépôt ; les captures et la base de parties ne le sont jamais. Pour auditer la couverture, les données manquantes, les optimisations et la reconstruction du catalogue, consultez [Données et performances](docs/DONNEES_ET_PERFORMANCES.md).
 
 ### Linux / macOS
 
@@ -55,9 +55,11 @@ Pour le rechargement à chaud : backend avec `--reload`, puis `npm --prefix fron
 - **Explorer** affiche les cartes compatibles et un onglet distinct pour les données incomplètes. Les cartes à vérifier ne sont pas recommandées comme solutions validées.
 - Une carte restante est une **solution probable** ; les données incomplètes peuvent encore empêcher une conclusion certaine.
 
-## Import TCGdex et persistance
+## Catalogue fourni, import et persistance
 
-L’importeur parcourt les vrais fichiers TypeScript avec l’AST TypeScript : objets, tableaux, littéraux, concaténation de chaînes et imports relatifs. **Il n’exécute jamais le code du dépôt de données.** Les relations importées déterminent l’extension et la série, y compris les promos ; les noms de dossiers ne servent pas à inventer ces relations.
+Le catalogue français fourni est chargé automatiquement après vérification SHA-256 et de l’intégrité SQLite. Il utilise des tables et index SQL, puis des index en mémoire par ensembles de bits pour la résolution. Les lancements suivants évitent le réimport si son empreinte est inchangée. Une mise à jour du fichier est détectée au démarrage. La base de parties dans `storage/` est conservée séparément.
+
+L’importeur de sources brutes reste disponible si vous passez explicitement un autre dossier avec `--source`. L’importeur parcourt les vrais fichiers TypeScript avec l’AST TypeScript : objets, tableaux, littéraux, concaténation de chaînes et imports relatifs. **Il n’exécute jamais le code du dépôt de données.** Les relations importées déterminent l’extension et la série, y compris les promos ; les noms de dossiers ne servent pas à inventer ces relations.
 
 Les informations françaises sont conservées telles quelles. Un nom français absent reste absent ; un nom anglais peut être affiché explicitement dans les outils de recherche. Les cartes incomplètes sont mises à vérifier. Les cartes multi-Pokémon, dont l’ordre Pokédex serait ambigu, ne sont pas recommandées.
 
@@ -125,7 +127,7 @@ docker compose exec ollama ollama pull qwen2.5vl:7b
 # Code généré : docker compose exec cartosolver cat /app/storage/access-code.txt
 ```
 
-Copiez les données dans `data/` avant le démarrage. Cette variante utilise **son propre Ollama dans Docker**, sans port publié, et ne remplace pas celui déjà installé sur Windows. Le modèle tourne sur CPU par défaut ; l’accélération GPU dépend de votre hôte et n’est pas configurée automatiquement. Les volumes nommés conservent SQLite et les modèles. Le port applicatif est publié uniquement sur la boucle locale pour le tunnel. Ne lancez pas `docker compose down -v` si vous voulez garder ces données. La configuration Compose a été validée (`docker compose config`). La construction a été tentée mais reste bloquée dans le moteur Docker de cette machine : échec DNS vers `deb.debian.org`. Son exécution complète n’a donc pas été validée ici.
+Conservez le catalogue fourni dans `data/` avant le démarrage. Cette variante utilise **son propre Ollama dans Docker**, sans port publié, et ne remplace pas celui déjà installé sur Windows. Le modèle tourne sur CPU par défaut ; l’accélération GPU dépend de votre hôte et n’est pas configurée automatiquement. Les volumes nommés conservent SQLite et les modèles. Le port applicatif est publié uniquement sur la boucle locale pour le tunnel. Ne lancez pas `docker compose down -v` si vous voulez garder ces données. La configuration Compose a été validée (`docker compose config`). La construction a été tentée mais reste bloquée dans le moteur Docker de cette machine : échec DNS vers `deb.debian.org`. Son exécution complète n’a donc pas été validée ici.
 
 ## Tests et vérifications
 
@@ -140,7 +142,7 @@ node scripts/browser-check.mjs
 
 `TESTER_CARTOSOLVER.bat` lance les tests Python et la compilation. Le test navigateur utilise une base locale de développement et **crée une partie de test** ; ne le lancez pas contre une base partagée en production. Il simule la réponse d’analyse pour tester le collage, pas la vision elle-même.
 
-**40 tests automatisés passent.** Une simulation sur le catalogue complet a également retrouvé Pikachu `base1-58` en cinq essais, sans éliminer la cible à aucune étape. Ce cas ne garantit pas un nombre d’essais universel.
+**49 tests automatisés passent.** Une simulation sur le catalogue complet a également retrouvé Pikachu `base1-58` en quatre essais via les routes HTTP du catalogue français, sans éliminer la cible à aucune étape. Ce cas ne garantit pas un nombre d’essais universel.
 
 Vérifications exécutées dans cette machine : import complet de TCGdex, import d’une fixture officielle Lucario vers SQLite, règles et intersections, déduplication, contradictions atomiques, corrections, versions concurrentes, isolation de deux sessions, routes HTTP, validation stricte Ollama avec transport simulé, refus d’uploads invalides, build TypeScript/Vite, démarrage réel et contrôle du parcours dans Chromium desktop/mobile.
 
@@ -148,6 +150,6 @@ Vérifications exécutées dans cette machine : import complet de TCGdex, import
 
 ## Provenance
 
-Données auditées : [`tcgdex/cards-database`](https://github.com/tcgdex/cards-database), commit `4199850a6af49665db0080fa2bb9ef751750a406`. Import : 23 864 cartes, 20 225 Pokémon, 219 extensions, 9 fragments linguistiques fusionnés, aucun fichier invalide. 1 622 cartes n’ont pas de nom français dans cette source.
+Données auditées : [`tcgdex/cards-database`](https://github.com/tcgdex/cards-database), commit `4199850a6af49665db0080fa2bb9ef751750a406`. Source internationale : 23 864 cartes. Catalogue livré : **22 242 cartes avec un nom français, 18 838 Pokémon, 201 extensions**, 9 fragments linguistiques fusionnés, aucun fichier invalide. Les 1 622 cartes sans nom français ne sont pas incluses dans le catalogue français. Sur les Pokémon français, 17 724 sont entièrement renseignés et 1 114 restent à vérifier. Détails et mesures : [Données et performances](docs/DONNEES_ET_PERFORMANCES.md).
 
 Les fichiers officiels utilisés dans les tests et les traductions conservent la licence TCGdex dans `docs/TCGDEX-LICENSE.txt`. CartoSolver n’est affilié ni à TCGdex ni à Pokémon. Les illustrations restent la propriété de leurs ayants droit.

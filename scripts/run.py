@@ -48,15 +48,24 @@ def main():
         if previous.get(key)!=signature or not (folder/'node_modules').exists():
             subprocess.run([npm,'ci','--no-audit','--no-fund'],cwd=folder,check=True)
         current[key]=signature
-    # Build on each launch so source changes are reflected in the served app.
-    run([npm,'--prefix','frontend','run','build'])
+    # Rebuild only if a relevant frontend input changed or outputs disappeared.
+    inputs=[ROOT/'frontend'/p for p in ('index.html','package.json','package-lock.json','tsconfig.json','vite.config.ts')]
+    inputs+=sorted((ROOT/'frontend/src').rglob('*'))
+    inputs+=sorted((ROOT/'frontend/public').rglob('*'))
+    build_hash=hashlib.sha256()
+    for path in inputs:
+        if path.is_file():
+            build_hash.update(str(path.relative_to(ROOT)).encode());build_hash.update(path.read_bytes())
+    current['frontend_build']=build_hash.hexdigest()
+    if previous.get('frontend_build')!=current['frontend_build'] or not (ROOT/'frontend/dist/index.html').exists():
+        run([npm,'--prefix','frontend','run','build'])
     sys.path.insert(0,str(ROOT))
     from backend.app.settings import settings
     from backend.app.importer import import_data
     from backend.app.db import init_db
     init_db()
     source=settings.data
-    if (source/'cards-database/data').exists():source=source/'cards-database'
+    if not (source/'catalog.fr.sqlite3').exists() and (source/'cards-database/data').exists():source=source/'cards-database'
     report=import_data(source)
     from backend.app.main import access_code
     access_code()

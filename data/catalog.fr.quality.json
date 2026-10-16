@@ -1,0 +1,7901 @@
+[
+  {
+    "id": "30th-c-008",
+    "name": "Pikachu et Zekrom GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "30th-c-019",
+    "name": "Darkrai & Cresselia LÉGENDE",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "30th-c-020",
+    "name": "Darkrai & Cresselia LÉGENDE",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "bw10-100",
+    "name": "Palkia EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw10-11",
+    "name": "Genesect EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw10-30",
+    "name": "Kyurem EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw10-60",
+    "name": "Jirachi EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw10-65",
+    "name": "Dialga EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw10-66",
+    "name": "Palkia EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw10-9",
+    "name": "Viridium EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw10-96",
+    "name": "Viridium EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw10-97",
+    "name": "Genesect EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw10-98",
+    "name": "Jirachi EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw10-99",
+    "name": "Dialga EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw4-22",
+    "name": "Reshiram-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw4-38",
+    "name": "Kyurem-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw4-5",
+    "name": "Shaymin-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw4-51",
+    "name": "Zekrom-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw4-54",
+    "name": "Mewtwo-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw4-82",
+    "name": "Regigigas-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw4-94",
+    "name": "Shaymin-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw4-95",
+    "name": "Reshiram-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw4-96",
+    "name": "Kyurem-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw4-97",
+    "name": "Zekrom-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw4-98",
+    "name": "Mewtwo-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw4-99",
+    "name": "Regigigas-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw5-103",
+    "name": "Entei-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw5-104",
+    "name": "Kyogre-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw5-105",
+    "name": "Raikou-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw5-106",
+    "name": "Groudon-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw5-107",
+    "name": "Darkrai-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw5-108",
+    "name": "Boréas-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw5-13",
+    "name": "Entei-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw5-26",
+    "name": "Kyogre-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw5-38",
+    "name": "Raikou-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw5-54",
+    "name": "Groudon-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw5-63",
+    "name": "Darkrai-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw5-90",
+    "name": "Boréas-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw6-119",
+    "name": "Ho-Oh-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw6-120",
+    "name": "Mew-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw6-121",
+    "name": "Terrakium-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw6-122",
+    "name": "Registeel-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw6-123",
+    "name": "Rayquaza-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw6-124",
+    "name": "Giratina-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw6-22",
+    "name": "Ho-Oh-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw6-46",
+    "name": "Mew-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw6-71",
+    "name": "Terrakium-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw6-81",
+    "name": "Registeel-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw6-85",
+    "name": "Rayquaza-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw6-92",
+    "name": "Giratina-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw7-101",
+    "name": "Kyurem Noir-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw7-103",
+    "name": "Kyurem Blanc EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw7-141",
+    "name": "Celebi-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw7-142",
+    "name": "Keldeo EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw7-143",
+    "name": "Cresselia-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw7-144",
+    "name": "Démétéros-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw7-145",
+    "name": "Kyurem Noir-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw7-146",
+    "name": "Kyurem Blanc EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw7-49",
+    "name": "Keldeo EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw7-67",
+    "name": "Cresselia-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw7-89",
+    "name": "Démétéros-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw7-9",
+    "name": "Celebi-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw8-108",
+    "name": "Lugia-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw8-131",
+    "name": "Victini-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw8-132",
+    "name": "Artikodin-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw8-133",
+    "name": "Cobaltium-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw8-134",
+    "name": "Lugia-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw8-14",
+    "name": "Sulfura-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw8-18",
+    "name": "Victini-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw8-25",
+    "name": "Artikodin-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw8-48",
+    "name": "Électhor-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw8-93",
+    "name": "Cobaltium-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw8-95",
+    "name": "Kyurem Noir-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw8-96",
+    "name": "Kyurem Blanc EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw9-109",
+    "name": "Heatran-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw9-110",
+    "name": "Fulguris-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw9-111",
+    "name": "Deoxys-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw9-112",
+    "name": "Latias-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw9-113",
+    "name": "Latios-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw9-114",
+    "name": "Boréas-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw9-13",
+    "name": "Heatran-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw9-38",
+    "name": "Fulguris-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw9-53",
+    "name": "Deoxys-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw9-85",
+    "name": "Latias-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw9-86",
+    "name": "Latios-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bw9-98",
+    "name": "Boréas-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bwp-BW36",
+    "name": "Reshiram ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bwp-BW37",
+    "name": "Kyurem ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bwp-BW38",
+    "name": "Zekrom ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bwp-BW45",
+    "name": "Mewtwo ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bwp-BW46",
+    "name": "Darkrai ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bwp-BW47",
+    "name": "Rayquaza ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bwp-BW61",
+    "name": "Keldeo ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bwp-BW62",
+    "name": "Kyurem Noir ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bwp-BW63",
+    "name": "Kyurem Blanc ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bwp-BW81",
+    "name": "Fulguris ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bwp-BW82",
+    "name": "Deoxys ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bwp-BW83",
+    "name": "Lugia ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "bwp-BW96",
+    "name": "Boréas ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "dc1-15",
+    "name": "Groudon-EX de la Team Magma",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "dc1-6",
+    "name": "Kyogre-EX de la Team Aqua",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex10-101",
+    "name": "Leuphorie ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex10-102",
+    "name": "Mentali ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex10-103",
+    "name": "Aligatueur ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex10-105",
+    "name": "Lugia ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex10-106",
+    "name": "Meganium ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex10-107",
+    "name": "Tarpaud ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex10-108",
+    "name": "Cizayox ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex10-109",
+    "name": "Steelix ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex10-110",
+    "name": "Typhlosion ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex10-111",
+    "name": "Tyranocif ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex10-112",
+    "name": "Noctali ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex11-108",
+    "name": "Pyroli ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex11-109",
+    "name": "Voltali ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex11-110",
+    "name": "Aquali ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex12-83",
+    "name": "Arcanin ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex12-84",
+    "name": "Armaldo ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex12-85",
+    "name": "Branette ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex12-86",
+    "name": "Papinox ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex12-87",
+    "name": "Libegon ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex12-88",
+    "name": "Mew ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex12-89",
+    "name": "Kaimorse ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex13-100",
+    "name": "Mew ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex13-101",
+    "name": "Gradhyena ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex13-99",
+    "name": "Colhomard ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex14-89",
+    "name": "Galeking ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex14-90",
+    "name": "Brasegali ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex14-91",
+    "name": "Delcatty ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex14-92",
+    "name": "Brouhabam ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex14-93",
+    "name": "Groudon ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex14-94",
+    "name": "Jirachi ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex14-95",
+    "name": "Kyogre ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex14-97",
+    "name": "Tengalice ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex14-98",
+    "name": "Laggron ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex16-92",
+    "name": "Absol ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex16-93",
+    "name": "Kaorine ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex16-94",
+    "name": "Libegon ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex16-95",
+    "name": "Metalosse ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex16-96",
+    "name": "Drattak ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex16-97",
+    "name": "Tengalice ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex16-98",
+    "name": "Airmure ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex16-99",
+    "name": "Kaimorse ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex6-104",
+    "name": "Tortank ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex6-105",
+    "name": "Dracaufeu ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex6-106",
+    "name": "Mélodelfe ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex6-107",
+    "name": "Électrode ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex6-108",
+    "name": "Ectoplasma ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex6-109",
+    "name": "Léviator ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex6-110",
+    "name": "M. Mime ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex6-111",
+    "name": "M. Mime ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex6-112",
+    "name": "Florizarre ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex8-100",
+    "name": "Hariyama ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex8-101",
+    "name": "Elecsprint ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex8-102",
+    "name": "Rayquaza ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex8-103",
+    "name": "Drattak ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex8-104",
+    "name": "Sharpedo ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex8-96",
+    "name": "Nostenfer ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex8-97",
+    "name": "Deoxys ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex8-98",
+    "name": "Deoxys ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex8-99",
+    "name": "Deoxys ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex9-100",
+    "name": "Registeel ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex9-90",
+    "name": "Altaria ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex9-91",
+    "name": "Cacturne ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex9-92",
+    "name": "Camerupt ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex9-93",
+    "name": "Deoxys ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex9-94",
+    "name": "Teraclope ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex9-95",
+    "name": "Charmina ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex9-96",
+    "name": "Milobellus ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex9-97",
+    "name": "Raichu ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex9-98",
+    "name": "Regice ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "ex9-99",
+    "name": "Regirock ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "g1-1",
+    "name": "Florizarre-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "g1-10",
+    "name": "Phyllali-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "g1-11",
+    "name": "Dracaufeu-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "g1-13",
+    "name": "Feunard-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "g1-17",
+    "name": "Tortank-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "g1-24",
+    "name": "Aquali-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "g1-28",
+    "name": "Voltali-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "g1-28a",
+    "name": "Voltali-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "g1-37",
+    "name": "Mistigrix-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "g1-46",
+    "name": "Grolem-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "g1-RC21",
+    "name": "Nymphali-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "g1-RC28",
+    "name": "Pyroli-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "g1-RC30",
+    "name": "Gardevoir-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "g1-RC32",
+    "name": "Nymphali-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "g1-RC6",
+    "name": "Pyroli-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "hgss2-90",
+    "name": "Entei & Raikou LÉGENDE (haut)",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "hgss2-91",
+    "name": "Entei & Raikou LÉGENDE (bas)",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "hgss2-92",
+    "name": "Raikou & Suicune LÉGENDE (haut)",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "hgss2-93",
+    "name": "Raikou & Suicune LÉGENDE (bas)",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "hgss2-94",
+    "name": "Suicune & Entei LÉGENDE (haut)",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "hgss2-95",
+    "name": "Suicune & Entei LÉGENDE (bas)",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "hgss3-87",
+    "name": "Kyogre & Groudon LÉGENDE",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "hgss3-88",
+    "name": "Kyogre & Groudon LÉGENDE",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "hgss3-89",
+    "name": "Rayquaza & Deoxys LÉGENDE",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "hgss3-90",
+    "name": "Rayquaza & Deoxys LÉGENDE",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "hgss4-100",
+    "name": "Darkrai & Cresselia LÉGENDE",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "hgss4-101",
+    "name": "Palkia & Dialga LÉGENDE",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "hgss4-102",
+    "name": "Palkia & Dialga LÉGENDE",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "hgss4-99",
+    "name": "Darkrai & Cresselia LÉGENDE",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "neo2-26",
+    "name": "Magnéti",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "neo2-7",
+    "name": "Magnéti",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "neo3-10",
+    "name": "Magnéton",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "neo3-25",
+    "name": "Staross",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "neo4-2",
+    "name": "Nostenfer obscur",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "neo4-41",
+    "name": "Scarhino",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "neo4-78",
+    "name": "Porygon",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "neo4-8",
+    "name": "Porygon2 obscur",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "neo4-80",
+    "name": "Rémoraid",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "pl4-94",
+    "name": "Arceus",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pl4-95",
+    "name": "Arceus",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pl4-96",
+    "name": "Arceus",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pl4-AR1",
+    "name": "Arceus",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pl4-AR2",
+    "name": "Arceus",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pl4-AR3",
+    "name": "Arceus",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pl4-AR4",
+    "name": "Arceus",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pl4-AR5",
+    "name": "Arceus",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pl4-AR6",
+    "name": "Arceus",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pl4-AR7",
+    "name": "Arceus",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pl4-AR8",
+    "name": "Arceus",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pl4-AR9",
+    "name": "Arceus",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop5-1",
+    "name": "Ho-Oh",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop5-10",
+    "name": "Salamèche δ",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop5-11",
+    "name": "Miaouss δ",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop5-12",
+    "name": "Pikachu",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop5-13",
+    "name": "Pikachu δ",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop5-14",
+    "name": "Bekipan δ",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop5-15",
+    "name": "Zangoose δ",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop5-16",
+    "name": "Mentali ☆",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop5-17",
+    "name": "Noctali ☆",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop5-2",
+    "name": "Lugia",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop5-3",
+    "name": "Mew δ",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop5-5",
+    "name": "Reptincel δ",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-1",
+    "name": "Bastiodon",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-10",
+    "name": "Étourvol",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-11",
+    "name": "Keunotor",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-12",
+    "name": "Laporeille",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-13",
+    "name": "Ceribou",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-14",
+    "name": "Ouisticram",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-15",
+    "name": "Tiplouf",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-16",
+    "name": "Étourmi",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-17",
+    "name": "Tortipouss",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-2",
+    "name": "Lucario",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-3",
+    "name": "Manaphy",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-4",
+    "name": "Pachirisu",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-5",
+    "name": "Charkos",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-6",
+    "name": "Baudrive",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-7",
+    "name": "Griknot",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-8",
+    "name": "Riolu",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "pop6-9",
+    "name": "Pikachu",
+    "missing": [
+      "set_name"
+    ]
+  },
+  {
+    "id": "sm1-100",
+    "name": "Tauros GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-110",
+    "name": "Argouste GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-12",
+    "name": "Archéduc GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-138",
+    "name": "Floramantis GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-139",
+    "name": "Lokhlass GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-140",
+    "name": "Mentali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-141",
+    "name": "Lunala GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-142",
+    "name": "Noctali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-143",
+    "name": "Solgaleo GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-144",
+    "name": "Tauros GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-145",
+    "name": "Argouste GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-15",
+    "name": "Floramantis GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-150",
+    "name": "Floramantis GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-151",
+    "name": "Lokhlass GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-152",
+    "name": "Mentali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-153",
+    "name": "Lunala GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-154",
+    "name": "Noctali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-155",
+    "name": "Solgaleo GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-156",
+    "name": "Tauros GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-157",
+    "name": "Argouste GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-27",
+    "name": "Félinferno GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-35",
+    "name": "Lokhlass GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-42",
+    "name": "Oratoria GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-61",
+    "name": "Mentali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-66",
+    "name": "Lunala GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-80",
+    "name": "Noctali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm1-89",
+    "name": "Solgaleo GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-1",
+    "name": "Cancrelove et Mouscoto GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-107",
+    "name": "Amphinobi et Zoroark GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-109",
+    "name": "Corboss GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-12",
+    "name": "Aéromite GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-120",
+    "name": "Lucario et Melmetal GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-130",
+    "name": "Gardevoir et Nymphali GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-140",
+    "name": "Farfaduvet GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-149",
+    "name": "Persian GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-163",
+    "name": "Bamboiselle GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-191",
+    "name": "Cancrelove et Mouscoto GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-192",
+    "name": "Cancrelove et Mouscoto GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-193",
+    "name": "Aéromite GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-194",
+    "name": "Reshiram et Dracaufeu GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-195",
+    "name": "Dedenne GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-196",
+    "name": "Grotadmorv et Grotadmorv d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-197",
+    "name": "Grotadmorv et Grotadmorv d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-198",
+    "name": "Marshadow et Mackogneur GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-199",
+    "name": "Marshadow et Mackogneur GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-20",
+    "name": "Reshiram et Dracaufeu GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-200",
+    "name": "Amphinobi et Zoroark GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-201",
+    "name": "Amphinobi et Zoroark GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-202",
+    "name": "Corboss GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-203",
+    "name": "Lucario et Melmetal GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-204",
+    "name": "Gardevoir et Nymphali GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-205",
+    "name": "Gardevoir et Nymphali GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-206",
+    "name": "Farfaduvet GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-207",
+    "name": "Persian GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-208",
+    "name": "Bamboiselle GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-215",
+    "name": "Cancrelove et Mouscoto GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-217",
+    "name": "Reshiram et Dracaufeu GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-218",
+    "name": "Tortank GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-219",
+    "name": "Dedenne GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-220",
+    "name": "Grotadmorv et Grotadmorv d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-221",
+    "name": "Marshadow et Mackogneur GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-222",
+    "name": "Amphinobi et Zoroark GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-223",
+    "name": "Corboss GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-224",
+    "name": "Lucario et Melmetal GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-225",
+    "name": "Gardevoir et Nymphali GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm10-226",
+    "name": "Farfaduvet GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-228",
+    "name": "Bamboiselle GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-35",
+    "name": "Tortank GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-57",
+    "name": "Dedenne GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-61",
+    "name": "Grotadmorv et Grotadmorv d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm10-82",
+    "name": "Marshadow et Mackogneur GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-1",
+    "name": "Brindibou et Noadkoko d’Alola GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-106",
+    "name": "Ptéra GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-125",
+    "name": "Noctali et Darkrai GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-126",
+    "name": "Méga-Ténéfix et Tyranocif GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-132",
+    "name": "Dimoret GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-141",
+    "name": "Mysdibule GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-146",
+    "name": "Carchacrok et Giratina GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-152",
+    "name": "Dracolosse GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-160",
+    "name": "Mandrillon GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-214",
+    "name": "Brindibou et Noadkoko d’Alola GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-215",
+    "name": "Brindibou et Noadkoko d’Alola GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-216",
+    "name": "Heatran GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-217",
+    "name": "Ramoloss et Psykokwak GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-218",
+    "name": "Ramoloss et Psykokwak GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-219",
+    "name": "Keldeo GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-220",
+    "name": "Raichu et Raichu d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-221",
+    "name": "Raichu et Raichu d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-222",
+    "name": "Mewtwo et Mew GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-223",
+    "name": "Latios GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-224",
+    "name": "Ptéra GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-225",
+    "name": "Méga-Ténéfix et Tyranocif GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-226",
+    "name": "Méga-Ténéfix et Tyranocif GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-227",
+    "name": "Mysdibule GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-228",
+    "name": "Carchacrok et Giratina GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-229",
+    "name": "Dracolosse GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-230",
+    "name": "Mandrillon GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-237",
+    "name": "Brindibou et Noadkoko d’Alola GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-239",
+    "name": "Ramoloss et Psykokwak GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-242",
+    "name": "Mewtwo et Mew GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-245",
+    "name": "Méga-Ténéfix et Tyranocif GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-247",
+    "name": "Carchacrok et Giratina GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-25",
+    "name": "Heatran GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-35",
+    "name": "Ramoloss et Psykokwak GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-47",
+    "name": "Keldeo GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-54",
+    "name": "Raichu et Raichu d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-71",
+    "name": "Mewtwo et Mew GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-72",
+    "name": "Mentali et Deoxys GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm11-78",
+    "name": "Latios GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm11-79",
+    "name": "Jirachi GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm115-14",
+    "name": "Staross-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm115-16",
+    "name": "Léviator-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm115-20",
+    "name": "Raichu-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm115-31",
+    "name": "Mewtwo-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm115-36",
+    "name": "Onix-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm115-42",
+    "name": "Grodoudou-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm115-44",
+    "name": "Sulfura, Électhor et Artikodin-GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm115-6",
+    "name": "Scarabrute-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm115-66",
+    "name": "Sulfura, Électhor et Artikodin-GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm115-69",
+    "name": "Sulfura, Électhor et Artikodin-GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm115-9",
+    "name": "Dracaufeu-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm12-1",
+    "name": "Florizarre et Vipélierre GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-110",
+    "name": "Libégon GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm12-129",
+    "name": "Persian d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm12-143",
+    "name": "Togepi, Mélo et Toudoudou GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-156",
+    "name": "Arceus, Dialga et Palkia GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-157",
+    "name": "Reshiram et Zekrom GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-158",
+    "name": "Mandrillon et Engloutyran GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-165",
+    "name": "Méga-Lockpin et Rondoudou GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-184",
+    "name": "Silvallié GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm12-210",
+    "name": "Florizarre et Vipélierre GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-211",
+    "name": "Rafflesia GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm12-212",
+    "name": "Dracaufeu et Roussil GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-213",
+    "name": "Pyrax GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm12-214",
+    "name": "Tortank et Tiplouf GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-215",
+    "name": "Tortank et Tiplouf GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-216",
+    "name": "Solgaleo et Lunala GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-217",
+    "name": "Plumeline GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm12-218",
+    "name": "Libégon GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm12-219",
+    "name": "Persian d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm12-22",
+    "name": "Dracaufeu et Roussil GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-220",
+    "name": "Arceus, Dialga et Palkia GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-221",
+    "name": "Arceus, Dialga et Palkia GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-222",
+    "name": "Reshiram et Zekrom GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-223",
+    "name": "Mandrillon et Engloutyran GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-224",
+    "name": "Mandrillon et Engloutyran GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-225",
+    "name": "Méga-Lockpin et Rondoudou GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-226",
+    "name": "Méga-Lockpin et Rondoudou GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-227",
+    "name": "Silvallié GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm12-249",
+    "name": "Florizarre et Vipélierre GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-251",
+    "name": "Dracaufeu et Roussil GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-253",
+    "name": "Tortank et Tiplouf GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-254",
+    "name": "Solgaleo et Lunala GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-258",
+    "name": "Arceus, Dialga et Palkia GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-259",
+    "name": "Reshiram et Zekrom GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-260",
+    "name": "Mandrillon et Engloutyran GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-261",
+    "name": "Méga-Lockpin et Rondoudou GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-35",
+    "name": "Pyrax GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm12-38",
+    "name": "Tortank et Tiplouf GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-4",
+    "name": "Rafflesia GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm12-63",
+    "name": "Froussardine GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm12-75",
+    "name": "Solgaleo et Lunala GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm12-95",
+    "name": "Plumeline GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-100",
+    "name": "Ékaïser GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-115",
+    "name": "Draïeul GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-131",
+    "name": "Boumata GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-132",
+    "name": "Feunard d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-133",
+    "name": "Froussardine GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-134",
+    "name": "Lucanon GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-135",
+    "name": "Tokorico GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-136",
+    "name": "Prédastérie GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-137",
+    "name": "Tokopiyon GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-138",
+    "name": "Lougaroc GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-139",
+    "name": "Métalosse GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-140",
+    "name": "Nymphali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-141",
+    "name": "Ékaïser GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-142",
+    "name": "Draïeul GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-146",
+    "name": "Archéduc GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-147",
+    "name": "Félinferno GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-148",
+    "name": "Boumata GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-149",
+    "name": "Oratoria GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-150",
+    "name": "Feunard d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-151",
+    "name": "Froussardine GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-152",
+    "name": "Lucanon GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-153",
+    "name": "Tokorico GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-154",
+    "name": "Prédastérie GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-155",
+    "name": "Tokopiyon GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-156",
+    "name": "Lougaroc GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-157",
+    "name": "Métalosse GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-158",
+    "name": "Nymphali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-159",
+    "name": "Ékaïser GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-160",
+    "name": "Draïeul GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-18",
+    "name": "Boumata GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-22",
+    "name": "Feunard d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-38",
+    "name": "Froussardine GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-45",
+    "name": "Lucanon GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-47",
+    "name": "Tokorico GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-57",
+    "name": "Prédastérie GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-60",
+    "name": "Tokopiyon GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-74",
+    "name": "Lougaroc GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-85",
+    "name": "Métalosse GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm2-92",
+    "name": "Nymphali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-129",
+    "name": "Sarmuraï GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-130",
+    "name": "Tokotoro GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-131",
+    "name": "Ho-Oh GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-132",
+    "name": "Malamandre GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-133",
+    "name": "Tokopisco GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-134",
+    "name": "Necrozma GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-135",
+    "name": "Mackogneur GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-136",
+    "name": "Lougaroc GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-137",
+    "name": "Marshadow GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-138",
+    "name": "Grotadmorv d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-139",
+    "name": "Darkrai GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-140",
+    "name": "Gardevoir GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-141",
+    "name": "Bruyverne GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-148",
+    "name": "Sarmuraï GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-149",
+    "name": "Tokotoro GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-150",
+    "name": "Dracaufeu GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-151",
+    "name": "Malamandre GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-152",
+    "name": "Tokopisco GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-153",
+    "name": "Necrozma GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-154",
+    "name": "Mackogneur GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-155",
+    "name": "Lougaroc GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-156",
+    "name": "Marshadow GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-157",
+    "name": "Grotadmorv d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-158",
+    "name": "Darkrai GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-159",
+    "name": "Gardevoir GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-160",
+    "name": "Bruyverne GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-17",
+    "name": "Sarmuraï GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-20",
+    "name": "Dracaufeu GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-21",
+    "name": "Ho-Oh GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-25",
+    "name": "Malamandre GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-39",
+    "name": "Tokopisco GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-63",
+    "name": "Necrozma GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-64",
+    "name": "Mackogneur GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-80",
+    "name": "Marshadow GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-84",
+    "name": "Grotadmorv d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-88",
+    "name": "Darkrai GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-93",
+    "name": "Gardevoir GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3-99",
+    "name": "Bruyverne GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3.5-10",
+    "name": "Entei GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3.5-29",
+    "name": "Raichu GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3.5-39",
+    "name": "Mewtwo GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3.5-53",
+    "name": "Zoroark GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3.5-71",
+    "name": "Entei GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3.5-72",
+    "name": "Mewtwo GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3.5-74",
+    "name": "Entei GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3.5-75",
+    "name": "Raichu GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3.5-76",
+    "name": "Mewtwo GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3.5-77",
+    "name": "Zoroark GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm3.5-78",
+    "name": "Mewtwo GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-101",
+    "name": "Léviator GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-102",
+    "name": "Grolem d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-103",
+    "name": "Zéroïd GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-104",
+    "name": "Mouscoto GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-105",
+    "name": "Engloutyran GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-106",
+    "name": "Katagami GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-107",
+    "name": "Noadkoko d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-108",
+    "name": "Silvallié GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-112",
+    "name": "Léviator GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-113",
+    "name": "Grolem d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-114",
+    "name": "Zéroïd GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-115",
+    "name": "Mouscoto GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-116",
+    "name": "Engloutyran GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-117",
+    "name": "Katagami GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-118",
+    "name": "Noadkoko d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-119",
+    "name": "Silvallié GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-18",
+    "name": "Léviator GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-34",
+    "name": "Grolem d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-49",
+    "name": "Zéroïd GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-57",
+    "name": "Mouscoto GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-63",
+    "name": "Engloutyran GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-63a",
+    "name": "Engloutyran-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-70",
+    "name": "Katagami GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-74",
+    "name": "Noadkoko d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm4-90",
+    "name": "Silvallié GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-100",
+    "name": "Dialga GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-101",
+    "name": "Palkia GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-116",
+    "name": "Silvallié GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-13",
+    "name": "Phyllali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-139",
+    "name": "Phyllali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-140",
+    "name": "Cancrelove GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-141",
+    "name": "Givrali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-142",
+    "name": "Câblifère GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-143",
+    "name": "Necrozma Ailes de l’Aurore GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-144",
+    "name": "Bamboiselle GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-145",
+    "name": "Necrozma Crinière du Couchant GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-146",
+    "name": "Dialga GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-147",
+    "name": "Palkia GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-157",
+    "name": "Phyllali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-158",
+    "name": "Cancrelove GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-159",
+    "name": "Givrali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-160",
+    "name": "Câblifère GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-161",
+    "name": "Necrozma Ailes de l’Aurore GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-162",
+    "name": "Bamboiselle GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-163",
+    "name": "Necrozma Crinière du Couchant GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-164",
+    "name": "Dialga GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-165",
+    "name": "Palkia GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-172",
+    "name": "Lunala GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-173",
+    "name": "Solgaleo GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-39",
+    "name": "Givrali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-63",
+    "name": "Necrozma Ailes de l’Aurore GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm5-90",
+    "name": "Necrozma Crinière du Couchant GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-119",
+    "name": "Palkia GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-120",
+    "name": "Amphinobi GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-121",
+    "name": "Mandrillon GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-122",
+    "name": "Lucario GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-123",
+    "name": "Zygarde GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-124",
+    "name": "Yveltal GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-125",
+    "name": "Dialga GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-126",
+    "name": "Xerneas GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-127",
+    "name": "Ultra-Necrozma GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-132",
+    "name": "Palkia GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-133",
+    "name": "Amphinobi GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-134",
+    "name": "Mandrillon GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-135",
+    "name": "Lucario GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-136",
+    "name": "Zygarde GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-137",
+    "name": "Yveltal GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-138",
+    "name": "Dialga GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-139",
+    "name": "Xerneas GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-140",
+    "name": "Ultra-Necrozma GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-20",
+    "name": "Palkia GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-24",
+    "name": "Amphinobi GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-56",
+    "name": "Mandrillon GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-73",
+    "name": "Zygarde GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-79",
+    "name": "Yveltal GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-82",
+    "name": "Dialga GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-90",
+    "name": "Xerneas GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm6-95",
+    "name": "Ultra-Necrozma GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-102",
+    "name": "Ama-Ama GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-109",
+    "name": "Rayquaza GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-14",
+    "name": "Tengalice GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-152",
+    "name": "Tengalice GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-153",
+    "name": "Braségali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-154",
+    "name": "Artikodin GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-155",
+    "name": "Électrode GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-156",
+    "name": "M. Mime GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-157",
+    "name": "Branette GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-158",
+    "name": "Cizayox GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-159",
+    "name": "Ama-Ama GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-160",
+    "name": "Rayquaza GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-169",
+    "name": "Tengalice GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-170",
+    "name": "Braségali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-171",
+    "name": "Artikodin GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-172",
+    "name": "Électrode GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-173",
+    "name": "M. Mime GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-174",
+    "name": "Branette GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-175",
+    "name": "Cizayox GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-176",
+    "name": "Ama-Ama GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-177",
+    "name": "Rayquaza GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-28",
+    "name": "Braségali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-31",
+    "name": "Artikodin GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-48",
+    "name": "Électrode GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-56",
+    "name": "M. Mime GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-66",
+    "name": "Branette GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-85",
+    "name": "Rattatac d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7-90",
+    "name": "Cizayox GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7.5-11",
+    "name": "Reshiram GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7.5-18",
+    "name": "Hyporoi GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7.5-37",
+    "name": "Dracolosse GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7.5-41",
+    "name": "Altaria GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7.5-44",
+    "name": "Drattak GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7.5-48",
+    "name": "Kyurem Blanc GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7.5-65",
+    "name": "Reshiram GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7.5-66",
+    "name": "Hyporoi GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7.5-67",
+    "name": "Dracolosse GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7.5-68",
+    "name": "Altaria GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7.5-71",
+    "name": "Reshiram GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7.5-72",
+    "name": "Altaria GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7.5-73",
+    "name": "Drattak GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7.5-74",
+    "name": "Kyurem Blanc GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm7.5-78",
+    "name": "Ultra-Necrozma GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-121",
+    "name": "Tyranocif GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-130",
+    "name": "Genesect GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-132",
+    "name": "Feunard d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-149",
+    "name": "Mimiqui GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-159",
+    "name": "Lugia GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-17",
+    "name": "Caratroc GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-195",
+    "name": "Caratroc GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-196",
+    "name": "Jungko GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-197",
+    "name": "Viridium GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-198",
+    "name": "Volcaropod GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-199",
+    "name": "Pierroteknik GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-200",
+    "name": "Suicune GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-201",
+    "name": "Zeraora GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-202",
+    "name": "Cryptéro GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-203",
+    "name": "Tyranocif GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-204",
+    "name": "Genesect GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-205",
+    "name": "Feunard d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-206",
+    "name": "Mimiqui GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-207",
+    "name": "Lugia GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-215",
+    "name": "Caratroc GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-216",
+    "name": "Jungko GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-217",
+    "name": "Viridium GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-218",
+    "name": "Volcaropod GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-219",
+    "name": "Pierroteknik GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-22",
+    "name": "Jungko GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-220",
+    "name": "Suicune GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-221",
+    "name": "Zeraora GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-222",
+    "name": "Cryptéro GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-223",
+    "name": "Tyranocif GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-224",
+    "name": "Genesect GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-225",
+    "name": "Feunard d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-226",
+    "name": "Mimiqui GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-227",
+    "name": "Lugia GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-34",
+    "name": "Viridium GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-44",
+    "name": "Volcaropod GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-52",
+    "name": "Pierroteknik GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-60",
+    "name": "Suicune GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-86",
+    "name": "Zeraora GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm8-98",
+    "name": "Cryptéro GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm9-1",
+    "name": "Celebi et Florizarre GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-106",
+    "name": "Cobaltium GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm9-113",
+    "name": "Latias et Latios GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-120",
+    "name": "Évoli et Ronflex GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-159",
+    "name": "Celebi et Florizarre GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-160",
+    "name": "Magicarpe et Wailord GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-161",
+    "name": "Magicarpe et Wailord GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-162",
+    "name": "Pikachu et Zekrom GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-163",
+    "name": "Pharamp GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm9-164",
+    "name": "Ectoplasma et Mimiqui GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-165",
+    "name": "Ectoplasma et Mimiqui GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-166",
+    "name": "Hoopa GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm9-167",
+    "name": "Félinferno GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm9-168",
+    "name": "Cobaltium GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm9-169",
+    "name": "Latias et Latios GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-170",
+    "name": "Latias et Latios GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-171",
+    "name": "Évoli et Ronflex GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-182",
+    "name": "Celebi et Florizarre GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-183",
+    "name": "Magicarpe et Wailord GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-184",
+    "name": "Pikachu et Zekrom GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-185",
+    "name": "Pharamp GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm9-186",
+    "name": "Ectoplasma et Mimiqui GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-187",
+    "name": "Hoopa GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm9-188",
+    "name": "Félinferno GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm9-189",
+    "name": "Cobaltium GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm9-190",
+    "name": "Latias et Latios GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-191",
+    "name": "Évoli et Ronflex GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-33",
+    "name": "Pikachu et Zekrom GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-43",
+    "name": "Pharamp GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm9-53",
+    "name": "Ectoplasma et Mimiqui GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "sm9-67",
+    "name": "M. Mime GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm9-82",
+    "name": "Lougaroc GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm9-96",
+    "name": "Hoopa GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sm9-97",
+    "name": "Félinferno GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV46",
+    "name": "Phyllali-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV47",
+    "name": "Archéduc-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV48",
+    "name": "Sarmuraï-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV49",
+    "name": "Dracaufeu-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV50",
+    "name": "Ho-Oh-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV51",
+    "name": "Reshiram-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV52",
+    "name": "Boumata-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV53",
+    "name": "Feunard d’Alola-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV54",
+    "name": "Artikodin-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV55",
+    "name": "Givrali-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV56",
+    "name": "Amphinobi-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV57",
+    "name": "Électrode-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV58",
+    "name": "Câblifère-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV59",
+    "name": "Mewtwo-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV60",
+    "name": "Mentali-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV61",
+    "name": "Branette-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV62",
+    "name": "Zéroïd-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV63",
+    "name": "Mandrillon-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV64",
+    "name": "Lucario-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV65",
+    "name": "Zygarde-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV66",
+    "name": "Lougaroc-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV67",
+    "name": "Lougaroc-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV68",
+    "name": "Mouscoto-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV69",
+    "name": "Noctali-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV70",
+    "name": "Darkrai-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV71",
+    "name": "Engloutyran-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV72",
+    "name": "Cizayox-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV73",
+    "name": "Katagami-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV74",
+    "name": "Ama-Ama-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV75",
+    "name": "Gardevoir-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV76",
+    "name": "Nymphali-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV77",
+    "name": "Altaria-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV78",
+    "name": "Bruyverne-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV79",
+    "name": "Silvallié-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV80",
+    "name": "Draïeul-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV91",
+    "name": "Tokotoro-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV92",
+    "name": "Tokopisco-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV93",
+    "name": "Tokorico-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "sma-SV94",
+    "name": "Tokopiyon-GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM05",
+    "name": "Ronflex GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM100",
+    "name": "Lucario GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM101",
+    "name": "Necrozma Ailes de l’Aurore GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM102",
+    "name": "Necrozma Crinière du Couchant GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM121",
+    "name": "Raikou GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM122",
+    "name": "Zygarde GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM125",
+    "name": "Mandrillon GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM133",
+    "name": "Fulguris GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM134",
+    "name": "Boréas GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM14",
+    "name": "Lougaroc GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM146",
+    "name": "Phyllali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM147",
+    "name": "Givrali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM155",
+    "name": "Hyporoi GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM156",
+    "name": "Dracolosse GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM16",
+    "name": "Solgaleo GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM166",
+    "name": "Magicarpe et Wailord GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM167",
+    "name": "Celebi et Florizarre GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM168",
+    "name": "Pikachu et Zekrom GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM169",
+    "name": "Évoli et Ronflex GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM17",
+    "name": "Lunala GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM170",
+    "name": "Détective Pikachu",
+    "missing": [
+      "stage",
+      "illustrator"
+    ]
+  },
+  {
+    "id": "smp-SM171",
+    "name": "Pyroli GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM172",
+    "name": "Aquali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM173",
+    "name": "Voltali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM174",
+    "name": "Évoli GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM175",
+    "name": "Évoli GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM176",
+    "name": "Évoli GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM178",
+    "name": "Melmetal GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM179",
+    "name": "Volcanion",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM180",
+    "name": "Ama-Ama",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM181",
+    "name": "Melmetal",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM182",
+    "name": "Persian",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM183",
+    "name": "Pikachu",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM184",
+    "name": "Évoli",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM187",
+    "name": "Ossatueur d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM188",
+    "name": "Kangourex GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM189",
+    "name": "Tortank GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM190",
+    "name": "Détective Pikachu",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM191",
+    "name": "Mewtwo et Mew GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM192",
+    "name": "Lucario et Melmetal GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM193",
+    "name": "Carchacrok et Giratina GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM195",
+    "name": "Dracaufeu GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM196",
+    "name": "Mewtwo GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM197",
+    "name": "Amphinobi GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM201",
+    "name": "Reshiram et Dracaufeu GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM210",
+    "name": "Sulfura, Électhor et Artikodin GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM217",
+    "name": "Desséliande et Noctunoir GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM218",
+    "name": "Mouscoto",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM219",
+    "name": "Entei",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM220",
+    "name": "Phione",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM222",
+    "name": "Magirêve",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM223",
+    "name": "Terrakium",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM224",
+    "name": "Celebi",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM226",
+    "name": "Dracaufeu",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM227",
+    "name": "Pikachu",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM228",
+    "name": "Armored Mewtwo",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM229",
+    "name": "Florizarre et Vipélierre GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM230",
+    "name": "Dracaufeu et Roussil GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM232",
+    "name": "Pikachu GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM233",
+    "name": "Évoli GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM234",
+    "name": "Pikachu",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM235",
+    "name": "Évoli",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM236",
+    "name": "Sablaireau d’Alola GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM237",
+    "name": "Phyllali",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM238",
+    "name": "Givrali",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM239",
+    "name": "Mégapagos GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM240",
+    "name": "Mentali et Deoxys GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM241",
+    "name": "Noctali et Darkrai GX",
+    "missing": [
+      "stage",
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM242",
+    "name": "Évoli GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM243",
+    "name": "Regigigas",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM244",
+    "name": "Capumain",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM247",
+    "name": "Reshiram et Dracaufeu GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM248",
+    "name": "Pikachu et Zekrom GX",
+    "missing": [
+      "single_pokedex"
+    ]
+  },
+  {
+    "id": "smp-SM32",
+    "name": "Tokotoro GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM33",
+    "name": "Tokorico GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM34",
+    "name": "Chelours GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM35",
+    "name": "Mentali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM36",
+    "name": "Noctali GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM37",
+    "name": "Archéduc GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM38",
+    "name": "Félinferno GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM39",
+    "name": "Oratoria GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM50",
+    "name": "Tokorico GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM56",
+    "name": "Sucreine GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM57",
+    "name": "Ho-Oh GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM58",
+    "name": "Necrozma GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM59",
+    "name": "Marshadow GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM60",
+    "name": "Dracaufeu GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM62",
+    "name": "Sarmuraï GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM63",
+    "name": "Malamandre GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM66",
+    "name": "Cancrelove GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM67",
+    "name": "Bamboiselle GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM68",
+    "name": "Câblifère GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM69",
+    "name": "Mouscoto GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM71",
+    "name": "Ékaïser GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM80",
+    "name": "Ho-Oh GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM84",
+    "name": "Zoroark GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM90",
+    "name": "Raichu GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "smp-SM91",
+    "name": "Silvallié GX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "swshp-SWSH062",
+    "name": "Pikachu VMAX",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH136",
+    "name": "Mimiqui",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH137",
+    "name": "Salarsen lumineux",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH138",
+    "name": "Trioxhydre C",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH139",
+    "name": "Pikachu V-UNION",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH140",
+    "name": "Pikachu V-UNION",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH141",
+    "name": "Pikachu V-UNION",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH142",
+    "name": "Pikachu V-UNION",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH143",
+    "name": "Pikachu V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH145",
+    "name": "Pikachu V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH153",
+    "name": "Pikachu",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH154",
+    "name": "Dracolosse V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH168",
+    "name": "Plumeline",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH169",
+    "name": "Concombaffe",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH170",
+    "name": "Deoxys",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH171",
+    "name": "Latias",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH172",
+    "name": "Gruikui",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH173",
+    "name": "Zébibron",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH174",
+    "name": "Mentali",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH175",
+    "name": "Évoli",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH176",
+    "name": "Hoopa V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH179",
+    "name": "Pyroli V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH180",
+    "name": "Pyroli VMAX",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH181",
+    "name": "Aquali V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH182",
+    "name": "Aquali VMAX",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH183",
+    "name": "Voltali V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH184",
+    "name": "Voltali VMAX",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH185",
+    "name": "Sulfura",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH186",
+    "name": "Lucario",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH187",
+    "name": "Léopardus",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH188",
+    "name": "Castorno",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH189",
+    "name": "Pomdrapi",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH190",
+    "name": "Évoli",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH191",
+    "name": "Phyllali",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH192",
+    "name": "Givrali",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH193",
+    "name": "Ixon de Galar",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH194",
+    "name": "Phyllali V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH195",
+    "name": "Phyllali VSTAR",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH196",
+    "name": "Givrali V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH197",
+    "name": "Givrali VSTAR",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH198",
+    "name": "Pikachu V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH199",
+    "name": "Lougaroc V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH200",
+    "name": "Corvaillus V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH201",
+    "name": "Mentali V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH202",
+    "name": "Nymphali V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH203",
+    "name": "Noctali V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH204",
+    "name": "Arceus V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH205",
+    "name": "Paragruel de Hisui",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH206",
+    "name": "Cerbyllin",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH207",
+    "name": "Clamiral de Hisui",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH208",
+    "name": "Magnézone",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH209",
+    "name": "Toxizap",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH210",
+    "name": "Plumeline",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH211",
+    "name": "Nymphali",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH212",
+    "name": "Évoli",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH213",
+    "name": "Lucario V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH214",
+    "name": "Lucario VSTAR",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH215",
+    "name": "Morpeko V-UNION",
+    "missing": [
+      "types",
+      "stage",
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH216",
+    "name": "Morpeko V-UNION",
+    "missing": [
+      "types",
+      "stage",
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH217",
+    "name": "Morpeko V-UNION",
+    "missing": [
+      "types",
+      "stage",
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH218",
+    "name": "Morpeko V-UNION",
+    "missing": [
+      "types",
+      "stage",
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH219",
+    "name": "Fulgudog V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH220",
+    "name": "Brindibou",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH221",
+    "name": "Héricendre",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH222",
+    "name": "Moustillon",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH223",
+    "name": "Mewtwo V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH224",
+    "name": "Melmetal V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH225",
+    "name": "Noadkoko d'Alola V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH229",
+    "name": "Mewtwo V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH230",
+    "name": "Évoli Radieux",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH231",
+    "name": "Bulbizarre",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH232",
+    "name": "Salamèche",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH233",
+    "name": "Carapuce",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH234",
+    "name": "Pikachu",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH235",
+    "name": "Dracolosse V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH236",
+    "name": "Dracolosse VSTAR",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH237",
+    "name": "Typhlosion de Hisui V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH238",
+    "name": "Archéduc de Hisui V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH239",
+    "name": "Clamiral de Hisui V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH240",
+    "name": "Écayon",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH241",
+    "name": "Ectoplasma",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH242",
+    "name": "Guérilande",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH243",
+    "name": "Mackogneur",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH244",
+    "name": "Flambino",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH245",
+    "name": "Cradopaud",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH246",
+    "name": "Dimoret",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH247",
+    "name": "Regigigas",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH248",
+    "name": "Hachécateur V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH249",
+    "name": "Hachécateur VSTAR",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH250",
+    "name": "Luminéon V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH252",
+    "name": "Simiabraz V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH253",
+    "name": "Palkia Originel V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH254",
+    "name": "Palkia Originel VSTAR",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH255",
+    "name": "Dialga Originel V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH256",
+    "name": "Dialga Originel VSTAR",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH257",
+    "name": "Motisma V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH258",
+    "name": "Gallame V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH259",
+    "name": "Giratina V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH260",
+    "name": "Dracaufeu V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH261",
+    "name": "Dracaufeu VMAX",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH262",
+    "name": "Dracaufeu VSTAR",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH263",
+    "name": "Zeraora V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH264",
+    "name": "Zeraora VMAX",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH265",
+    "name": "Zeraora VSTAR",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH266",
+    "name": "Deoxys V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH267",
+    "name": "Deoxys VMAX",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH268",
+    "name": "Deoxys VSTAR",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH269",
+    "name": "Héliatronc",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH270",
+    "name": "Galopa",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH271",
+    "name": "Kirlia",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH272",
+    "name": "Aéroptéryx",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH273",
+    "name": "Bargantua de Hisui",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH274",
+    "name": "Kranidos",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH275",
+    "name": "Manaphy",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH276",
+    "name": "Togetic",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH277",
+    "name": "Gorythmic",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH278",
+    "name": "Pyrobut",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH279",
+    "name": "Lézargus",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH280",
+    "name": "Regieleki V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH281",
+    "name": "Regidrago V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH285",
+    "name": "Pikachu V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH286",
+    "name": "Pikachu VMAX",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH291",
+    "name": "Lucario VSTAR",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH294",
+    "name": "Électrode de Hisui V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH295",
+    "name": "Viridium V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH297",
+    "name": "Zoroark de Hisui V",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "swshp-SWSH298",
+    "name": "Zoroark de Hisui VSTAR",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-b-1",
+    "name": "Passerouge",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-b-11",
+    "name": "Monorpale",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-b-12",
+    "name": "Keunotor",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-b-13",
+    "name": "Scalpion",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-b-14",
+    "name": "Dimoclès",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-b-15",
+    "name": "Parecool",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-b-16",
+    "name": "Scalproie",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-b-17",
+    "name": "Ratentif",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-b-21",
+    "name": "Scalpion",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-b-23",
+    "name": "Dimoclès",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-b-26",
+    "name": "Parecool",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-b-27",
+    "name": "Monorpale",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-b-28",
+    "name": "Vigoroth",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-b-30",
+    "name": "Scalproie",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-b-4",
+    "name": "Vigoroth",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latia-11",
+    "name": "Nénupiot",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latia-12",
+    "name": "Bouldeneu",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latia-13",
+    "name": "Saquedeneu",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latia-16",
+    "name": "Arakdo",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latia-18",
+    "name": "Massko",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latia-21",
+    "name": "Lombre",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latia-23",
+    "name": "Nénupiot",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latia-24",
+    "name": "Arcko",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latia-25",
+    "name": "Bouldeneu",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latia-26",
+    "name": "Saquedeneu",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latia-27",
+    "name": "Massko",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latia-6",
+    "name": "Lombre",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latia-7",
+    "name": "Arcko",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latio-1",
+    "name": "Skitty",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latio-11",
+    "name": "Machoc",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latio-12",
+    "name": "Solaroc",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latio-14",
+    "name": "Machopeur",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latio-15",
+    "name": "Rhinocorne",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latio-19",
+    "name": "Delcatty",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latio-22",
+    "name": "Machopeur",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latio-23",
+    "name": "Rhinocorne",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latio-24",
+    "name": "Delcatty",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latio-25",
+    "name": "Rhinoféros",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latio-26",
+    "name": "Solaroc",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latio-27",
+    "name": "Skitty",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latio-28",
+    "name": "Machoc",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-latio-4",
+    "name": "Rhinoféros",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-n-1",
+    "name": "Spoink",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-n-11",
+    "name": "Pitrouille",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-n-12",
+    "name": "Sonistrelle",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-n-16",
+    "name": "Abo",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-n-18",
+    "name": "Pitrouille",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-n-2",
+    "name": "Banshitrouye",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-n-20",
+    "name": "Couafarel",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-n-23",
+    "name": "Sonistrelle",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-n-3",
+    "name": "Arbok",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-n-4",
+    "name": "Sapereau",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-p-1",
+    "name": "Chaglam",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-p-12",
+    "name": "Zébibron",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-p-15",
+    "name": "Élektek",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-p-19",
+    "name": "Chaffreux",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-p-23",
+    "name": "Élektek",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-p-24",
+    "name": "Chaffreux",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-p-25",
+    "name": "Élekable",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-p-26",
+    "name": "Zébibron",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-p-27",
+    "name": "Chaglam",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-p-4",
+    "name": "Élekable",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-su-11",
+    "name": "Grenousse",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-su-12",
+    "name": "Poissoroy",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-su-13",
+    "name": "Poissirène",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-su-16",
+    "name": "Tiplouf",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-su-18",
+    "name": "Lakmécygne",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-su-21",
+    "name": "Croâporal",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-su-23",
+    "name": "Grenousse",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-su-24",
+    "name": "Couaneton",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-su-25",
+    "name": "Poissoroy",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-su-26",
+    "name": "Poissirène",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-su-27",
+    "name": "Lakmécygne",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-su-6",
+    "name": "Croâporal",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-su-7",
+    "name": "Couaneton",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-sy-1",
+    "name": "Passerouge",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-sy-11",
+    "name": "Snubbull",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-sy-13",
+    "name": "Évoli",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-sy-14",
+    "name": "Granbull",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-sy-16",
+    "name": "Couafarel",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-sy-19",
+    "name": "Passerouge",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-sy-21",
+    "name": "Évoli",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-sy-22",
+    "name": "Couafarel",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-sy-27",
+    "name": "Snubbull",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-sy-29",
+    "name": "Granbull",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-w-1",
+    "name": "Sucroquin",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-w-11",
+    "name": "Roucool",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-w-12",
+    "name": "Rondoudou",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-w-13",
+    "name": "Mélofée",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-w-14",
+    "name": "Grodoudou",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-w-16",
+    "name": "Mélodelfe",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-w-18",
+    "name": "Sucroquin",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-w-19",
+    "name": "Mélofée",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-w-2",
+    "name": "Roucoups",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-w-23",
+    "name": "Roucoups",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-w-25",
+    "name": "Rondoudou",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-w-28",
+    "name": "Mélodelfe",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-w-29",
+    "name": "Roucool",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-w-30",
+    "name": "Grodoudou",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "tk-xy-w-4",
+    "name": "Fouinette",
+    "missing": [
+      "illustrator"
+    ]
+  },
+  {
+    "id": "xya-28a",
+    "name": "Voltali-ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xya-54a",
+    "name": "Zygarde-ex",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY07",
+    "name": "Xerneas EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY08",
+    "name": "Yveltal EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY09",
+    "name": "Carchacrok EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY102",
+    "name": "Dragmara EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY103",
+    "name": "Mysdibule EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY106",
+    "name": "Léviator EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY107",
+    "name": "Mewtwo EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY108",
+    "name": "Mackogneur EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY121",
+    "name": "Dracaufeu EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY122",
+    "name": "Tortank EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY123",
+    "name": "Florizarre EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY124",
+    "name": "Pikachu EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY125",
+    "name": "Mewtwo-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY126",
+    "name": "Mew-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY133",
+    "name": "Sachanobi EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY148",
+    "name": "Shaymin-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY149",
+    "name": "Xerneas EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY150",
+    "name": "Yveltal EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY150a",
+    "name": "Yveltal-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY151",
+    "name": "Zygarde EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY157",
+    "name": "Dardargnan-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY167",
+    "name": "Carchacrok-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY17",
+    "name": "Dracaufeu EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY170",
+    "name": "Drattak-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY173",
+    "name": "Volcanion-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY174",
+    "name": "Pikachu-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY175",
+    "name": "Magearna-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY18",
+    "name": "Blindépique EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY183",
+    "name": "Mewtwo-EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY19",
+    "name": "Goupelin EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY20",
+    "name": "Amphinobi EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY25",
+    "name": "Crocorible EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY28",
+    "name": "Florizarre EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY29",
+    "name": "Dracaufeu EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY30",
+    "name": "Tortank EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY34",
+    "name": "Métalosse EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY41",
+    "name": "Kyogre EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY42",
+    "name": "Groudon EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY43",
+    "name": "Diancie EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY45",
+    "name": "Gallame EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY53",
+    "name": "Jungko EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY54",
+    "name": "Braségali EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY55",
+    "name": "Laggron EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY62",
+    "name": "Absol EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY66",
+    "name": "Rayquaza EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY69",
+    "name": "Rayquaza EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY70",
+    "name": "Rexillius EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY71",
+    "name": "Hoopa EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY72",
+    "name": "Latios EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY73",
+    "name": "Rayquaza EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY84",
+    "name": "Pikachu EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY85",
+    "name": "Hoopa EX",
+    "missing": [
+      "stage"
+    ]
+  },
+  {
+    "id": "xyp-XY97",
+    "name": "Ptéra EX",
+    "missing": [
+      "stage"
+    ]
+  }
+]

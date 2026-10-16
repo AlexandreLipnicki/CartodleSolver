@@ -11,6 +11,7 @@ from .settings import settings
 def rules():
     return json.loads(settings.rules_path.read_text(encoding='utf-8'))
 
+@lru_cache(maxsize=8192)
 def norm(s):
     return ' '.join(''.join(ch for ch in unicodedata.normalize('NFKD', s) if not unicodedata.combining(ch)).casefold().split()) if s else None
 
@@ -74,9 +75,12 @@ def compare(target, guess, field, clue):
 
 def complete(c):
     return bool(c.get('name') and len(c.get('pokedex',[]))==1 and c.get('types') and
-                all(c.get(k) is not None for k in ('hp','stage','rarity','set_id','series_id','release_date','illustrator')))
+                all(c.get(k) is not None for k in ('hp','stage','rarity','set_id','set_name','series_id','release_date','illustrator')))
 
 def filter_cards(cards, attempts, by_id):
+    from .search_index import IndexedCards
+    if isinstance(cards,IndexedCards):
+        return cards.filtered(attempts,by_id)
     valid, uncertain = [], []
     prepared=[(by_id[a['card_id']], Clues.model_validate(a['clues'])) for a in attempts]
     for c in cards:
@@ -92,37 +96,45 @@ def filter_cards(cards, attempts, by_id):
             (uncertain if unknown else valid).append(c)
     return valid,uncertain
 
+def features(c):
+    return (c['pokedex'][0], frozenset(c['types']), c['stage'], c['hp'], c['rarity'],
+            c['set_id'], series(c), c['release_date'], norm(c['illustrator']))
+
+
+def _outcome(t,g,groups,order):
+    # All expensive string normalization and type-set construction occurs once per card.
+    dex = (t[0]>g[0])-(t[0]<g[0])
+    types = 'g' if t[1]==g[1] else 'y' if t[1]&g[1] else 'x'
+    delta=t[3]-g[3]
+    rarity=('g' if t[4]==g[4] else 'y' if t[4] in groups and g[4] in groups and groups[t[4]]==groups[g[4]] else 'different',
+            (order[t[4]]>order[g[4]])-(order[t[4]]<order[g[4]]) if t[4] in order and g[4] in order else None)
+    extension=('g' if t[5]==g[5] else 'y' if t[6]==g[6] else 'x', (t[7]>g[7])-(t[7]<g[7]))
+    return (dex, types, t[2]==g[2], ('g' if delta==0 else 'y' if abs(delta)<=20 else 'x', (delta>0)-(delta<0)),
+            rarity, extension, t[8]==g[8])
+
+
 def outcome(t,g):
-    """Signature for information scoring, using only known rule distinctions."""
-    sig=[]
-    a,b=t['pokedex'][0],g['pokedex'][0]; sig.append(('eq' if a==b else 'up' if a>b else 'down'))
-    a,b=set(t['types']),set(g['types']); sig.append('g' if a==b else 'y' if a&b else 'x')
-    sig.append(t['stage']==g['stage'])
-    d=t['hp']-g['hp']; sig.append(('g' if d==0 else 'y' if abs(d)<=20 else 'x', (d>0)-(d<0)))
-    groups=rules().get('rarity_groups',{}); order=rules().get('rarity_order',{})
-    a,b=t['rarity'],g['rarity']
-    sig.append(('g' if a==b else 'y' if a in groups and b in groups and groups[a]==groups[b] else 'different',
-                (order[a]>order[b])-(order[a]<order[b]) if a in order and b in order else None))
-    sig.append(('g' if t['set_id']==g['set_id'] else 'y' if series(t)==series(g) else 'x',
-                (t['release_date']>g['release_date'])-(t['release_date']<g['release_date'])))
-    sig.append(norm(t['illustrator'])==norm(g['illustrator']))
-    return tuple(sig)
+    return _outcome(features(t),features(g),rules().get('rarity_groups',{}),rules().get('rarity_order',{}))
+
 
 def sample(items,n):
     return items if len(items)<=n else [items[i*len(items)//n] for i in range(n)]
 
 def recommend(valid, attempts):
     if len(valid)==1: return valid[0]
+    if not attempts:
+        return next((c for c in valid if c['id']=='xy10-63'),None)
     tried={a['card_id'] for a in attempts}
     pool=sorted((c for c in valid if c['id'] not in tried),key=lambda c:c['id'])
     if not pool: return None
-    if not attempts:
-        return next((c for c in pool if c['id']=='xy10-63'), None)
     if len(pool)==1: return pool[0]
     # Bounded deterministic approximation for large sets; exact below 160 guesses/512 targets.
     targets=sample(sorted(valid,key=lambda c:c['id']),512)
+    encoded=[features(t) for t in targets]
+    groups,order=rules().get('rarity_groups',{}),rules().get('rarity_order',{})
     def score(g):
-        counts=Counter(outcome(t,g) for t in targets)
+        guess=features(g)
+        counts=Counter(_outcome(t,guess,groups,order) for t in encoded)
         entropy=-sum((n/len(targets))*math.log2(n/len(targets)) for n in counts.values())
         return (entropy, bool(g.get('image_url')), -len(g['name']))
     return max(sample(pool,160),key=score)

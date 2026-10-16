@@ -8,6 +8,9 @@ storage/*
 !storage/.gitkeep
 data/*
 !data/.gitkeep
+!data/catalog.fr.sqlite3
+!data/catalog.fr.manifest.json
+!data/catalog.fr.quality.json
 playwright-report/
 test-results/
 *.tsbuildinfo
