@@ -11,7 +11,6 @@ class Settings(BaseSettings):
     ollama_model: str = 'qwen2.5vl:7b'
     ollama_timeout: float = 120
     ollama_concurrency: int = 1
-    invite_code: str = ''
     secure_cookies: bool = False
     allowed_origins: str = ''
     max_upload_mb: int = 8

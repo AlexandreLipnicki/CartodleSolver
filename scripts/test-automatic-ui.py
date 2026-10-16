@@ -57,7 +57,7 @@ with socket.socket() as sock:
     sock.bind(('127.0.0.1',0));port=sock.getsockname()[1]
 with tempfile.TemporaryDirectory(prefix='cartosolver-auto-browser-') as folder:
     env=dict(os.environ,CARTO_STORAGE=folder,CARTO_OLLAMA_URL=f'http://127.0.0.1:{server.server_port}',
-             CARTO_BROWSER_URL=f'http://127.0.0.1:{port}',CARTO_BROWSER_CODE_FILE=str(Path(folder)/'access-code.txt'),CARTO_TEST_REAL_PIPELINE='1')
+             CARTO_BROWSER_URL=f'http://127.0.0.1:{port}',CARTO_TEST_REAL_PIPELINE='1')
     with (Path(folder)/'server.log').open('w') as log:
         proc=subprocess.Popen([str(ROOT/'.venv'/('Scripts/python.exe' if os.name=='nt' else 'bin/python')),'-m','uvicorn','backend.app.main:app','--host','127.0.0.1','--port',str(port)],cwd=ROOT,env=env,stdout=log,stderr=log)
         try:

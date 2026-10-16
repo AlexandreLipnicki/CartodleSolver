@@ -48,6 +48,3 @@ class BatchInput(Strict):
     game_id: str = Field(min_length=1,max_length=100)
     attempts: list[AttemptInput] = Field(min_length=1, max_length=30)
     expected_version: int = Field(ge=0)
-
-class LoginInput(Strict):
-    code: str = Field(min_length=1, max_length=256)

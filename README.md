@@ -1,6 +1,6 @@
 # CartoSolver
 
-Application privée de résolution CartoDle : **Nouvelle partie → Lucario → capture → Ctrl+V → prochaine carte**.
+Application web de résolution CartoDle : **Nouvelle partie → Lucario → capture → Ctrl+V → prochaine carte**.
 React/TypeScript, FastAPI, SQLite et lecture d’images par Ollama. La déduction n’utilise aucun modèle IA.
 
 ## Démarrage sur Windows
@@ -10,7 +10,7 @@ Prérequis : **Python 3.11+**, **Node.js 22 ou 24 LTS** (npm inclus) et Ollama a
 1. Téléchargez la dernière version du dépôt et conservez les fichiers `data/catalog.fr.sqlite3`, `data/catalog.fr.manifest.json` et `data/catalog.fr.quality.json` ensemble. **Aucun téléchargement ni ajout manuel de TCGdex n’est nécessaire.** Le catalogue contient 22 242 cartes avec un nom français, dont 18 838 Pokémon.
 2. Copiez `.env.example` en `.env` ; renseignez `CARTO_OLLAMA_MODEL` avec le nom exact d’un de vos modèles vision (`ollama list`). Le modèle par défaut peut être installé avec `ollama pull qwen2.5vl:7b`.
 3. Lancez Ollama, puis double-cliquez sur **`LANCER_CARTOSOLVER.bat`**.
-4. Attendez la compilation et l’import initial. La fenêtre du navigateur s’ouvre **uniquement lorsque le serveur répond**. Le code d’accès est dans `storage/access-code.txt` (ou la valeur que vous avez définie dans `CARTO_INVITE_CODE`). Ne partagez pas le dossier `storage`.
+4. Attendez la compilation et l’import initial. La fenêtre du navigateur s’ouvre **uniquement lorsque le serveur répond**. L’application s’affiche directement, sans compte ni code d’accès. Le navigateur reçoit automatiquement une session distincte.
 
 Le lanceur prépare `.venv`, installe les dépendances verrouillées, construit l’interface si nécessaire, vérifie la base et démarre un seul serveur qui sert l’interface et l’API. Il garde la véritable erreur visible si une étape échoue. Les lancements suivants conservent la base et les parties. Arrêt : Ctrl+C dans le terminal.
 
@@ -42,9 +42,11 @@ python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
 
 Pour le rechargement à chaud : backend avec `--reload`, puis `npm --prefix frontend run dev` dans un autre terminal. Le proxy Vite garde l’API sur la même origine. En développement HTTP uniquement, conservez `CARTO_SECURE_COOKIES=false`.
 
-## Utiliser le solveur : deux actions après connexion
+## Utiliser le solveur : accès direct, deux actions
 
-1. Cliquez sur **Nouvelle partie**. Lucario `xy10-63` apparaît immédiatement dans **Le fil de votre enquête**, avec ses sept résultats en attente. Aucun indice n’est inventé et le filtrage n’est pas modifié à ce stade.
+À la première visite, la partie est créée automatiquement.
+
+1. Cliquez sur **Nouvelle partie** pour recommencer. Lucario `xy10-63` apparaît immédiatement dans **Le fil de votre enquête**, avec ses sept résultats en attente. Aucun indice n’est inventé et le filtrage n’est pas modifié à ce stade.
 2. Jouez la carte proposée dans CartoDle, copiez sa capture de résultat puis faites **Ctrl+V** sur CartoSolver. La page récupère l’image, le serveur lit les résultats, vérifie les informations visibles contre la carte attendue, enregistre l’essai et affiche automatiquement la suivante dans le fil. Recommencez avec la nouvelle carte.
 
 Il n’y a aucun formulaire de confirmation, sélection d’impression, saisie manuelle, bouton d’import ou correction à effectuer. Le navigateur n’envoie pas d’essai manuel après la lecture : le serveur enregistre lui-même le résultat et calcule la prochaine carte dans une transaction.
@@ -55,7 +57,7 @@ Il n’y a aucun formulaire de confirmation, sélection d’impression, saisie m
 - Si la carte est différente, la capture illisible ou les indices contradictoires, **rien n’est ajouté**. Un message demande de recoller le résultat de la carte proposée. L’essai reste en attente.
 - Une seule carte compatible signifie « solution probable » : elle reste à jouer et son résultat peut encore être collé. La partie affiche « carte trouvée » après lecture des sept cases vertes, puis ne propose que Nouvelle partie.
 - Formats PNG/JPG/WEBP, 8 Mo et 20 mégapixels maximum. Ollama et un modèle vision opérationnels sont nécessaires pour lire les captures.
-- Le code d’accès protège l’application. Chaque navigateur a sa session persistante de 30 jours ; Nouvelle partie ne réinitialise pas les autres utilisateurs. L’essai en attente et le fil sont restaurés au rechargement.
+- L’accès est ouvert à toute personne qui peut joindre l’URL ou l’IP du serveur. Aucun code ni compte n’est demandé, même si une ancienne variable `CARTO_INVITE_CODE` reste dans votre `.env` : elle est ignorée. Chaque navigateur reçoit un cookie de session HttpOnly/SameSite strict de 30 jours. Nouvelle partie ne réinitialise pas les autres visiteurs ; l’essai en attente et le fil reviennent au rechargement.
 
 ## Catalogue fourni, import et persistance
 
@@ -98,20 +100,22 @@ Tout est côté serveur, dans `.env` : URL, modèle vision, timeout et concurren
 
 File limitée à 8 analyses, une analyse active par session, concurrence Ollama par défaut 1. Les requêtes HTTP restent disponibles pendant les lectures. Utilisez **un seul worker Uvicorn**, car la file et les limites sont en mémoire. Il ne s’agit pas d’un service distribué.
 
-## Partager avec quelques amis
+## Accès par IP ou URL
 
-### Option A recommandée : PC Windows + Cloudflare Tunnel
+Le lanceur écoute par défaut sur `0.0.0.0:8000`. Sur le même réseau local, ouvrez `http://IP_DU_PC:8000` depuis un autre appareil, après avoir autorisé l’application dans le pare-feu Windows si nécessaire. L’IP du PC est visible avec `ipconfig`. Pour HTTP, conservez `CARTO_SECURE_COOKIES=false`. Pour limiter volontairement le service à votre PC, utilisez `python scripts/run.py --host 127.0.0.1`.
+
+### Option A : PC Windows + Cloudflare Tunnel
 
 Le PC conserve l’application, SQLite et Ollama. Vos amis n’installent rien. Le PC doit rester allumé et connecté ; la latence dépend de votre modèle et de la connexion montante.
 
 1. Créez un tunnel nommé dans Cloudflare et associez un domaine que vous contrôlez à votre application. Configurez sa destination comme le service HTTP local sur le port 8000. Installez le connecteur `cloudflared` selon les instructions officielles Cloudflare.
-2. Définissez `CARTO_SECURE_COOKIES=true`, `CARTO_ALLOWED_ORIGINS=https://cartosolver.votre-domaine.fr` et un code d’invitation long et aléatoire dans `.env`. Redémarrez l’application. Avec les cookies Secure, utilisez désormais l’URL HTTPS pour la connexion.
-3. Restreignez aussi l’accès avec **Cloudflare Access** aux adresses e-mail autorisées. Exigez TLS sur le domaine public. Conservez le backend lié à `127.0.0.1`.
-4. Transmettez l’URL et le code aux personnes autorisées par un canal privé.
+2. Définissez `CARTO_SECURE_COOKIES=true`, `CARTO_ALLOWED_ORIGINS=https://cartosolver.votre-domaine.fr` dans `.env`. Redémarrez l’application. Avec les cookies Secure, utilisez l’URL HTTPS pour accéder à votre session.
+3. Conservez HTTPS sur le domaine public. Aucune règle Cloudflare Access n’est nécessaire pour ce mode ouvert ; une éventuelle protection configurée auparavant dans Cloudflare doit être retirée dans Cloudflare si vous voulez aussi supprimer son écran d’accès.
+4. Partagez l’URL : les visiteurs arrivent directement sur l’application, chacun avec sa propre partie.
 
-Aucune redirection de port sur la box. **Ne créez jamais de tunnel vers le port 11434.** Ollama doit rester lié à localhost. Le code de l’application ajoute une seconde protection ; Cloudflare Access est recommandé pour filtrer les visites avant le backend.
+Aucune redirection de port sur la box. **Ne créez jamais de tunnel vers le port 11434.** Ollama doit rester lié à localhost. L’application ne demande aucune authentification. Ollama reste un service interne, sans port public.
 
-Alternative : Tailscale Serve fournit une URL HTTPS privée aux membres de votre tailnet, avec ACL limitées. C’est simple, mais les amis doivent installer Tailscale et rejoindre le réseau : cela ne correspond donc pas au besoin « navigateur seulement » aussi bien que Cloudflare Access.
+Alternative : Tailscale Serve fournit une URL HTTPS privée aux membres de votre tailnet, avec ACL limitées. C’est simple, mais les amis doivent installer Tailscale et rejoindre le réseau : cela ne correspond donc pas au besoin « navigateur seulement » aussi bien qu’un tunnel public vers l’application.
 
 ### Option B : VPS + Ollama sur le PC
 
@@ -126,10 +130,9 @@ Le reverse proxy public expose seulement l’application, impose HTTPS et limite
 ```bash
 docker compose up --build -d
 docker compose exec ollama ollama pull qwen2.5vl:7b
-# Code généré : docker compose exec cartosolver cat /app/storage/access-code.txt
 ```
 
-Conservez le catalogue fourni dans `data/` avant le démarrage. Cette variante utilise **son propre Ollama dans Docker**, sans port publié, et ne remplace pas celui déjà installé sur Windows. Le modèle tourne sur CPU par défaut ; l’accélération GPU dépend de votre hôte et n’est pas configurée automatiquement. Les volumes nommés conservent SQLite et les modèles. Le port applicatif est publié uniquement sur la boucle locale pour le tunnel. Ne lancez pas `docker compose down -v` si vous voulez garder ces données. La configuration Compose a été validée (`docker compose config`). La construction a été tentée mais reste bloquée dans le moteur Docker de cette machine : échec DNS vers `deb.debian.org`. Son exécution complète n’a donc pas été validée ici.
+Conservez le catalogue fourni dans `data/` avant le démarrage. Cette variante utilise **son propre Ollama dans Docker**, sans port publié, et ne remplace pas celui déjà installé sur Windows. Le modèle tourne sur CPU par défaut ; l’accélération GPU dépend de votre hôte et n’est pas configurée automatiquement. Les volumes nommés conservent SQLite et les modèles. Le port applicatif 8000 est publié pour l’accès par IP ; aucun port Ollama n’est publié. Ne lancez pas `docker compose down -v` si vous voulez garder ces données. La configuration Compose a été validée (`docker compose config`). La construction a été tentée mais reste bloquée dans le moteur Docker de cette machine : échec DNS vers `deb.debian.org`. Son exécution complète n’a donc pas été validée ici.
 
 ## Tests et vérifications
 
@@ -146,9 +149,9 @@ python scripts/test-automatic-ui.py
 
 `TESTER_CARTOSOLVER.bat` lance les tests Python et la compilation. Le test navigateur utilise une base locale de développement et **crée une partie de test** ; ne le lancez pas contre une base partagée en production. Le contrôle navigateur simple simule une réponse serveur. `scripts/test-automatic-ui.py` démarre une application et une base temporaires, puis fait jouer une partie complète par collage natif avec un serveur HTTP Ollama simulé. Ce test ne modifie pas vos parties et ne valide pas la vision réelle du modèle.
 
-**66 tests automatisés passent.** Une simulation sur le catalogue complet a également retrouvé Pikachu `base1-58` en quatre essais via les routes HTTP du catalogue français, sans éliminer la cible à aucune étape. Ce cas ne garantit pas un nombre d’essais universel.
+**68 tests automatisés passent.** Une simulation sur le catalogue complet a également retrouvé Pikachu `base1-58` en quatre essais via les routes HTTP du catalogue français, sans éliminer la cible à aucune étape. Ce cas ne garantit pas un nombre d’essais universel.
 
-Vérifications exécutées dans cette machine : import complet de TCGdex, import d’une fixture officielle Lucario vers SQLite, règles et intersections, déduplication, contradictions atomiques, corrections, versions concurrentes, isolation de deux sessions, routes HTTP, attente immédiate de Lucario, enregistrement automatique côté serveur, refus des mauvaises cartes et valeurs, anciennes lignes et doublons, distinction solution probable/carte trouvée, validation stricte Ollama avec transport simulé, refus d’uploads invalides, build TypeScript/Vite, démarrage réel et contrôle du parcours dans Chromium desktop/mobile.
+Vérifications exécutées dans cette machine : import complet de TCGdex, import d’une fixture officielle Lucario vers SQLite, règles et intersections, déduplication, contradictions atomiques, corrections, versions concurrentes, accès anonyme sans code, réutilisation de session, isolation de deux navigateurs à la même IP, routes HTTP, attente immédiate de Lucario, enregistrement automatique côté serveur, refus des mauvaises cartes et valeurs, anciennes lignes et doublons, distinction solution probable/carte trouvée, validation stricte Ollama avec transport simulé, refus d’uploads invalides, build TypeScript/Vite, démarrage réel et contrôle du parcours dans Chromium desktop/mobile.
 
 **Non validés ici : lecture d’une vraie capture par votre modèle Ollama, lancement Windows natif et déploiement distant.** Aucun exemple de capture CartoDle n’a été fourni. Les illustrations sont bloquées par la politique réseau de cette machine tant que `assets.tcgdex.net` n’est pas autorisé ; le remplacement visuel a été vérifié. Le code de téléchargement et de cache est couvert avec un transport simulé.
 

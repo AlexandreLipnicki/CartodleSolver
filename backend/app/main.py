@@ -1,6 +1,5 @@
 import asyncio
 import hashlib
-import hmac
 import io
 import json
 import logging
@@ -19,7 +18,7 @@ from sqlalchemy import select, delete, update
 from starlette.concurrency import run_in_threadpool
 from .settings import ROOT, settings
 from .db import Session, init_db, UserSession, Game, Attempt, Meta
-from .models import BatchInput, LoginInput, FIELDS, AttemptInput
+from .models import BatchInput, FIELDS, AttemptInput
 from .catalog import catalog, pokemon_cards, search_cards
 from .engine import filter_cards, recommend, summarize, norm, complete, rules, compare
 from . import vision
@@ -32,16 +31,9 @@ tasks=set()
 reservations=set()
 
 
-def access_code():
-    if settings.invite_code: return settings.invite_code
-    p=settings.storage/'access-code.txt'
-    if not p.exists():
-        p.write_text(secrets.token_urlsafe(18),encoding='utf-8'); p.chmod(0o600)
-    return p.read_text(encoding='utf-8').strip()
-
 @asynccontextmanager
 async def lifespan(app):
-    init_db(); access_code()
+    init_db()
     with Session() as db:
         indexed=db.get(Meta,'import') is not None
     if settings.auto_import and ((settings.data/'catalog.fr.sqlite3').exists() or (not indexed and any(settings.data.rglob('*.ts')))):
@@ -96,7 +88,7 @@ def user(request:Request):
     digest=hashlib.sha256(token.encode()).hexdigest()
     with Session() as db:
         u=db.get(UserSession,digest)
-        if not u or u.expires<int(time.time()): raise HTTPException(401,'Connectez-vous avec votre code d’accès.')
+        if not u or u.expires<int(time.time()): raise HTTPException(401,'Session expirée. Rechargez la page.')
     return u
 
 def owned_game(db,u):
@@ -140,22 +132,20 @@ def health():
     active=sum(bool(c.get('active',True)) for c in catalog().values())
     return {'status':'ok','indexed':bool(report),'cards':active,'archived_cards':len(catalog())-active,'pokemon':len(pokemon_cards())}
 
-@app.post('/api/login')
-def login(body:LoginInput,request:Request,response:Response):
-    throttle(('login',request.client.host if request.client else 'unknown'),10,300)
-    # Fixed-length digest avoids leaking code length in comparison.
-    if not hmac.compare_digest(hashlib.sha256(body.code.encode()).digest(),hashlib.sha256(access_code().encode()).digest()):
-        raise HTTPException(401,'Code d’accès incorrect.')
+@app.post('/api/session')
+def open_session(request:Request,response:Response):
+    # Public access. The random cookie identifies a browser, never an IP address.
     existing=request.cookies.get(COOKIE,'')
     digest=hashlib.sha256(existing.encode()).hexdigest()
     with Session.begin() as db:
-        db.execute(delete(UserSession).where(UserSession.expires<int(time.time()),UserSession.game_id.is_(None)))
-        current=db.get(UserSession,digest)
-        if current and current.expires>int(time.time()): return {'ok':True}
+        current=db.get(UserSession,digest) if existing else None
+        if current and current.expires>int(time.time()):
+            return {'has_game':bool(current.game_id)}
+        throttle(('session',request.client.host if request.client else 'unknown'),60,300)
         token=secrets.token_urlsafe(32)
         db.add(UserSession(token_hash=hashlib.sha256(token.encode()).hexdigest(),expires=int(time.time())+30*86400))
     response.set_cookie(COOKIE,token,max_age=30*86400,httponly=True,secure=settings.secure_cookies,samesite='strict',path='/')
-    return {'ok':True}
+    return {'has_game':False}
 
 @app.post('/api/logout')
 def logout(response:Response,u=Depends(user)):
@@ -166,7 +156,7 @@ def logout(response:Response,u=Depends(user)):
 
 @app.get('/api/me')
 def me(u=Depends(user)):
-    return {'authenticated':True,'has_game':bool(u.game_id),'cards':len(pokemon_cards())}
+    return {'anonymous':True,'has_game':bool(u.game_id),'cards':len(pokemon_cards())}
 
 @app.get('/api/game')
 def game(u=Depends(user)):
@@ -264,7 +254,7 @@ def finish_capture(job,result):
     from .capture import expected_row
     with Session.begin() as db:
         u=db.get(UserSession,job['owner'])
-        if not u or u.expires<int(time.time()):raise ValueError('Session expirée. Reconnectez-vous avant de coller la capture.')
+        if not u or u.expires<int(time.time()):raise ValueError('Session expirée. Rechargez la page avant de coller la capture.')
         g=owned_game(db,u)
         if g.id!=job['game_id'] or g.version!=job['version']:
             raise ValueError('La partie a changé pendant la lecture. Recollez le résultat de la carte actuellement proposée.')

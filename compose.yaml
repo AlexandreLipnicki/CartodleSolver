@@ -2,13 +2,12 @@ services:
   cartosolver:
     build: .
     ports:
-      - "127.0.0.1:8000:8000"
+      - "8000:8000"
     environment:
       CARTO_OLLAMA_URL: http://ollama:11434
       CARTO_OLLAMA_MODEL: ${CARTO_OLLAMA_MODEL:-qwen2.5vl:7b}
       CARTO_SECURE_COOKIES: ${CARTO_SECURE_COOKIES:-false}
       CARTO_ALLOWED_ORIGINS: ${CARTO_ALLOWED_ORIGINS:-}
-      CARTO_INVITE_CODE: ${CARTO_INVITE_CODE:-}
     volumes:
       - ./data:/app/data:ro
       - carto-storage:/app/storage

@@ -1,18 +1,17 @@
 import { chromium } from '@playwright/test';
-import fs from 'node:fs';
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
 const page=await browser.newPage({viewport:{width:1440,height:1100}});
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
 const base=process.env.CARTO_BROWSER_URL||'http://127.0.0.1:8000';
-const code=fs.readFileSync(process.env.CARTO_BROWSER_CODE_FILE||'storage/access-code.txt','utf8').trim();
 let manualPosts=0;page.on('request',r=>{if(r.url().endsWith('/api/game/attempts')&&r.method()==='POST')manualPosts++});
 await page.goto(base);
-await page.getByLabel('Votre code d’accès').fill(code);
-await page.getByRole('button',{name:'Entrer dans CartoSolver'}).click();
+await page.getByTestId('pending-attempt').filter({hasText:'Lucario'}).waitFor();
+if(await page.locator('input[type="password"]').count())throw Error('A public app must not ask for an access code');
+for(const text of ['La bonne carte est','VOTRE PROCHAINE DÉDUCTION','La piste à suivre','Sélection déterministe','Espace privé','LE RITUEL']){if(await page.getByText(text,{exact:false}).count())throw Error('Decorative content still present: '+text)}
 await page.getByRole('button',{name:'Nouvelle partie',exact:true}).click();
 await page.getByRole('heading',{name:'Lucario',exact:true}).waitFor();
 await page.getByTestId('pending-attempt').filter({hasText:'Lucario'}).waitFor();
-if(await page.getByRole('button').count()!==1)throw Error('Only Nouvelle partie should be actionable after login');
+if(await page.getByRole('button').count()!==1)throw Error('Only Nouvelle partie should be actionable');
 await page.reload();await page.getByTestId('pending-attempt').filter({hasText:'Lucario'}).waitFor();
 await page.screenshot({path:'storage/desktop.png',fullPage:true});
 console.log('New game and reload: Lucario is already in the investigation, awaiting capture.');
@@ -44,7 +43,7 @@ if(process.env.CARTO_TEST_REAL_PIPELINE==='1'){
  const done={...state,version:state.version+1,solved:true,pending:null,history:[{id:1,card:state.recommendation,clues:greens,remaining:1,created:new Date().toISOString()}]};
  await page.route('**/api/game/analyze',route=>route.fulfill({status:202,contentType:'application/json',body:JSON.stringify({job_id:'browser-test',version:state.version})}));
  await page.route('**/api/analysis/browser-test',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({status:'done',game_id:state.id,game:done,duplicate:false})}));
- await paste();await page.getByRole('status').filter({hasText:'Carte trouvée'}).waitFor();
+ await paste();await page.getByText('CARTE TROUVÉE',{exact:true}).waitFor();
  if(await page.getByTestId('pending-attempt').count())throw Error('Completed card still pending');
  console.log('Native paste renders an automatic server result without a verification form or manual save.');
 }

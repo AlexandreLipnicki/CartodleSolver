@@ -6,7 +6,6 @@ import pytest
 TEST_DIR = tempfile.TemporaryDirectory(prefix='cartosolver-tests-')
 os.environ['CARTO_STORAGE']=TEST_DIR.name
 os.environ['CARTO_AUTO_IMPORT']='false'
-os.environ['CARTO_INVITE_CODE']='test-invitation-only'
 
 from backend.app.db import init_db, Session, CardRecord, Attempt, Game, UserSession
 from backend.app.catalog import catalog
@@ -33,6 +32,6 @@ def client(base_card):
 
 @pytest.fixture
 def logged(client):
-    assert client.post('/api/login',json={'code':'test-invitation-only'}).status_code==200
+    assert client.post('/api/session').status_code==200
     assert client.post('/api/games').status_code==200
     return client

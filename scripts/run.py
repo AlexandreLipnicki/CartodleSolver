@@ -22,7 +22,7 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--prepare',action='store_true',help='Installer et vérifier sans démarrer')
     parser.add_argument('--no-browser',action='store_true')
-    parser.add_argument('--host',default='127.0.0.1')
+    parser.add_argument('--host',default='0.0.0.0')
     parser.add_argument('--port',type=int,default=8000)
     args=parser.parse_args()
     if sys.version_info<(3,11): raise RuntimeError('Python 3.11 ou supérieur est requis.')
@@ -67,10 +67,7 @@ def main():
     source=settings.data
     if not (source/'catalog.fr.sqlite3').exists() and (source/'cards-database/data').exists():source=source/'cards-database'
     report=import_data(source)
-    from backend.app.main import access_code
-    access_code()
     print(f'Base vérifiée : {report["total"]} cartes, {report["sets"]} extensions.',flush=True)
-    print('Code privé : valeur CARTO_INVITE_CODE de .env, ou fichier storage/access-code.txt.',flush=True)
     state_path.write_text(json.dumps(current),encoding='utf-8')
     if args.prepare:return 0
     with __import__('socket').socket() as sock:

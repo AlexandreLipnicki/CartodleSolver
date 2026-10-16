@@ -14,11 +14,11 @@ def batch(logged,version=0,card='xy10-63',cs=None):
 
 def test_auth_and_cookie(client):
     assert client.get('/api/game').status_code==401
-    assert client.post('/api/login',json={'code':'wrong'}).status_code==401
-    r=client.post('/api/login',json={'code':'test-invitation-only'})
+    assert client.post('/api/login',json={'code':'anything'}).status_code==404
+    r=client.post('/api/session')
     assert r.status_code==200
     assert 'HttpOnly' in r.headers['set-cookie'] and 'SameSite=strict' in r.headers['set-cookie']
-    assert client.post('/api/login',headers={'Origin':'https://evil.test'},json={'code':'test-invitation-only'}).status_code==403
+    assert client.post('/api/session',headers={'Origin':'https://evil.test'}).status_code==403
 
 def test_http_workflow_and_persistence(logged):
     g=logged.get('/api/game').json()
@@ -52,7 +52,7 @@ def test_stale_version(logged):
 def test_user_isolation_and_reset(logged):
     first=logged.get('/api/game').json()['id']
     with TestClient(app) as other:
-        assert other.post('/api/login',json={'code':'test-invitation-only'}).status_code==200
+        assert other.post('/api/session').status_code==200
         g=other.post('/api/games').json();assert g['id']!=first
         assert logged.post('/api/game/attempts',json=batch(logged,)).status_code==200
         assert other.get('/api/game').json()['history']==[]
@@ -99,7 +99,7 @@ def test_ollama_job_json_and_ownership(logged,monkeypatch):
     assert result['game']['history'][0]['card']['id']=='xy10-63'
     assert result['game']['solved'] and result['game']['pending'] is None
     with TestClient(app) as other:
-        other.post('/api/login',json={'code':'test-invitation-only'})
+        other.post('/api/session')
         assert other.get('/api/analysis/'+job).status_code==404
     g=logged.get('/api/game').json()
     assert g['remaining']==1 and len(g['history'])==1 and g['version']==1
@@ -179,3 +179,21 @@ def test_catalog_refresh_cannot_show_retired_recommendation(logged):
     assert g['history']==[] and g['remaining']==1
     health=logged.get('/api/health').json()
     assert health['cards']==1 and health['archived_cards']==1
+
+def test_anonymous_browser_keeps_its_game_without_any_code(client):
+    r=client.post('/api/session');assert r.status_code==200 and not r.json()['has_game']
+    initial_cookie=client.cookies.get('carto_session')
+    g=client.post('/api/games').json()
+    r=client.post('/api/session')
+    assert r.status_code==200 and r.json()['has_game']
+    assert client.cookies.get('carto_session')==initial_cookie
+    assert client.get('/api/game').json()['id']==g['id']
+    from backend.app.settings import settings
+    assert not (settings.storage/'access-code.txt').exists()
+
+
+def test_unknown_cookie_does_not_choose_another_anonymous_identity(client):
+    client.cookies.set('carto_session','chosen-by-client')
+    r=client.post('/api/session');assert r.status_code==200
+    assert 'chosen-by-client' not in r.headers['set-cookie']
+    assert client.get('/api/me').status_code==200
