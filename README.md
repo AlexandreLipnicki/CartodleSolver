@@ -42,18 +42,20 @@ python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
 
 Pour le rechargement à chaud : backend avec `--reload`, puis `npm --prefix frontend run dev` dans un autre terminal. Le proxy Vite garde l’API sur la même origine. En développement HTTP uniquement, conservez `CARTO_SECURE_COOKIES=false`.
 
-## Utiliser le solveur
+## Utiliser le solveur : deux actions après connexion
 
-- Chaque navigateur reçoit sa propre session persistante de 30 jours via un cookie HttpOnly/SameSite strict. Le code d’invitation autorise l’accès ; ce n’est pas un compte partagé. Deux navigateurs peuvent jouer indépendamment. La perte des cookies crée une nouvelle identité ; il n’y a pas de synchronisation de compte entre appareils.
-- **Nouvelle partie** remplace uniquement la partie active de votre session. Les autres joueurs ne sont pas affectés.
-- Le premier essai est **Lucario `xy10-63`, Impact des Destins, 2016**, Métal, 110 PV, Niveau 1, Hitoshi Ariga. La source actuelle indique **Rare**, pas Rare Holo.
-- Ctrl+V fonctionne sur toute la page. Glisser-déposer et import manuel sont également disponibles (PNG/JPG/WEBP, 8 Mo, 20 mégapixels maximum).
-- Une capture comportant plusieurs lignes est traitée en une transaction. Les lignes déjà enregistrées sont dédupliquées par impression exacte et indices. Les valeurs OCR ne changent pas l’identité d’un indice.
-- Une ligne dont l’impression est ambiguë n’est **jamais** associée automatiquement à la carte conseillée sur le seul nom du Pokémon : sélectionnez l’impression exacte dans la vérification. Les valeurs lisibles de la capture servent à réduire les choix.
-- Les lignes identifiées sans ambiguïté sont enregistrées automatiquement. Une contradiction bloque **tout le nouvel enregistrement**, sans effacer l’historique, et ouvre la correction.
-- **Saisir les indices manuellement** permet de continuer sans Ollama. **Corriger** remplace le dernier essai ; **Annuler** le retire et recalcule tout.
-- **Explorer** affiche les cartes compatibles et un onglet distinct pour les données incomplètes. Les cartes à vérifier ne sont pas recommandées comme solutions validées.
-- Une carte restante est une **solution probable** ; les données incomplètes peuvent encore empêcher une conclusion certaine.
+1. Cliquez sur **Nouvelle partie**. Lucario `xy10-63` apparaît immédiatement dans **Le fil de votre enquête**, avec ses sept résultats en attente. Aucun indice n’est inventé et le filtrage n’est pas modifié à ce stade.
+2. Jouez la carte proposée dans CartoDle, copiez sa capture de résultat puis faites **Ctrl+V** sur CartoSolver. La page récupère l’image, le serveur lit les résultats, vérifie les informations visibles contre la carte attendue, enregistre l’essai et affiche automatiquement la suivante dans le fil. Recommencez avec la nouvelle carte.
+
+Il n’y a aucun formulaire de confirmation, sélection d’impression, saisie manuelle, bouton d’import ou correction à effectuer. Le navigateur n’envoie pas d’essai manuel après la lecture : le serveur enregistre lui-même le résultat et calcule la prochaine carte dans une transaction.
+
+- Le premier essai est **Lucario `xy10-63`, Impact des Destins, 2016**, Métal, 110 PV, Niveau 1, Hitoshi Ariga. La source indique Rare, pas Rare Holo.
+- L’impression attendue vient de la recommandation persistante, capturée au moment de l’upload. Ollama lit les couleurs, flèches et valeurs affichées ; il ne recherche pas une nouvelle carte dans le catalogue. Le nom et les valeurs lisibles sont contrôlés contre cette impression. L’identité repose sur ce contexte et les éléments visibles : une information absente de l’image ne peut pas être vérifiée visuellement.
+- Une capture peut contenir les anciennes lignes : seule celle de la carte attendue remplit l’essai en attente. Une répétition déjà enregistrée ne consomme pas la nouvelle carte. Deux lectures incompatibles pour la même carte conduisent à demander une capture recadrée, sans formulaire.
+- Si la carte est différente, la capture illisible ou les indices contradictoires, **rien n’est ajouté**. Un message demande de recoller le résultat de la carte proposée. L’essai reste en attente.
+- Une seule carte compatible signifie « solution probable » : elle reste à jouer et son résultat peut encore être collé. La partie affiche « carte trouvée » après lecture des sept cases vertes, puis ne propose que Nouvelle partie.
+- Formats PNG/JPG/WEBP, 8 Mo et 20 mégapixels maximum. Ollama et un modèle vision opérationnels sont nécessaires pour lire les captures.
+- Le code d’accès protège l’application. Chaque navigateur a sa session persistante de 30 jours ; Nouvelle partie ne réinitialise pas les autres utilisateurs. L’essai en attente et le fil sont restaurés au rechargement.
 
 ## Catalogue fourni, import et persistance
 
@@ -92,7 +94,7 @@ Les captures ne sont pas stockées côté serveur. Elles sont redimensionnées a
 
 ## Ollama : configuration du propriétaire
 
-Tout est côté serveur, dans `.env` : URL, modèle vision, timeout et concurrence. L’appel utilise `/api/chat`, un schéma JSON et une température nulle, puis une validation Pydantic stricte. La sortie du modèle ne décide jamais du filtrage. Un timeout, une réponse invalide, une capture illisible ou un modèle absent produisent un message et laissent la saisie manuelle disponible.
+Tout est côté serveur, dans `.env` : URL, modèle vision, timeout et concurrence. L’appel utilise `/api/chat`, un schéma JSON et une température nulle, puis une validation Pydantic stricte. La sortie du modèle ne décide jamais du filtrage. Un timeout, une réponse invalide, une capture illisible ou un modèle absent laissent l’essai en attente et demandent une nouvelle capture après résolution du problème. Aucune confirmation manuelle n’est proposée.
 
 File limitée à 8 analyses, une analyse active par session, concurrence Ollama par défaut 1. Les requêtes HTTP restent disponibles pendant les lectures. Utilisez **un seul worker Uvicorn**, car la file et les limites sont en mémoire. Il ne s’agit pas d’un service distribué.
 
@@ -137,14 +139,16 @@ npm --prefix frontend run build
 # Serveur déjà lancé, dépendances npm de la racine installées :
 # Linux si Chromium est installé à cet emplacement :
 node scripts/browser-check.mjs
+# Parcours complet isolé, serveur HTTP Ollama simulé et vraie base française :
+python scripts/test-automatic-ui.py
 # Autre emplacement : définir CHROMIUM_PATH ; le test ouvre Chromium en headless.
 ```
 
-`TESTER_CARTOSOLVER.bat` lance les tests Python et la compilation. Le test navigateur utilise une base locale de développement et **crée une partie de test** ; ne le lancez pas contre une base partagée en production. Il simule la réponse d’analyse pour tester le collage, pas la vision elle-même.
+`TESTER_CARTOSOLVER.bat` lance les tests Python et la compilation. Le test navigateur utilise une base locale de développement et **crée une partie de test** ; ne le lancez pas contre une base partagée en production. Le contrôle navigateur simple simule une réponse serveur. `scripts/test-automatic-ui.py` démarre une application et une base temporaires, puis fait jouer une partie complète par collage natif avec un serveur HTTP Ollama simulé. Ce test ne modifie pas vos parties et ne valide pas la vision réelle du modèle.
 
-**49 tests automatisés passent.** Une simulation sur le catalogue complet a également retrouvé Pikachu `base1-58` en quatre essais via les routes HTTP du catalogue français, sans éliminer la cible à aucune étape. Ce cas ne garantit pas un nombre d’essais universel.
+**66 tests automatisés passent.** Une simulation sur le catalogue complet a également retrouvé Pikachu `base1-58` en quatre essais via les routes HTTP du catalogue français, sans éliminer la cible à aucune étape. Ce cas ne garantit pas un nombre d’essais universel.
 
-Vérifications exécutées dans cette machine : import complet de TCGdex, import d’une fixture officielle Lucario vers SQLite, règles et intersections, déduplication, contradictions atomiques, corrections, versions concurrentes, isolation de deux sessions, routes HTTP, validation stricte Ollama avec transport simulé, refus d’uploads invalides, build TypeScript/Vite, démarrage réel et contrôle du parcours dans Chromium desktop/mobile.
+Vérifications exécutées dans cette machine : import complet de TCGdex, import d’une fixture officielle Lucario vers SQLite, règles et intersections, déduplication, contradictions atomiques, corrections, versions concurrentes, isolation de deux sessions, routes HTTP, attente immédiate de Lucario, enregistrement automatique côté serveur, refus des mauvaises cartes et valeurs, anciennes lignes et doublons, distinction solution probable/carte trouvée, validation stricte Ollama avec transport simulé, refus d’uploads invalides, build TypeScript/Vite, démarrage réel et contrôle du parcours dans Chromium desktop/mobile.
 
 **Non validés ici : lecture d’une vraie capture par votre modèle Ollama, lancement Windows natif et déploiement distant.** Aucun exemple de capture CartoDle n’a été fourni. Les illustrations sont bloquées par la politique réseau de cette machine tant que `assets.tcgdex.net` n’est pas autorisé ; le remplacement visuel a été vérifié. Le code de téléchargement et de cache est couvert avec un transport simulé.
 

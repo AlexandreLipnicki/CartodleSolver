@@ -19,7 +19,7 @@ from sqlalchemy import select, delete, update
 from starlette.concurrency import run_in_threadpool
 from .settings import ROOT, settings
 from .db import Session, init_db, UserSession, Game, Attempt, Meta
-from .models import BatchInput, LoginInput, Clues, FIELDS
+from .models import BatchInput, LoginInput, FIELDS, AttemptInput
 from .catalog import catalog, pokemon_cards, search_cards
 from .engine import filter_cards, recommend, summarize, norm, complete, rules, compare
 from . import vision
@@ -116,8 +116,11 @@ def state(db,u):
     rec=catalog().get(g.recommendation) if g.recommendation else None
     if rec and not any(c['id']==rec['id'] for c in valid):
         rec=recommend(valid,attempts)
-    return dict(id=g.id,version=g.version,total=len(pokemon_cards()),remaining=len(valid),uncertain=len(uncertain),
-                recommendation=rec,solved=len(valid)==1 and not uncertain,
+    solved=bool(hist) and all(json.loads(hist[-1].clues)[f]['color']=='green' for f in FIELDS)
+    if solved:rec=catalog().get(hist[-1].card_id)
+    pending=dict(card=rec,number=len(hist)+1,status='awaiting_capture') if rec and not solved else None
+    return dict(pending=pending,probable_solution=len(valid)==1 and not uncertain and not solved,id=g.id,version=g.version,total=len(pokemon_cards()),remaining=len(valid),uncertain=len(uncertain),
+                recommendation=rec,solved=solved,
                 constraints=summarize(valid,uncertain,attempts,catalog()),
                 warnings=warnings(attempts),
                 history=[dict(id=a.id,card=catalog().get(a.card_id),clues=json.loads(a.clues),remaining=a.remaining,created=a.created) for a in hist])
@@ -215,6 +218,7 @@ def apply_batch(db,u,body,replace=False):
         current=trial; known[entry.card_id]=item; added+=1
     valid,uncertain=filter_cards(pokemon_cards(),current,catalog())
     rec=recommend(valid,current)
+    if current and all(current[-1]['clues'][f]['color']=='green' for f in FIELDS):rec=catalog()[current[-1]['card_id']]
     g.recommendation=rec['id'] if rec else None
     db.flush()
     return state(db,u)
@@ -256,56 +260,50 @@ def candidates(offset:int=0,uncertain:bool=False,u=Depends(user)):
     offset=max(0,offset); selected=pending if uncertain else valid
     return {'cards':selected[offset:offset+40],'uncertain':len(pending),'total':len(selected)}
 
-def resolve_rows(result,game_id,owner):
-    with Session() as db:
-        g=db.get(Game,game_id)
-        if not g or g.owner!=owner: raise ValueError('Partie indisponible.')
-        hist=history(db,g)
-        preferred=[catalog()[a.card_id] for a in hist]
-        if g.recommendation: preferred.append(catalog()[g.recommendation])
-    resolved=[]
-    for row in result.rows:
-        options=[c for c in pokemon_cards() if norm(row.pokemon) in {norm(c.get('name')),norm(c.get('names',{}).get('en'))}]
-        if row.card_id:
-            options=[c for c in options if c['id']==row.card_id]
-        # OCR values narrow identity; clue colors never determine the attempted card.
-        for field,key in [('hp','hp'),('pokedex','pokedex'),('set','set_name'),('illustrator','illustrator')]:
-            value=getattr(row.clues,field).value
-            if value is None: continue
-            if field in ('hp','pokedex'):
-                try: number=int(str(value).replace('#','').strip())
-                except ValueError: continue
-                options=[c for c in options if (number in c.get(key,[]) if field=='pokedex' else c.get(key)==number)]
-            else:
-                options=[c for c in options if norm(str(value)) in {norm(c.get(key)),norm(c.get('set_id')) if field=='set' else None}]
-        exact=options[0] if len(options)==1 else None
-        # Current recommendation is context, not proof: ambiguous prints require review.
-        suggested=next((c for c in reversed(preferred) if c in options),None)
-        resolved.append({'pokemon':row.pokemon,'card_id':exact['id'] if exact else None,
-                         'suggested_id':suggested['id'] if suggested else None,
-                         'card':exact,'clues':row.clues.model_dump(),'options':options[:30]})
-    return resolved
+def finish_capture(job,result):
+    from .capture import expected_row
+    with Session.begin() as db:
+        u=db.get(UserSession,job['owner'])
+        if not u or u.expires<int(time.time()):raise ValueError('Session expirée. Reconnectez-vous avant de coller la capture.')
+        g=owned_game(db,u)
+        if g.id!=job['game_id'] or g.version!=job['version']:
+            raise ValueError('La partie a changé pendant la lecture. Recollez le résultat de la carte actuellement proposée.')
+        current=state(db,u)
+        expected=current['recommendation']
+        if not expected or expected['id']!=job['expected_card_id'] or current['solved']:
+            raise ValueError('La carte attendue a changé. Recollez le résultat de la carte actuellement proposée.')
+        row=expected_row(result,expected,attempts_data(history(db,g)),catalog())
+        if row is None:
+            return current,True
+        body=BatchInput(game_id=g.id,expected_version=g.version,attempts=[AttemptInput(card_id=expected['id'],clues=row.clues)])
+        return apply_batch(db,u,body),False
+
 
 async def work(job_id,content):
     job=jobs[job_id]
     try:
         job['status']='queued'
-        result=await vision.analyze(content,lambda:job.update(status='analyzing'))
-        job['rows']=await run_in_threadpool(resolve_rows,result,job['game_id'],job['owner'])
+        result=await vision.analyze(content,lambda:job.update(status='analyzing'),expected=catalog()[job['expected_card_id']])
+        job['status']='calculating'
+        job['game'],job['duplicate']=await run_in_threadpool(finish_capture,job,result)
         job['status']='done'
     except asyncio.CancelledError: raise
     except Exception as exc:
-        job['status']='error'; job['error']=str(exc) if isinstance(exc,ValueError) else 'L’analyse a échoué. Réessayez ou saisissez les indices.'
+        job['status']='error'
+        if isinstance(exc,HTTPException):
+            job['error']=('La lecture donne des indices contradictoires. Recollez une capture plus nette du résultat de la carte proposée ; aucun nouvel indice n’a été enregistré.' if exc.status_code==409 else 'La capture n’a pas pu être enregistrée. Recollez le résultat de la carte proposée.')
+        else:
+            job['error']=str(exc) if isinstance(exc,ValueError) else 'L’analyse a échoué. Recollez une capture plus nette.'
         log.warning('Vision job failed: %s',type(exc).__name__)
 
 @app.post('/api/game/analyze',status_code=202)
 async def upload(file:UploadFile=File(...),u=Depends(user)):
     throttle(('vision',u.token_hash),12,300)
     for key in list(jobs):
-        if jobs[key]['created']<time.time()-1800 and jobs[key]['status'] not in ('queued','analyzing'): jobs.pop(key)
-    if sum(j['status'] in ('queued','analyzing') for j in jobs.values())+len(reservations)>=8:
+        if jobs[key]['created']<time.time()-1800 and jobs[key]['status'] not in ('queued','analyzing','calculating'): jobs.pop(key)
+    if sum(j['status'] in ('queued','analyzing','calculating') for j in jobs.values())+len(reservations)>=8:
         raise HTTPException(429,'La file d’analyse est pleine. Réessayez dans un instant.')
-    if u.token_hash in reservations or any(j['owner']==u.token_hash and j['status'] in ('queued','analyzing') for j in jobs.values()):
+    if u.token_hash in reservations or any(j['owner']==u.token_hash and j['status'] in ('queued','analyzing','calculating') for j in jobs.values()):
         raise HTTPException(429,'Une capture est déjà en cours d’analyse pour votre partie.')
     reservations.add(u.token_hash)
     try:
@@ -313,9 +311,14 @@ async def upload(file:UploadFile=File(...),u=Depends(user)):
         if len(content)>settings.max_upload_mb*1024*1024: raise HTTPException(413,'Capture trop volumineuse (8 Mo maximum).')
         try: content=await run_in_threadpool(vision.normalize_image,content)
         except ValueError as exc: raise HTTPException(422,str(exc))
-        with Session() as db: g=owned_game(db,u); game_id,version=g.id,g.version
+        with Session() as db:
+            current=state(db,u)
+            if current['solved']:raise HTTPException(409,'Cette partie est terminée. Cliquez sur Nouvelle partie.')
+            if not current['pending']:raise HTTPException(409,'Aucune carte attendue. Cliquez sur Nouvelle partie.')
+            game_id,version=current['id'],current['version']
+            expected_id=current['recommendation']['id']
         job_id=secrets.token_urlsafe(20)
-        jobs[job_id]=dict(owner=u.token_hash,game_id=game_id,version=version,status='queued',created=time.time())
+        jobs[job_id]=dict(owner=u.token_hash,game_id=game_id,version=version,expected_card_id=expected_id,status='queued',created=time.time())
         task=asyncio.create_task(work(job_id,content)); tasks.add(task); task.add_done_callback(tasks.discard)
         return {'job_id':job_id,'version':version}
     finally:

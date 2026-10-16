@@ -83,7 +83,9 @@ def test_invalid_upload_and_limit(logged):
 
 def test_ollama_job_json_and_ownership(logged,monkeypatch):
     response={'rows':[{'pokemon':'Lucario','card_id':'xy10-63','clues':clues().model_dump()}]}
-    async def fake(content,on_start=None):return VisionResult.model_validate(response)
+    async def fake(content,on_start=None,expected=None):
+        assert expected['id']=='xy10-63'
+        return VisionResult.model_validate(response)
     monkeypatch.setattr(vision,'analyze',fake)
     r=logged.post('/api/game/analyze',files={'file':('capture.png',image_bytes(),'image/png')})
     assert r.status_code==202
@@ -94,12 +96,13 @@ def test_ollama_job_json_and_ownership(logged,monkeypatch):
         if result['status'] in ('done','error'):break
         time.sleep(.01)
     assert result['status']=='done',result
-    assert result['rows'][0]['card_id']=='xy10-63'
+    assert result['game']['history'][0]['card']['id']=='xy10-63'
+    assert result['game']['solved'] and result['game']['pending'] is None
     with TestClient(app) as other:
         other.post('/api/login',json={'code':'test-invitation-only'})
         assert other.get('/api/analysis/'+job).status_code==404
-    r=logged.post('/api/game/attempts',json={'game_id':logged.get('/api/game').json()['id'],'expected_version':0,'attempts':[{'card_id':result['rows'][0]['card_id'],'clues':result['rows'][0]['clues']}]})
-    assert r.status_code==200 and r.json()['remaining']==1
+    g=logged.get('/api/game').json()
+    assert g['remaining']==1 and len(g['history'])==1 and g['version']==1
 
 def test_actual_ollama_client_structured_protocol(monkeypatch):
     import httpx
