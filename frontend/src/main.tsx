@@ -26,6 +26,30 @@ function CardImage({card,small=false}:{card:Card;small?:boolean}){
   {!failed&&<img className={small?'card-image small':'card-image'} style={{opacity:loaded?1:0}} src={'/api/images/'+encodeURIComponent(card.id)} alt={`${card.name} — ${card.set_name} · ${card.number}`} onLoad={()=>setLoaded(true)} onError={()=>setFailed(true)}/>}
  </div>
 }
+const colorLabels={gray:'Incorrect',yellow:'Proche',green:'Correct'}
+function historyValue(field:Field,clue:Clue,card:Card):string{
+ if(clue.value!==null&&clue.value!==undefined&&String(clue.value).trim())return String(clue.value)
+ switch(field){
+  case 'pokedex':return card.pokedex.length?'n° '+card.pokedex.join(' / '):'—'
+  case 'type':return card.type_labels.join(' / ')||'—'
+  case 'stage':return card.stage_label||'—'
+  case 'hp':return card.hp===null?'—':String(card.hp)
+  case 'rarity':return card.rarity_label||'—'
+  case 'set':return [card.set_name,card.release_date?.slice(0,4)].filter(Boolean).join('\n')||'—'
+  case 'illustrator':return card.illustrator||'—'
+ }
+}
+function HistoryClue({field,clue,card}:{field:Field;clue:Clue;card:Card}){
+ const value=historyValue(field,clue,card)
+ const read=clue.value!==null&&clue.value!==undefined&&String(clue.value).trim()!==''
+ const direction=clue.arrow==='up'?'Supérieur':clue.arrow==='down'?'Inférieur':''
+ const description=[labels[field],value,colorLabels[clue.color],direction,read?'Lu sur la capture':'Valeur du catalogue'].filter(Boolean).join(' · ')
+ return <span className={'clue-cell '+clue.color} data-field={field} data-color={clue.color} data-arrow={clue.arrow||'none'} data-value-source={read?'capture':'catalog'} title={description} aria-label={description}>
+  {field==='hp'&&clue.color==='yellow'&&<span className="clue-proximity" aria-label="Valeur proche">≈</span>}
+  <span className="clue-value">{value}</span>
+  {clue.arrow==='up'?<ArrowUp className="clue-arrow" size={21} aria-label="Supérieur"/>:clue.arrow==='down'?<ArrowDown className="clue-arrow" size={21} aria-label="Inférieur"/>:clue.color==='green'?<Check className="clue-check" size={13} aria-label="Correct"/>:null}
+ </span>
+}
 function Logo(){return <div className="brand"><div className="brandmark"><ScanLine size={21}/></div><span>Carto<span className="brand-light">Solver</span></span></div>}
 function App(){
  const [ready,setReady]=useState(false),[game,setGame]=useState<Game|null>(null)
@@ -80,7 +104,7 @@ function App(){
    <section className="upload-panel" aria-live="polite"><div className="upload-icon">{busy&&phase?<LoaderCircle className="spin" size={21}/>:<Clipboard size={21}/>}</div><div className="upload-copy"><h3>{phase||(game?.solved?'Carte trouvée':'Collez votre résultat')}</h3><p>{game?.solved?'Nouvelle partie pour recommencer.':'PNG, JPG, WEBP · 8 Mo max.'}</p></div>{!game?.solved&&<span className="paste-shortcut"><kbd>Ctrl</kbd><span>+</span><kbd>V</kbd></span>}</section>
    {error&&<div className="message error" role="alert"><AlertTriangle size={16}/><span>{error}</span></div>}
    {feedback&&<p className="capture-feedback" role="status">{feedback}</p>}
-   <section className="history-section"><div className="section-heading"><span>Le fil de votre enquête <span className="count-pill">{(game?.history.length||0)+(game?.pending?1:0)}</span></span></div>{!game?<div className="empty-history"><div><h3>Lucario ouvrira votre enquête.</h3><p>Cliquez sur Nouvelle partie. Son essai apparaîtra ici immédiatement.</p></div></div>:<div className="history-table"><div className="history-table-head"><span>CARTE PROPOSÉE</span><div>{fields.map(f=><span key={f}>{labels[f]}</span>)}</div><span>STATUT</span></div>{game.history.map((a,i)=><div className="history-row" key={a.id}><div className="history-card"><span className="attempt-index">{String(i+1).padStart(2,'0')}</span><CardImage card={a.card} small/><div><strong>{a.card.name||a.card.names.en}</strong><small>{a.card.set_name} · {a.card.number}</small></div></div><div className="clue-cells">{fields.map(f=><span title={labels[f]+' : '+a.clues[f].color} className={'clue-cell '+a.clues[f].color} key={f}>{a.clues[f].color==='green'?<Check size={14}/>:a.clues[f].arrow==='up'?<ArrowUp size={14}/>:a.clues[f].arrow==='down'?<ArrowDown size={14}/>:<span>•</span>}</span>)}</div><span className="remaining-cell">{a.remaining.toLocaleString('fr-FR')} restantes</span></div>)}{game.pending&&<div className="history-row pending-row" data-testid="pending-attempt"><div className="history-card"><span className="attempt-index">{String(game.pending.number).padStart(2,'0')}</span><CardImage card={game.pending.card} small/><div><strong>{game.pending.card.name}</strong><small>{game.pending.card.set_name} · {game.pending.card.number}</small></div></div><div className="clue-cells">{fields.map(f=><span title={labels[f]+' : en attente de capture'} className="clue-cell awaiting" key={f}>—</span>)}</div><span className="remaining-cell pending-status">{busy&&phase?'Lecture…':'À jouer · Ctrl + V'}</span></div>}</div>}</section>
+   <section className="history-section"><div className="section-heading"><span>Le fil de votre enquête <span className="count-pill">{(game?.history.length||0)+(game?.pending?1:0)}</span></span></div>{!game?<div className="empty-history"><div><h3>Lucario ouvrira votre enquête.</h3><p>Cliquez sur Nouvelle partie. Son essai apparaîtra ici immédiatement.</p></div></div>:<div className="history-table"><div className="history-table-head"><span>CARTE JOUÉE</span><div>{fields.map(f=><span key={f}>{labels[f]}</span>)}</div><span>STATUT</span></div>{game.history.map((a,i)=><div className="history-row" data-testid="completed-attempt" key={a.id}><div className="history-card"><span className="attempt-index">{String(i+1).padStart(2,'0')}</span><CardImage card={a.card} small/><div><strong>{a.card.name||a.card.names.en}</strong><small>{a.card.set_name} · {a.card.number}</small></div></div><div className="clue-cells">{fields.map(f=><HistoryClue key={f} field={f} clue={a.clues[f]} card={a.card}/>)}</div><span className="remaining-cell">{a.remaining.toLocaleString('fr-FR')} restantes</span></div>)}{game.pending&&<div className="history-row pending-row" data-testid="pending-attempt"><div className="history-card"><span className="attempt-index">{String(game.pending.number).padStart(2,'0')}</span><CardImage card={game.pending.card} small/><div><strong>{game.pending.card.name}</strong><small>{game.pending.card.set_name} · {game.pending.card.number}</small></div></div><div className="clue-cells">{fields.map(f=><span title={labels[f]+' : en attente de capture'} className="clue-cell awaiting" key={f}>—</span>)}</div><span className="remaining-cell pending-status">{busy&&phase?'Lecture…':'À jouer · Ctrl + V'}</span></div>}</div>}</section>
   </main><footer className="footer">Données TCGdex · Pokémon © Nintendo / Creatures / GAME FREAK</footer>
 
  </div>

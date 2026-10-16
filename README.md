@@ -154,10 +154,30 @@ python scripts/test-automatic-ui.py
 
 Vérifications exécutées dans cette machine : import complet de TCGdex, import d’une fixture officielle Lucario vers SQLite, règles et intersections, déduplication, contradictions atomiques, corrections, versions concurrentes, accès anonyme sans code, réutilisation de session, isolation de deux navigateurs à la même IP, routes HTTP, attente immédiate de Lucario, enregistrement automatique côté serveur, refus des mauvaises cartes et valeurs, anciennes lignes et doublons, distinction solution probable/carte trouvée, validation stricte Ollama avec transport simulé, refus d’uploads invalides, build TypeScript/Vite, démarrage réel et contrôle du parcours dans Chromium desktop/mobile.
 
-**Non validés ici : lecture d’une vraie capture par votre modèle Ollama, lancement Windows natif et déploiement distant.** Aucun exemple de capture CartoDle n’a été fourni. Les illustrations sont bloquées par la politique réseau de cette machine tant que `assets.tcgdex.net` n’est pas autorisé ; le remplacement visuel a été vérifié. Le code de téléchargement et de cache est couvert avec un transport simulé.
+**Non validés ici : lecture d’une vraie capture par votre modèle Ollama, lancement Windows natif et déploiement distant.** La capture Lucario affichée dans le chat a été transcrite pour les régressions, mais son PNG original n’était pas disponible comme fichier local. Les tests utilisent une reconstitution explicitement identifiée. Le téléchargement du vrai modèle est bloqué par la politique réseau du cloud ; voir la procédure de vérification Ollama ci-dessous.
 
 ## Provenance
 
 Données auditées : [`tcgdex/cards-database`](https://github.com/tcgdex/cards-database), commit `4199850a6af49665db0080fa2bb9ef751750a406`. Source internationale : 23 864 cartes. Catalogue livré : **22 242 cartes avec un nom français, 18 838 Pokémon, 201 extensions**, 9 fragments linguistiques fusionnés, aucun fichier invalide. Les 1 622 cartes sans nom français ne sont pas incluses dans le catalogue français. Sur les Pokémon français, 17 724 sont entièrement renseignés et 1 114 restent à vérifier. Détails et mesures : [Données et performances](docs/DONNEES_ET_PERFORMANCES.md).
 
 Les fichiers officiels utilisés dans les tests et les traductions conservent la licence TCGdex dans `docs/TCGDEX-LICENSE.txt`. CartoSolver n’est affilié ni à TCGdex ni à Pokémon. Les illustrations restent la propriété de leurs ayants droit.
+
+### Vérifier une lecture Ollama
+
+Le fil affiche les **valeurs jouées, leurs couleurs et leurs flèches**, avec priorité au texte lu dans la capture. Les anciennes lignes sans valeur OCR utilisent la valeur connue de la carte ; l’infobulle précise sa provenance. Une case jaune de PV affiche aussi `≈`.
+
+La lecture combine le modèle vision et une vérification des pixels pour les captures contenant une seule ligne CartoDle recadrée : sept cases alignées, fond violet/jaune/vert et grandes flèches en bas à droite. Ce contrôle récupère notamment les flèches peu contrastées des cases violettes. Pour un autre thème, une capture complète ou plusieurs lignes, l’application conserve la lecture du modèle. Il ne remplace pas l’OCR du texte et ne garantit pas une reconnaissance parfaite.
+
+Pour comparer votre modèle à une transcription vérifiée, sans toucher aux parties :
+
+```bash
+.venv/bin/python scripts/check-vision.py capture-lucario.png \
+  --expected backend/tests/fixtures/cartodle/lucario.expected.json \
+  --output storage/vision-report.json
+```
+
+Le script utilise votre configuration `.env` (notamment `qwen2.5vl:7b`) et accepte `--url`, `--model`, `--runs 2` et `--timeout 300`. Le rapport contient la réponse brute du modèle, les valeurs après contrôle visuel et les différences avec la référence humaine. Le code de sortie vaut 1 en cas de différence ou d’échec. Sans `--expected`, il montre la lecture sans prétendre la comparer à une vérité terrain. Ne commitez pas les rapports ou captures personnels de `storage/`.
+
+La référence Lucario provient de la transcription manuelle de la capture affichée dans le chat : **448 ↓, Métal, Niveau 1, 110 jaune ↓, Rare Holo ↓, Impact des Destins 2016 ↑, Hitoshi Ariga**. Le PNG inclus dans les tests est une **reconstitution**, pas le fichier original de l’utilisateur.
+
+Dans le cloud de développement, le serveur Ollama 0.11.10 a démarré et son API a répondu, mais le téléchargement de `qwen2.5vl:7b` a été refusé par la politique réseau (`403` vers `registry.ollama.ai`). **Aucune inférence réelle de ce modèle n’a été validée ici.** L’ajout du domaine est enregistré dans la configuration cloud à appliquer ; d’éventuels domaines CDN supplémentaires ne seront connus qu’après cette étape. Les tests de pixels et le parcours navigateur avec serveur Ollama simulé restent distincts de ce test réel.

@@ -1,4 +1,5 @@
 import { chromium } from '@playwright/test';
+import {readFile} from 'node:fs/promises';
 const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
 const page=await browser.newPage({viewport:{width:1440,height:1100}});
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
@@ -36,6 +37,34 @@ if(process.env.CARTO_TEST_REAL_PIPELINE==='1'){
  }
  if(!solved)throw Error('Automatic full game did not finish');
  console.log('Native paste → real HTTP upload → Ollama test server → automatic commit → next card: full game passed.');
+}else if(process.env.CARTO_TEST_REFERENCE_CAPTURE==='1'){
+ const reference=JSON.parse(await readFile('backend/tests/fixtures/cartodle/lucario.expected.json','utf8')).rows[0];
+ const state=await page.request.get(base+'/api/game').then(r=>r.json());
+ const bytes=await readFile('backend/tests/fixtures/cartodle/lucario.recreated.png');
+ await page.evaluate(async data=>{
+  const binary=Uint8Array.from(atob(data),c=>c.charCodeAt(0));
+  const dt=new DataTransfer();dt.items.add(new File([binary],'lucario.recreated.png',{type:'image/png'}));
+  window.dispatchEvent(new ClipboardEvent('paste',{clipboardData:dt,bubbles:true}));
+ },bytes.toString('base64'));
+ const completed=page.getByTestId('completed-attempt');await completed.waitFor();
+ for(const [field,clue] of Object.entries(reference.clues)){
+  const cell=completed.locator(`[data-field="${field}"]`);
+  if(await cell.getAttribute('data-color')!==clue.color)throw Error(field+': wrong background');
+  if(await cell.getAttribute('data-arrow')!==(clue.arrow||'none'))throw Error(field+': wrong arrow');
+  if((await cell.locator('.clue-value').innerText())!==String(clue.value))throw Error(field+': wrong displayed value');
+  if(await cell.locator('.clue-arrow').count()!==(clue.arrow?1:0))throw Error(field+': missing visible arrow');
+  if(await cell.getAttribute('data-value-source')!=='capture')throw Error(field+': lost screenshot value');
+  if(await cell.evaluate(el=>el.scrollWidth>el.clientWidth))throw Error(field+': text overflow');
+ }
+ if(await completed.locator('.clue-proximity').innerText()!=='≈')throw Error('Missing HP proximity sign');
+ const after=await page.request.get(base+'/api/game').then(r=>r.json());
+ if(after.version!==state.version+1||after.history.length!==1)throw Error('Reference paste did not commit automatically');
+ if(!after.pending||after.pending.card.pokedex[0]>=448||after.pending.card.hp>=110)throw Error('Reference arrows were not used for the next deduction');
+ await page.getByTestId('pending-attempt').filter({hasText:after.pending.card.name}).waitFor();
+ const reloaded=await page.request.get(base+'/api/game').then(r=>r.json());
+ if(JSON.stringify(reloaded.history[0].clues)!==JSON.stringify(after.history[0].clues))throw Error('Reference values were not persisted');
+ await page.screenshot({path:'storage/history-reference.png',fullPage:true});
+ console.log('Reference history: seven values, six purple cells, yellow HP, four arrows and ≈ displayed; next deduction respects 448 ↓ and 110 ↓.');
 }else{
  // UI-only check: the backend's automatic state is mocked; no manual save request is allowed.
  const state=await page.request.get(base+'/api/game').then(r=>r.json());

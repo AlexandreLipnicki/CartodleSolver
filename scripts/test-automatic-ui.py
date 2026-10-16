@@ -1,5 +1,8 @@
 """Real browser/API/SQLite flow with a local HTTP Ollama simulator, no vision claims."""
 import json
+import base64
+import io
+from PIL import Image
 import os
 from pathlib import Path
 import re
@@ -41,12 +44,18 @@ class OllamaFixture(BaseHTTPRequestHandler):
         try:
             body=json.loads(self.rfile.read(int(self.headers['Content-Length'])))
             assert self.path=='/api/chat' and body['messages'][0]['images'] and body['format']['properties']['rows']
-            text=body['messages'][0]['content']
-            match=re.search(r'Carte attendue : (.*?) — (.*?) — n° (.*?)\.',text)
-            assert match,'Expected card context missing'
-            g=next(c for c in cards if (c['name'],c['set_name'],c['number'])==match.groups())
-            rows.append(feedback(g))
-            result=json.dumps({'message':{'content':json.dumps({'rows':rows},ensure_ascii=False)}}).encode()
+            with Image.open(io.BytesIO(base64.b64decode(body['messages'][0]['images'][0]))) as image:
+                reference_image=image.size==(1134,148)
+            if reference_image:
+                payload=json.loads((ROOT/'backend/tests/fixtures/cartodle/lucario.expected.json').read_text())
+            else:
+                text=body['messages'][0]['content']
+                match=re.search(r'Carte attendue : (.*?) — (.*?) — n° (.*?)\.',text)
+                assert match,'Expected card context missing'
+                g=next(c for c in cards if (c['name'],c['set_name'],c['number'])==match.groups())
+                rows.append(feedback(g))
+                payload={'rows':rows}
+            result=json.dumps({'message':{'content':json.dumps(payload,ensure_ascii=False)}}).encode()
             self.send_response(200);self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(result)));self.end_headers();self.wfile.write(result)
         except Exception:
             self.send_response(500);self.end_headers()
@@ -70,6 +79,8 @@ with tempfile.TemporaryDirectory(prefix='cartosolver-auto-browser-') as folder:
             else:raise RuntimeError('Test application did not start')
             subprocess.run(['node','scripts/browser-check.mjs'],env=env,cwd=ROOT,check=True,timeout=90)
             assert len(rows)>=2,'Vision simulator was not exercised'
+            reference_env=dict(env,CARTO_TEST_REAL_PIPELINE='0',CARTO_TEST_REFERENCE_CAPTURE='1')
+            subprocess.run(['node','scripts/browser-check.mjs'],env=reference_env,cwd=ROOT,check=True,timeout=90)
         finally:
             proc.terminate()
             try:proc.wait(timeout=10)

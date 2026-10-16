@@ -5,3 +5,19 @@
 @media(max-width:680px){.header{height:65px;padding:0 18px}.brand{font-size:19px}.brandmark{width:29px;height:29px}.primary{font-size:10px;min-height:33px;padding:8px 10px}.workspace{margin:22px 18px 0}.hero-panel{grid-template-columns:38% 62%}.art-column{padding:21px 15px;min-height:286px}.card-image{height:auto;max-height:235px}.info-column{border:0;padding:25px 18px 22px}.info-column h2{font-size:28px}.eyebrow{font-size:8px}.card-details{gap:12px;margin-top:20px}.card-details>div{font-size:10px;grid-template-columns:63px 1fr}.card-details .muted{font-size:8px}.card-chips{gap:4px;margin-top:15px}.card-subtitle{font-size:11px}.constraints-column{grid-column:1/-1;border-top:1px solid var(--border);padding:20px}.criteria-list{display:grid;grid-template-columns:1fr 1fr;column-gap:22px;margin-top:10px}.criterion{padding:10px 0;font-size:10px}.criterion-result small{font-size:8px}.stats-row{font-size:10px;padding:14px 0 19px}.upload-panel{padding:17px 15px;gap:12px;min-height:82px}.upload-copy h3{font-size:12px;line-height:1.6;margin-bottom:4px}.upload-icon{width:33px;height:33px;border-radius:7px}.upload-icon svg{width:18px}.paste-shortcut{gap:3px}.paste-shortcut kbd{font-size:9px;padding:2px 4px}.upload-copy p{font-size:9px}.history-section{margin-top:25px}.history-table-head,.history-row{min-width:640px;grid-template-columns:33% 53% 14%}.section-heading{font-size:12px}.rule-warning{font-size:9px;margin-top:-3px;margin-bottom:14px}.footer{margin:25px 18px 0;font-size:7px;padding-bottom:20px}.message.error{font-size:10px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition:none!important}}
 .card-visual{width:190px;height:270px;max-width:100%;position:relative}.card-visual>.card-image{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:contain}.card-visual>.card-fallback{width:100%;height:100%}.card-visual.small{width:31px;height:43px;flex-shrink:0}.card-visual.small>.card-image{width:31px;height:43px}@media(max-width:900px){.card-visual:not(.small){height:auto;aspect-ratio:.71}}
+
+/* Keep the played values visible together with the screenshot's feedback. */
+.history-table-head,.history-row{min-width:1080px;grid-template-columns:23% 66% 11%}
+.history-row{padding:14px 16px;min-height:100px}
+.clue-cells{gap:7px;padding:0 9px}
+.clue-cell{position:relative;min-width:0;min-height:64px;height:auto;justify-content:flex-start;align-items:flex-end;padding:10px 8px;background:#281e34;border-color:#40304f;color:#f0ebf6;text-align:left}
+.clue-value{font-size:11px;font-weight:550;line-height:1.4;white-space:pre-line;overflow-wrap:anywhere;min-width:0}
+.clue-cell:has(.clue-arrow) .clue-value{padding-right:17px}
+.clue-arrow{position:absolute;bottom:7px;right:4px;opacity:.5;stroke-width:3}
+.clue-check{position:absolute;top:5px;right:5px;opacity:.8}
+.clue-proximity{position:absolute;top:4px;right:8px;font-size:12px;line-height:1}
+.clue-cell.yellow{background:#ffc51c;border-color:#f3c335;color:#241d06}
+.clue-cell.green{background:#28503a;border-color:#417654;color:#d8f4e3}
+.clue-cell.awaiting{min-height:64px;justify-content:center;align-items:center}
+.history-card small{overflow-wrap:anywhere;padding-right:8px}
+@media(max-width:680px){.history-table-head,.history-row{min-width:1080px;grid-template-columns:23% 66% 11%}}

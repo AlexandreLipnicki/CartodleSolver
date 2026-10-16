@@ -1,0 +1,15 @@
+{
+  "rows": [{
+    "pokemon": "Lucario",
+    "card_id": null,
+    "clues": {
+      "pokedex": {"value": 448, "color": "gray", "arrow": "down"},
+      "type": {"value": "Métal", "color": "gray", "arrow": null},
+      "stage": {"value": "Niveau 1", "color": "gray", "arrow": null},
+      "hp": {"value": 110, "color": "yellow", "arrow": "down"},
+      "rarity": {"value": "Rare Holo", "color": "gray", "arrow": "down"},
+      "set": {"value": "Impact des Destins · 2016", "color": "gray", "arrow": "up"},
+      "illustrator": {"value": "Hitoshi Ariga", "color": "gray", "arrow": null}
+    }
+  }]
+}
