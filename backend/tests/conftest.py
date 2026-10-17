@@ -23,7 +23,7 @@ def client(base_card):
     init_db(); limits.clear(); jobs.clear()
     with Session.begin() as db:
         for model in (Attempt,Game,UserSession,CardRecord):db.execute(delete(model))
-        cards=[base_card,dict(base_card,id='test-1',name='Autre Pokémon',names={'fr':'Autre Pokémon','en':'Other Pokémon'},pokedex=[200],hp=100,types=['Water'],stage='Basic',rarity='Common',set_id='test',series_id='sv',release_date='2023-01-01',illustrator='Autre artiste')]
+        cards=[base_card,dict(base_card,id='test-1',name='Autre Pokémon',names={'fr':'Autre Pokémon','en':'Other Pokémon'},pokedex=[200],hp=100,types=['Water'],stage='Basic',rarity='Rare',rarity_label='Rare',set_id='test',series_id='sv',release_date='2023-01-01',illustrator='Autre artiste')]
         for c in cards:db.add(CardRecord(id=c['id'],name=c['name'],set_id=c['set_id'],category='Pokemon',payload=json.dumps(c)))
     catalog.cache_clear()
     with TestClient(app) as c:

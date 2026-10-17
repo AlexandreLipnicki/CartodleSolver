@@ -19,7 +19,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 ROOT=Path(__file__).resolve().parents[1]
 with sqlite3.connect(ROOT/'data/catalog.fr.sqlite3') as db:
     cards=[json.loads(row[0]) for row in db.execute('SELECT payload FROM cards')]
-target=next(c for c in cards if c['id']=='base1-58')
+target=next(c for c in cards if c['id']=='base1-15')
 rows=[]
 
 def numeric(a,b,near=False):

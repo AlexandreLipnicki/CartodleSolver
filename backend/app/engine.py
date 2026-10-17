@@ -18,6 +18,25 @@ def rarity_tables():
             {rarity(k):v for k,v in current.get('rarity_order',{}).items()})
 
 
+def rarity_direction(a,b,order):
+    if a in order and b in order:
+        return (order[a]>order[b])-(order[a]<order[b])
+    edges=tuple((rarity(x),rarity(y)) for x,y in rules().get('rarity_order_relations',[]))
+    reachable=rarity_reachability(edges)
+    if (a,b) in reachable:return -1
+    if (b,a) in reachable:return 1
+    return None
+
+@lru_cache(maxsize=16)
+def rarity_reachability(edges):
+    result=set(edges)
+    while True:
+        expanded=result|{(a,d) for a,b in result for c,d in result if b==c}
+        if any(a==b for a,b in expanded):raise ValueError('Ordre des raretés cyclique')
+        if expanded==result:return result
+        result=expanded
+
+
 def series(c):
     return rules().get('set_series_overrides',{}).get(c['set_id'],c.get('series_id'))
 
@@ -53,12 +72,15 @@ def compare(target, guess, field, clue):
         if color=='green': return a==b
         if a==b: return False
         groups,order=rarity_tables()
-        if a not in groups or b not in groups: return None
-        if (groups[a]==groups[b]) != (color=='yellow'): return False
+        checks=[]
+        if a in groups and b in groups:
+            checks.append((groups[a]==groups[b]) == (color=='yellow'))
+        else:checks.append(None)
         if arrow:
-            if a not in order or b not in order: return None
-            return order[a]>order[b] if arrow=='up' else order[a]<order[b]
-        return True
+            direction=rarity_direction(a,b,order)
+            checks.append(None if direction is None else direction==(1 if arrow=='up' else -1))
+        if False in checks:return False
+        return None if None in checks else True
     if field == 'set':
         a,b=set_identity(target.get('set_id')),set_identity(guess.get('set_id'))
         if color=='green': return a==b if a and b else None
@@ -122,13 +144,13 @@ def features(c):
             set_identity(c['set_id']), series(c), c['release_date'], norm(c['illustrator']))
 
 
-def _outcome(t,g,groups,order):
+def _outcome(t,g,groups,order,directions=None):
     # All expensive string normalization and type-set construction occurs once per card.
     dex = (t[0]>g[0])-(t[0]<g[0])
     types = 'g' if t[1]==g[1] else 'y' if t[1]&g[1] else 'x'
     delta=t[3]-g[3]
     rarity=('g' if t[4]==g[4] else 'y' if t[4] in groups and g[4] in groups and groups[t[4]]==groups[g[4]] else 'different',
-            (order[t[4]]>order[g[4]])-(order[t[4]]<order[g[4]]) if t[4] in order and g[4] in order else None)
+            directions.get((t[4],g[4])) if directions is not None else rarity_direction(t[4],g[4],order))
     extension=('g' if t[5]==g[5] else 'y' if t[6]==g[6] else 'x', (t[7]>g[7])-(t[7]<g[7]))
     return (dex, types, t[2]==g[2], ('g' if delta==0 else 'y' if abs(delta)<=20 else 'x', (delta>0)-(delta<0)),
             rarity, extension, t[8]==g[8])
@@ -153,9 +175,11 @@ def recommend(valid, attempts):
     targets=sample(sorted(valid,key=lambda c:c['id']),512)
     encoded=[features(t) for t in targets]
     groups,order=rarity_tables()
+    rarities={c[4] for c in encoded}|{rarity(c['rarity']) for c in pool}
+    directions={(a,b):rarity_direction(a,b,order) for a in rarities for b in rarities}
     def score(g):
         guess=features(g)
-        counts=Counter(_outcome(t,guess,groups,order) for t in encoded)
+        counts=Counter(_outcome(t,guess,groups,order,directions) for t in encoded)
         entropy=-sum((n/len(targets))*math.log2(n/len(targets)) for n in counts.values())
         return (entropy, bool(g.get('image_url')), -len(g['name']))
     return max(sample(pool,160),key=score)

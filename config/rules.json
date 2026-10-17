@@ -1,7 +1,39 @@
 {
-  "rarity_groups": {},
+  "rarity_groups": {
+    "Common": "common",
+    "Rare Holo": "rare",
+    "Pikachu Rare": "rare",
+    "Ultra Rare": "ultra-gallery",
+    "Rare Galerie": "ultra-gallery"
+  },
   "rarity_order": {},
   "set_series_overrides": {},
   "series_proximity_verified": true,
-  "notes": "La série TCGdex est utilisée pour les extensions selon le cahier des charges. Renseigner les overrides si CartoDle diffère. Aucune hiérarchie de rareté n'est présumée : seuls vert et exclusion exacte sont certains sans table vérifiée."
+  "notes": "Jaune = même niveau selon l'aide holopocket.fr fournie par l'utilisateur. Groupes et directions partiels attestés par ses captures Lucario/Pikachu et Ronflex. Aucune autre relation n'est présumée. Cibles : JCC physique, rare ou mieux.",
+  "excluded_series": [
+    "tcgp"
+  ],
+  "excluded_target_rarities": [
+    "Common",
+    "Uncommon"
+  ],
+  "rarity_order_relations": [
+    [
+      "Common",
+      "Pikachu Rare"
+    ],
+    [
+      "Pikachu Rare",
+      "Rare Holo"
+    ],
+    [
+      "Rare Holo",
+      "Rare Galerie"
+    ],
+    [
+      "Rare Holo V",
+      "Rare Galerie"
+    ]
+  ],
+  "rarity_rules_complete": false
 }

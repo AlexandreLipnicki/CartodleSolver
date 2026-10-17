@@ -23,12 +23,17 @@ def rarity_names():
         aliases[norm('Holo Rare'+tail)]=canonical
         labels[canonical]=canonical
     aliases['rare galerie']='Rare Galerie';labels['Rare Galerie']='Rare Galerie'
+    aliases['rare pikachu']='Pikachu Rare';aliases['pikachu rare']='Pikachu Rare'
+    labels['Pikachu Rare']='Rare Pikachu'
     return aliases,labels
 
 
 @lru_cache(maxsize=512)
 def rarity(value):
-    return rarity_names()[0].get(norm(value),norm(value)) if value else None
+    if not value:return None
+    text=norm(re.sub(r'[↑↓⇧⇩⬆⬇≈✓✔]',' ',value))
+    text=re.sub(r'^rarete\s*:\s*','',text).strip(' ():')
+    return rarity_names()[0].get(text,text)
 
 
 def normalize_card(card):

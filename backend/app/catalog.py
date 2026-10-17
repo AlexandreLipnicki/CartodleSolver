@@ -3,7 +3,7 @@ from functools import lru_cache
 from sqlalchemy import text
 from .db import engine
 from .search_index import IndexedCards
-from .normalization import normalize_card,set_index
+from .normalization import normalize_card,set_index,rarity
 from .rarity_enrichment import enrich_card
 
 
@@ -19,7 +19,11 @@ class Catalog(dict):
         cards=resolved
         super().__init__((c['id'], c) for c in cards)
         self.set_index=set_index(cards)
-        self.pokemon = IndexedCards(c for c in cards if c.get('category') == 'Pokemon' and c.get('active', True))
+        from .engine import rules
+        excluded=set(rules().get('excluded_series',[]))
+        self.supported_pokemon = IndexedCards(c for c in cards if c.get('category') == 'Pokemon' and c.get('active', True) and c.get('series_id') not in excluded)
+        excluded_rarities={rarity(r) for r in rules().get('excluded_target_rarities',[])}
+        self.pokemon=IndexedCards(c for c in self.supported_pokemon if c.get('rarity') not in excluded_rarities)
 
 
 @lru_cache(maxsize=1)

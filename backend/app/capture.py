@@ -123,7 +123,8 @@ def resolve_capture(result, expected, previous, by_id):
         if not base or base.get('category')!='Pokemon':raise ValueError('Identifiant de carte illisible ou inconnu. Collez une capture recadrée.')
         if norm(row.pokemon) not in pokemon_names(base):raise ValueError('Le nom et l’identifiant lus ne correspondent pas. Collez une capture recadrée.')
     else:
-        candidates=[c for c in by_id.values() if c.get('category')=='Pokemon' and c.get('active',True) and norm(row.pokemon) in pokemon_names(c)]
+        pool=by_id.supported_pokemon if hasattr(by_id,'supported_pokemon') else by_id.values()
+        candidates=[c for c in pool if c.get('category')=='Pokemon' and c.get('active',True) and norm(row.pokemon) in pokemon_names(c)]
         if not candidates:raise ValueError('Le nom de la carte est illisible ou absent du catalogue. Collez une capture recadrée.')
         # Visible attributes help identify an alternative printing. Discrepancies
         # still become authoritative observations after that identification.

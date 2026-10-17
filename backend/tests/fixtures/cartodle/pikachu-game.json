@@ -1,0 +1,217 @@
+[
+  {
+    "card_id": "xy10-63",
+    "row": {
+      "pokemon": "Lucario",
+      "clues": {
+        "pokedex": {
+          "value": 448,
+          "color": "gray",
+          "arrow": "down"
+        },
+        "type": {
+          "value": "Métal",
+          "color": "gray",
+          "arrow": null
+        },
+        "stage": {
+          "value": "Niveau 1",
+          "color": "gray",
+          "arrow": null
+        },
+        "hp": {
+          "value": 110,
+          "color": "gray",
+          "arrow": "down"
+        },
+        "rarity": {
+          "value": "Rare Holo",
+          "color": "yellow",
+          "arrow": "down"
+        },
+        "set": {
+          "value": "Impact des Destins 2016",
+          "color": "gray",
+          "arrow": "up"
+        },
+        "illustrator": {
+          "value": "Hitoshi Ariga",
+          "color": "gray",
+          "arrow": null
+        }
+      }
+    }
+  },
+  {
+    "card_id": "sv05-128",
+    "row": {
+      "pokemon": "Insolourdo",
+      "clues": {
+        "pokedex": {
+          "value": 206,
+          "color": "gray",
+          "arrow": "down"
+        },
+        "type": {
+          "value": "Incolore",
+          "color": "gray",
+          "arrow": null
+        },
+        "stage": {
+          "value": "De base",
+          "color": "green",
+          "arrow": null
+        },
+        "hp": {
+          "value": 60,
+          "color": "green",
+          "arrow": null
+        },
+        "rarity": {
+          "value": "Commune",
+          "color": "gray",
+          "arrow": "up"
+        },
+        "set": {
+          "value": "Forces Temporelles 2024",
+          "color": "gray",
+          "arrow": "up"
+        },
+        "illustrator": {
+          "value": "Sanosuke Sakuma",
+          "color": "gray",
+          "arrow": null
+        }
+      }
+    }
+  },
+  {
+    "card_id": "sv06-041",
+    "row": {
+      "pokemon": "Ptitard",
+      "clues": {
+        "pokedex": {
+          "value": 60,
+          "color": "gray",
+          "arrow": "down"
+        },
+        "type": {
+          "value": "Eau",
+          "color": "gray",
+          "arrow": null
+        },
+        "stage": {
+          "value": "De base",
+          "color": "green",
+          "arrow": null
+        },
+        "hp": {
+          "value": 60,
+          "color": "green",
+          "arrow": null
+        },
+        "rarity": {
+          "value": "Commune",
+          "color": "gray",
+          "arrow": "up"
+        },
+        "set": {
+          "value": "Mascarade Crépusculaire 2024",
+          "color": "gray",
+          "arrow": "up"
+        },
+        "illustrator": {
+          "value": "Kedamahadaitai Yawarakai",
+          "color": "gray",
+          "arrow": null
+        }
+      }
+    }
+  },
+  {
+    "card_id": "30th-087",
+    "row": {
+      "pokemon": "Nidoran♀",
+      "clues": {
+        "pokedex": {
+          "value": 29,
+          "color": "gray",
+          "arrow": "down"
+        },
+        "type": {
+          "value": "Obscurité",
+          "color": "gray",
+          "arrow": null
+        },
+        "stage": {
+          "value": "De base",
+          "color": "green",
+          "arrow": null
+        },
+        "hp": {
+          "value": 60,
+          "color": "green",
+          "arrow": null
+        },
+        "rarity": {
+          "value": "Commune",
+          "color": "gray",
+          "arrow": "up"
+        },
+        "set": {
+          "value": "30ᵉ Anniversaire 2026",
+          "color": "green",
+          "arrow": null
+        },
+        "illustrator": {
+          "value": "Taira Akitsu",
+          "color": "gray",
+          "arrow": null
+        }
+      }
+    }
+  },
+  {
+    "card_id": "30th-028",
+    "row": {
+      "pokemon": "Pikachu",
+      "clues": {
+        "pokedex": {
+          "value": 25,
+          "color": "green",
+          "arrow": null
+        },
+        "type": {
+          "value": "Électrique",
+          "color": "green",
+          "arrow": null
+        },
+        "stage": {
+          "value": "De base",
+          "color": "green",
+          "arrow": null
+        },
+        "hp": {
+          "value": 60,
+          "color": "green",
+          "arrow": null
+        },
+        "rarity": {
+          "value": "Rare Pikachu",
+          "color": "green",
+          "arrow": null
+        },
+        "set": {
+          "value": "30ᵉ Anniversaire 2026",
+          "color": "green",
+          "arrow": null
+        },
+        "illustrator": {
+          "value": "sowsow",
+          "color": "gray",
+          "arrow": null
+        }
+      }
+    }
+  }
+]

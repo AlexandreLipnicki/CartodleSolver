@@ -133,8 +133,8 @@ def state(db,u):
 
 def warnings(attempts):
     messages=[]
-    if any(a['clues']['rarity']['color']!='green' for a in attempts) and not rules().get('rarity_groups'):
-        messages.append('Groupes et ordre de rareté non confirmés : seule l’exclusion de la rareté exacte est appliquée. Les flèches de rareté restent à vérifier.')
+    if any(a['clues']['rarity']['color']!='green' for a in attempts) and (not rules().get('rarity_groups') or rules().get('rarity_rules_complete') is False):
+        messages.append('Règles de rareté partiellement confirmées : les niveaux et directions connus sont appliqués ; les relations inconnues restent possibles.')
     if not rules().get('series_proximity_verified'):
         messages.append('Regroupement des extensions non confirmé : les indices de proximité de série ne sont pas appliqués.')
     return messages

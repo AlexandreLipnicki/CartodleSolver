@@ -119,3 +119,19 @@ def test_existing_game_recovers_a_lost_year_bound_without_rewriting_history(logg
     with Session() as db:
         saved=db.query(Attempt).filter_by(game_id=game['id']).one()
         assert 'release_year' not in json.loads(saved.observed_card)
+
+
+def test_pikachu_history_never_recommends_pocket_or_common(french_catalog):
+    attempts=[]
+    entries=json.loads((GAME.parent/'pikachu-game.json').read_text())
+    for entry in entries:
+        row,actual=resolve_capture(VisionResult.model_validate({'rows':[entry['row']]}),french_catalog[entry['card_id']],attempts,french_catalog)
+        assert actual['id']==entry['card_id']
+        attempts.append({'card_id':actual['id'],'clues':row.clues.model_dump(),'observed_card':actual})
+        valid,unknown=filter_cards(french_catalog.pokemon,attempts,french_catalog)
+        assert valid,entry['card_id']
+        assert filter_cards(list(french_catalog.pokemon),attempts,french_catalog)==(valid,unknown)
+        next_card=recommend(valid,attempts)
+        assert next_card and next_card['series_id']!='tcgp'
+        assert next_card['rarity'] not in ('Common','Uncommon','Rare Holo')
+    assert all(c['rarity']=='Pikachu Rare' and c['pokedex']==[25] for c in valid)
