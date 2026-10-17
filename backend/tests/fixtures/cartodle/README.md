@@ -10,3 +10,7 @@ Test avec un vrai Ollama : `.venv/bin/python scripts/check-vision.py backend/tes
 # Partie Ronflex
 
 `ronflex-game.json` est la transcription manuelle de la capture utilisateur, dans l’ordre chronologique Lucario → Pyroli → Mew → Ronflex Pokémon GO → Ronflex Origine Perdue → Ronflex Galerie. Les identifiants TCGdex de référence servent aux assertions ; chaque ligne OCR laisse `card_id` à null et utilise les noms affichés sans suffixe V. Les tests rejouent aussi les lignes précédentes et vérifient le filtrage cumulatif sur le catalogue complet. Aucune lecture réelle de cette image par Ollama n’est revendiquée.
+
+# Partie Corvaillus
+
+`corvaillus-game.json` transcrit les deux lignes visibles sur la capture utilisateur : Lucario (rareté verte, PV gris ↑) puis Corvaillus (stade et rareté verts, PV jaunes ↓, extension grise ↓). Le test de filtrage et le test HTTP ne font pas appel à un vrai Ollama : ils isolent le défaut de catalogue qui rejetait ces résultats pourtant cohérents. Les 12 candidats attendus gardent tous les critères et les bornes cumulées.

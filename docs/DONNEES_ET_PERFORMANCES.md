@@ -35,9 +35,28 @@ Lacunes parmi les Pokémon français : 806 stades, 237 illustrateurs, 41 noms fr
 
 Le détail par carte est dans `data/catalog.fr.quality.json`. La hiérarchie et les groupes de rareté **propres à CartoDle** restent à confirmer dans `config/rules.json` : une base de cartes ne prouve pas les règles de proximité du jeu.
 
+## Désambiguïsation des raretés historiques
+
+TCGdex classe certaines impressions holographiques anciennes simplement « Rare ». Sur la partie Lucario → Corvaillus fournie par l’utilisateur, cela éliminait à tort les cibles Soleil et Lune : 38 candidats après Lucario, puis aucun après Corvaillus, malgré des indices cohérents.
+
+`config/rarity-corrections.json` contient **747 corrections Rare → Rare Holo**, vérifiées contre les JSON anglais historiques de [PokemonTCG/pokemon-tcg-data](https://github.com/PokemonTCG/pokemon-tcg-data), commit `39a26a144c8b6ef6c2fb17b2c29d0bb7121e3a11`. Chaque correspondance exige le même identifiant, numéro, extension, nom anglais normalisé, PV, Pokédex, types, stade et illustrateur. Une différence bloque la correction. Les noms français, dates et autres critères viennent toujours de TCGdex. Les cartes réellement Rare, par exemple Oratoria `sm1-41`, gardent leur rareté.
+
+Cette source secondaire est historique et dépréciée ; elle sert uniquement à vérifier ces impressions anciennes, sans nouvelle intégration à son API. Les corrections et leur provenance sont embarquées dans le catalogue : aucun appel réseau ni téléchargement de ce dépôt n’a lieu pendant une partie. Les observations OCR et les corrections manuelles explicites restent prioritaires.
+
+Avec les données corrigées, les indices transcrits laissent **71 candidats après Lucario, puis 12 après Corvaillus**, sans désactiver aucun critère. Le test rejoue aussi la capture contenant les deux lignes via les routes d’analyse et vérifie la persistance après rechargement.
+
+Pour régénérer les corrections depuis les deux checkouts locaux, puis reconstruire le catalogue :
+
+```bash
+python scripts/build-rarity-corrections.py --primary /chemin/cards-database --secondary /chemin/pokemon-tcg-data
+python scripts/build-catalog.py --source /chemin/cards-database
+```
+
+Le premier script travaille dans une base temporaire et vérifie les données brutes. Les commits utilisés, les gardes de correspondance et le nombre de corrections sont enregistrés. Le manifeste SQLite indique aussi la source secondaire et le nombre de corrections appliquées.
+
 ## Format livré
 
-- `data/catalog.fr.sqlite3` : **24 526 848 octets, soit environ 23,4 Mio**, catalogue sans comptes, sessions, parties ni secrets.
+- `data/catalog.fr.sqlite3` : **24 727 552 octets, soit environ 23,6 Mio**, catalogue sans comptes, sessions, parties ni secrets.
 - `data/catalog.fr.manifest.json` : source, commit, langue, couverture, version de schéma et SHA-256 du fichier SQLite.
 - `data/catalog.fr.quality.json` : liste explicite des données Pokémon à vérifier.
 

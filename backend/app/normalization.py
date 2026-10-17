@@ -53,8 +53,11 @@ def set_label(value):
 
 
 def set_index(cards):
-    index={}
+    active,archived={},{}
     for card in cards:
+        index=active if card.get('active',True) else archived
         for key in (norm(card.get('set_name')),norm(card.get('set_id'))):
             if key:index.setdefault(key,{})[card['set_id']]=card
-    return index
+    # Retired metadata remains available for old games, but cannot make a known
+    # current extension ambiguous or erase its release date during OCR lookup.
+    return {**archived,**active}

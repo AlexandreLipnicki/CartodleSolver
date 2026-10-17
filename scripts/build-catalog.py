@@ -26,5 +26,8 @@ with tempfile.TemporaryDirectory(prefix='cartosolver-catalog-build-') as storage
     report['license']='MIT; docs/TCGDEX-LICENSE.txt'
     # Do not persist machine-specific filesystem paths into the distributable.
     report.pop('source',None)
-    result=write_catalog(catalog().values(),report,args.output)
+    from backend.app.rarity_enrichment import corrections
+    cards=list(catalog().values())
+    report['rarity_enrichment']={'source':corrections()['source'],'applied':sum(bool(c.get('rarity_evidence')) for c in cards)}
+    result=write_catalog(cards,report,args.output)
     print(json.dumps(result,ensure_ascii=False,indent=2))

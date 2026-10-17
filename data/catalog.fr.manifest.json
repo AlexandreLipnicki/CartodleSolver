@@ -8,6 +8,16 @@
   "source_commit": "4199850a6af49665db0080fa2bb9ef751750a406",
   "source_url": "https://github.com/tcgdex/cards-database",
   "license": "MIT; docs/TCGDEX-LICENSE.txt",
+  "rarity_enrichment": {
+    "source": {
+      "commit": "39a26a144c8b6ef6c2fb17b2c29d0bb7121e3a11",
+      "primary_commit": "4199850a6af49665db0080fa2bb9ef751750a406",
+      "primary_repository": "https://github.com/tcgdex/cards-database",
+      "purpose": "Historical Rare / Rare Holo disambiguation; exact independent metadata match.",
+      "repository": "https://github.com/PokemonTCG/pokemon-tcg-data"
+    },
+    "applied": 747
+  },
   "locale": "fr",
   "international_total": 23864,
   "source_missing_french": 1622,
@@ -28,6 +38,6 @@
   },
   "pocket_cards": 2116,
   "schema_version": 1,
-  "sha256": "c80bb296661fa37ef8fb38249fc07f8624c38c8ff240c60e2d79bb7ef107e312",
-  "bytes": 24526848
+  "sha256": "050b55ae78de5e1371dab05729657051819106d7cf06ea723eff69d9fdae766f",
+  "bytes": 24727552
 }

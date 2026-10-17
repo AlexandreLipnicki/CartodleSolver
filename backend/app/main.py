@@ -216,7 +216,7 @@ def apply_batch(db,u,body,replace=False,observed=None):
             labels={'pokedex':'Pokédex','type':'Type','stage':'Stade','hp':'PV','rarity':'Rareté','set':'Extension','illustrator':'Illustrateur'}
             conflicts=[f for f in ordered if counts[f]==0]
             diagnosis='Vérifiez en priorité : '+', '.join(labels[f] for f in (conflicts or ordered[:3]))+'.'
-            raise HTTPException(409,{'message':'Ces indices éliminent toutes les cartes. '+diagnosis+' Aucun nouvel essai n’a été enregistré.',
+            raise HTTPException(409,{'message':'Aucune carte du catalogue ne correspond à tous ces indices. '+diagnosis+' La lecture ou les données du catalogue peuvent être en cause. Aucun nouvel essai n’a été enregistré.',
                                      'card_id':entry.card_id,'fields':conflicts or ordered[:3], 'remaining_by_field':counts,
                                      'advice':'Recollez une capture recadrée du dernier résultat.'})
         db.add(Attempt(game_id=g.id,card_id=entry.card_id,clues=entry.clues.model_dump_json(),observed_card=json.dumps(item['observed_card'],ensure_ascii=False) if item['observed_card'] else None,remaining=len(valid)))
@@ -297,7 +297,11 @@ async def work(job_id,content):
     except Exception as exc:
         job['status']='error'
         if isinstance(exc,HTTPException):
-            job['error']=('La lecture donne des indices contradictoires. Recollez une capture plus nette du dernier résultat ; aucun nouvel indice n’a été enregistré.' if exc.status_code==409 else 'La capture n’a pas pu être enregistrée. Recollez votre dernier résultat.')
+            if isinstance(exc.detail,dict):
+                job['error']=exc.detail.get('message','La capture n’a pas pu être enregistrée.')
+                job['conflict_fields']=exc.detail.get('fields',[])
+            else:
+                job['error']=str(exc.detail)
         else:
             job['error']=str(exc) if isinstance(exc,ValueError) else 'L’analyse a échoué. Recollez une capture plus nette.'
         log.warning('Vision job failed: %s',type(exc).__name__)

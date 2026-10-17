@@ -115,7 +115,9 @@ def test_visible_values_are_checked_against_known_printing(base_card):
 
 def test_contradiction_is_atomic_and_leaves_pending_card(logged,monkeypatch):
     result=upload_result(logged,monkeypatch,[row(cs=clues(hp={'color':'gray','arrow':'up'}))])
-    assert result['status']=='error' and 'contradictoires' in result['error']
+    assert result['status']=='error' and 'PV' in result['error']
+    assert result['conflict_fields']==['hp']
+    assert 'catalogue' in result['error']
     g=logged.get('/api/game').json()
     assert g['history']==[] and g['version']==0 and g['pending']['card']['id']=='xy10-63'
 

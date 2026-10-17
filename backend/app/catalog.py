@@ -4,11 +4,19 @@ from sqlalchemy import text
 from .db import engine
 from .search_index import IndexedCards
 from .normalization import normalize_card,set_index
+from .rarity_enrichment import enrich_card
 
 
 class Catalog(dict):
-    def __init__(self, cards):
-        cards=[normalize_card(c) for c in cards]
+    def __init__(self, cards, overrides=None):
+        resolved=[]
+        for card in cards:
+            corrected=dict(enrich_card(card))
+            override=(overrides or {}).get(card['id'],{})
+            corrected.update(override)
+            if 'rarity' in override:corrected.pop('rarity_evidence',None)
+            resolved.append(normalize_card(corrected))
+        cards=resolved
         super().__init__((c['id'], c) for c in cards)
         self.set_index=set_index(cards)
         self.pokemon = IndexedCards(c for c in cards if c.get('category') == 'Pokemon' and c.get('active', True))
@@ -21,7 +29,7 @@ def catalog():
         cards = [json.loads(row[0]) for row in db.execute(text('SELECT payload FROM cards ORDER BY id'))]
     from .settings import ROOT
     overrides=json.loads((ROOT/'config/card-overrides.json').read_text(encoding='utf-8'))
-    return Catalog([dict(c,**overrides.get(c['id'],{})) for c in cards])
+    return Catalog(cards,overrides=overrides)
 
 
 def pokemon_cards():

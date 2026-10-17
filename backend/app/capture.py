@@ -82,6 +82,7 @@ def observed_card(row, card, by_id):
             result['stage']=aliases[text];result['stage_label']=translations['stage'].get(result['stage'],value)
         elif field=='rarity':
             result=normalize_card(dict(result,rarity=value,rarity_label=value))
+            result.pop('rarity_evidence',None)
         elif field=='illustrator':result['illustrator']=value
         elif field=='set':
             label=set_label(value)
