@@ -190,3 +190,5 @@ La rareté des impressions historiques est aussi recoupée localement avec Pokem
 Les tentatives s'affichent de la plus récente à la plus ancienne, avec la carte à jouer en tête. « Cartes possibles » compte les candidates dont les critères sont renseignés. « Cartes à vérifier » compte séparément les candidates encore plausibles mais dont au moins un critère manque (PV, Pokédex, type, stade, rareté, extension/date/série ou illustrateur) ; elles ne sont pas proposées comme cartes validées. Une illustration absente ne rend pas les critères incomplets.
 
 Les illustrations dépendent de TCGdex : une carte cataloguée peut ne pas avoir d'image française disponible. Le proxy corrige l'adresse de la sous-extension chromatique Destinées Radieuses et essaie la petite résolution française si la grande renvoie 404. Il conserve ensuite l'image en cache. Aucun visuel anglais n'est substitué silencieusement.
+
+Les équivalences et niveaux visibles dans les captures du filtre Holopocket sont documentés dans [Raretés Holopocket](docs/RARETES_HOLOPOCKET.md). Les niveaux du jaune sont distincts de l'ordre des flèches ; les relations inconnues ne sont pas inventées.

@@ -30,6 +30,14 @@ def rarity_names():
         aliases[norm('Rare Chromatique'+tail)]=canonical
         aliases[norm('Chromatique Rare'+tail)]=canonical
         labels[canonical]='Rare Chromatique'+tail
+    verified=json.loads((ROOT/'config/holopocket-rarities.json').read_text(encoding='utf-8'))
+    for entry in verified['entries']:
+        canonical=entry['canonical']
+        aliases[norm(entry['label'])]=canonical
+        aliases[norm(canonical)]=canonical
+        labels[canonical]=entry['label']
+    # The readable menu prefix uniquely identifies Special illustration rare.
+    aliases[norm('Illustration Spéciale')]='Special illustration rare'
     return aliases,labels
 
 

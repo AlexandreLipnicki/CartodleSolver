@@ -17,7 +17,7 @@ def test_pikachu_aliases():
     ('Common','Common','gray','up',False),
     ('Rare Galerie','Ultra Rare','yellow',None,True),
     ('Rare Holo V','Rare Galerie','gray','up',False),
-    ('Rare Galerie','Rare Holo V','gray','up',None),
+    ('Rare Galerie','Rare Holo V','gray','up',True),
 ])
 def test_verified_rarity_feedback(target,guess,color,arrow,expected):
     assert compare({'rarity':target},{'rarity':guess},'rarity',Clue(color=color,arrow=arrow)) is expected
@@ -35,3 +35,28 @@ def test_partial_order():
     assert rarity_direction(rarity('Common'),rarity('Rare Galerie'),{}) == -1
     assert rarity_direction(rarity('Rare'),rarity('Rare Holo'),{}) is None
     with pytest.raises(ValueError):rarity_reachability((('a','b'),('b','a')))
+
+
+def test_all_readable_holopocket_badges_have_consistent_feedback():
+    import json
+    from backend.app.settings import ROOT
+    entries=json.loads((ROOT/'config/holopocket-rarities.json').read_text())['entries']
+    for target in entries:
+        assert rarity(target['label'])==target['canonical']
+        for guess in entries:
+            same=target['canonical']==guess['canonical']
+            same_level=target['level']==guess['level']
+            a,b={'rarity':target['label']},{'rarity':guess['label']}
+            assert compare(a,b,'rarity',Clue(color='green')) is same
+            assert compare(a,b,'rarity',Clue(color='yellow')) is (same_level and not same)
+            assert compare(a,b,'rarity',Clue(color='gray')) is (not same_level)
+
+
+def test_menu_does_not_invent_order_or_merge_missing_rarities():
+    assert rarity_direction(rarity('Rare Radieuse'),rarity('Rare High-Tech'),{}) is None
+    assert rarity('Rare')!=rarity('Rare Holo')
+    assert compare({'rarity':'Rare'}, {'rarity':'Rare Holo'},'rarity',Clue(color='yellow')) is None
+    assert rarity('Secret Rare')==rarity('Rare Secrète')
+    assert rarity('Amazing Rare')==rarity('Rare Magnifique')
+    assert rarity('Rare Magnifique')!=rarity('Rare Secrète')
+    assert rarity('Rare Chromatique V…')!=rarity('Shiny rare VMAX')

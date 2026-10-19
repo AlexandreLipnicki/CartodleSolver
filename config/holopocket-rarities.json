@@ -1,0 +1,215 @@
+{
+  "source": "Captures du filtre de rareté Holopocket fournies par l’utilisateur",
+  "notes": "Niveaux des badges uniquement ; aucun ordre des flèches déduit de l’ordre du menu. Les cases cochées ne déterminent pas le périmètre du catalogue.",
+  "entries": [
+    {
+      "label": "Promo",
+      "canonical": "Promo",
+      "level": "promo"
+    },
+    {
+      "label": "Rare Chromatique",
+      "canonical": "Shiny rare",
+      "level": "one-purple"
+    },
+    {
+      "label": "Rare Holo",
+      "canonical": "Rare Holo",
+      "level": "one-purple"
+    },
+    {
+      "label": "Rare Pikachu",
+      "canonical": "Pikachu Rare",
+      "level": "one-purple"
+    },
+    {
+      "label": "4 Losanges",
+      "canonical": "Four Diamond",
+      "level": "four-diamonds"
+    },
+    {
+      "label": "Double Rare",
+      "canonical": "Double rare",
+      "level": "two-purple"
+    },
+    {
+      "label": "Rare High-Tech",
+      "canonical": "ACE SPEC Rare",
+      "level": "two-purple"
+    },
+    {
+      "label": "Rare Holo EX",
+      "canonical": "Rare Holo EX",
+      "level": "two-purple"
+    },
+    {
+      "label": "Rare Holo GX",
+      "canonical": "Rare Holo GX",
+      "level": "two-purple"
+    },
+    {
+      "label": "Rare Holo LV.X",
+      "canonical": "Rare Holo LV.X",
+      "level": "two-purple"
+    },
+    {
+      "label": "Rare Holo V",
+      "canonical": "Rare Holo V",
+      "level": "two-purple"
+    },
+    {
+      "label": "Rare Holo VMAX",
+      "canonical": "Rare Holo VMAX",
+      "level": "two-purple"
+    },
+    {
+      "label": "Rare Holo VSTAR",
+      "canonical": "Rare Holo VSTAR",
+      "level": "two-purple"
+    },
+    {
+      "label": "Rare Magnifique",
+      "canonical": "Amazing Rare",
+      "level": "two-purple"
+    },
+    {
+      "label": "Rare Prime",
+      "canonical": "Rare PRIME",
+      "level": "two-purple"
+    },
+    {
+      "label": "Rare Prisme Étoile",
+      "canonical": "Rare Prisme Étoile",
+      "level": "two-purple"
+    },
+    {
+      "label": "Rare Radieuse",
+      "canonical": "Radiant Rare",
+      "level": "two-purple"
+    },
+    {
+      "label": "Rare TURBO",
+      "canonical": "Rare TURBO",
+      "level": "two-purple"
+    },
+    {
+      "label": "Rare ex",
+      "canonical": "Rare ex",
+      "level": "two-purple"
+    },
+    {
+      "label": "1 Étoile",
+      "canonical": "One Star",
+      "level": "one-gold"
+    },
+    {
+      "label": "Chromatique 1",
+      "canonical": "One Shiny",
+      "level": "one-gold"
+    },
+    {
+      "label": "Collection Classique",
+      "canonical": "Classic Collection",
+      "level": "two-gold"
+    },
+    {
+      "label": "Illustration Rare",
+      "canonical": "Illustration rare",
+      "level": "two-gold"
+    },
+    {
+      "label": "Méga Attaque Rare",
+      "canonical": "Mega Attack Rare",
+      "level": "two-gold"
+    },
+    {
+      "label": "Rare Brillante",
+      "canonical": "Rare Brillante",
+      "level": "two-gold"
+    },
+    {
+      "label": "Rare Chromatique GX",
+      "canonical": "Rare Chromatique GX",
+      "level": "two-gold"
+    },
+    {
+      "label": "Rare Chromatique V",
+      "canonical": "Shiny rare V",
+      "level": "two-gold"
+    },
+    {
+      "label": "Rare Galerie",
+      "canonical": "Rare Galerie",
+      "level": "two-gold"
+    },
+    {
+      "label": "Ultra Rare",
+      "canonical": "Ultra Rare",
+      "level": "two-gold"
+    },
+    {
+      "label": "Chromatique 2",
+      "canonical": "Two Shiny",
+      "level": "two-rainbow"
+    },
+    {
+      "label": "Illustration Spéciale Rare",
+      "canonical": "Special illustration rare",
+      "level": "three-rainbow"
+    },
+    {
+      "label": "Rare Arc-en-ciel",
+      "canonical": "Rare Arc-en-ciel",
+      "level": "three-rainbow"
+    },
+    {
+      "label": "Rare Secrète",
+      "canonical": "Secret Rare",
+      "level": "three-rainbow"
+    },
+    {
+      "label": "Ultra Rare Galerie",
+      "canonical": "Ultra Rare Galerie",
+      "level": "three-rainbow"
+    },
+    {
+      "label": "3 Étoiles",
+      "canonical": "Three Star",
+      "level": "three-rainbow"
+    },
+    {
+      "label": "Hyper Rare",
+      "canonical": "Hyper rare",
+      "level": "three-rainbow"
+    },
+    {
+      "label": "Méga Hyper Rare",
+      "canonical": "Mega Hyper Rare",
+      "level": "three-rainbow"
+    },
+    {
+      "label": "Rare Futuriste",
+      "canonical": "futuristic rare",
+      "level": "three-rainbow"
+    },
+    {
+      "label": "Rare Noir & Blanc",
+      "canonical": "Black White Rare",
+      "level": "three-rainbow"
+    },
+    {
+      "label": "Rare Étoile d'Or",
+      "canonical": "Rare Étoile d'Or",
+      "level": "three-rainbow"
+    },
+    {
+      "label": "Couronne",
+      "canonical": "Crown",
+      "level": "crown"
+    }
+  ],
+  "pending": [
+    "Ultra Rare Chromatiq…",
+    "Rare Chromatique V…"
+  ]
+}
