@@ -44,3 +44,15 @@ body{background:#110b16}
 .history-row{min-height:120px}
 @media(max-width:900px){.hero-panel{grid-template-columns:30% 70%}.info-column{border-right:0}.constraints-column{grid-column:1/-1;border-top:1px solid var(--border)}.criteria-list{display:grid;grid-template-columns:1fr 1fr;column-gap:24px}}
 @media(max-width:680px){.header{padding:16px 18px;flex-wrap:wrap;gap:14px}.brand{font-size:24px}.primary{font-size:14px;min-height:42px}.workspace{margin:22px 0 0;padding:0 16px}.hero-panel{grid-template-columns:36% 64%}.info-column{padding:22px 14px}.card-details>div{grid-template-columns:1fr;gap:2px}.card-chips>span{font-size:12px}.criteria-list{grid-template-columns:1fr}.criterion-value{white-space:normal}.criterion-result{max-width:65%}.paste-shortcut{display:none}.upload-panel{padding:18px 14px}.footer{margin:24px 16px 0}}
+
+/* Holopocket rarity badges; the adjacent text provides the accessible name. */
+.rarity-detail{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.rarity-badge{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;min-width:22px;height:20px;padding:0 5px;border:1.5px solid #120b19;border-radius:999px;box-shadow:0 1px 2px #0003;color:#130e1c;font-family:"Segoe UI Symbol","Arial Unicode MS",sans-serif;font-size:12px;line-height:1;letter-spacing:-1px;white-space:nowrap}
+.rarity-badge--promo{color:#f7f3e7;background:#13131b;border-color:#e5e1d3;box-shadow:inset 0 0 0 2px #13131b;font-size:11px}
+.rarity-badge--one-blue{background:#28bfee}
+.rarity-badge--one-purple,.rarity-badge--two-purple,.rarity-badge--four-diamonds{background:#b87aff}
+.rarity-badge--one-gold,.rarity-badge--two-gold{background:linear-gradient(120deg,#ffe66d,#ffbd20)}
+.rarity-badge--two-rainbow,.rarity-badge--three-rainbow,.rarity-badge--crown{background:linear-gradient(110deg,#e1a5ff 5%,#92d4ff 37%,#a4f0c6 68%,#fff0b0)}
+.rarity-badge--four-diamonds{letter-spacing:-1.5px;font-size:10px}
+.rarity-badge--crown{color:#a63cf0;min-width:23px}
+.rarity-badge--crown svg{fill:currentColor}

@@ -1,6 +1,6 @@
 {
   "source": "Captures du filtre de rareté Holopocket fournies par l’utilisateur",
-  "notes": "Niveaux des badges uniquement ; aucun ordre des flèches déduit de l’ordre du menu. Les cases cochées ne déterminent pas le périmètre du catalogue. Les deux noms tronqués ont été confirmés explicitement par l’utilisateur : Rare Chromatique VMAX et Ultra Rare Chromatique.",
+  "notes": "Niveaux des badges uniquement ; aucun ordre des flèches déduit de l’ordre du menu. Les cases cochées ne déterminent pas le périmètre du catalogue. Les deux noms tronqués ont été confirmés explicitement par l’utilisateur : Rare Chromatique VMAX et Ultra Rare Chromatique. Badge Rare confirmé par une capture supplémentaire : une étoile bleue.",
   "entries": [
     {
       "label": "Promo",
@@ -216,6 +216,11 @@
       "label": "Ultra Rare Chromatique",
       "canonical": "Shiny Ultra Rare",
       "level": "two-gold"
+    },
+    {
+      "label": "Rare",
+      "canonical": "Rare",
+      "level": "one-blue"
     }
   ],
   "pending": []

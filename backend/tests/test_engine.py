@@ -47,7 +47,8 @@ def test_types_sets(base_card):
     assert compare(dict(g,types=['Water']),g,'type',Clue(color='gray'))
 
 def test_unverified_rarity_never_excludes(base_card):
-    assert compare(dict(base_card,rarity='Common'),base_card,'rarity',Clue(color='yellow',arrow='up')) is None
+    assert compare(dict(base_card,rarity='Rareté non documentée'),base_card,'rarity',Clue(color='yellow',arrow='up')) is None
+    assert compare(dict(base_card,rarity='Common'),base_card,'rarity',Clue(color='yellow',arrow='up')) is False
     assert compare(base_card,base_card,'rarity',Clue(color='gray')) is False
 
 def test_explicit_rarity_config(base_card,monkeypatch):

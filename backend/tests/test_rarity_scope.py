@@ -55,7 +55,8 @@ def test_all_readable_holopocket_badges_have_consistent_feedback():
 def test_menu_does_not_invent_order_or_merge_missing_rarities():
     assert rarity_direction(rarity('Rare Radieuse'),rarity('Rare High-Tech'),{}) is None
     assert rarity('Rare')!=rarity('Rare Holo')
-    assert compare({'rarity':'Rare'}, {'rarity':'Rare Holo'},'rarity',Clue(color='yellow')) is None
+    assert compare({'rarity':'Rare'}, {'rarity':'Rare Holo'},'rarity',Clue(color='yellow')) is False
+    assert compare({'rarity':'Rareté non documentée'}, {'rarity':'Rare Holo'},'rarity',Clue(color='yellow')) is None
     assert rarity('Secret Rare')==rarity('Rare Secrète')
     assert rarity('Amazing Rare')==rarity('Rare Magnifique')
     assert rarity('Rare Magnifique')!=rarity('Rare Secrète')

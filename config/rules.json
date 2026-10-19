@@ -43,7 +43,8 @@
     "Rare Étoile d'Or": "three-rainbow",
     "Crown": "crown",
     "Shiny rare VMAX": "three-rainbow",
-    "Shiny Ultra Rare": "two-gold"
+    "Shiny Ultra Rare": "two-gold",
+    "Rare": "one-blue"
   },
   "rarity_order": {},
   "set_series_overrides": {},
