@@ -4,12 +4,13 @@
     "Rare Holo": "rare",
     "Pikachu Rare": "rare",
     "Ultra Rare": "ultra-gallery",
-    "Rare Galerie": "ultra-gallery"
+    "Rare Galerie": "ultra-gallery",
+    "Shiny rare": "rare"
   },
   "rarity_order": {},
   "set_series_overrides": {},
   "series_proximity_verified": true,
-  "notes": "Jaune = même niveau selon l'aide holopocket.fr fournie par l'utilisateur. Groupes et directions partiels attestés par ses captures Lucario/Pikachu et Ronflex. Aucune autre relation n'est présumée. Cibles : JCC physique, rare ou mieux.",
+  "notes": "Jaune = même niveau selon l'aide holopocket.fr fournie par l'utilisateur. Groupes et directions partiels attestés par ses captures Lucario/Pikachu et Ronflex. Aucune autre relation n'est présumée. Cibles : JCC physique, rare ou mieux. Capture Coléodôme : Rare Chromatique et Rare Holo ont le même niveau (jaune), sans ordre relatif attesté.",
   "excluded_series": [
     "tcgp"
   ],

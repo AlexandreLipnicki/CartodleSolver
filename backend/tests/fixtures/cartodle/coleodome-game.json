@@ -1,0 +1,88 @@
+[
+  {
+    "card_id": "xy10-63",
+    "row": {
+      "pokemon": "Lucario",
+      "clues": {
+        "pokedex": {
+          "value": 448,
+          "color": "gray",
+          "arrow": "up"
+        },
+        "type": {
+          "value": "Métal",
+          "color": "gray",
+          "arrow": null
+        },
+        "stage": {
+          "value": "Niveau 1",
+          "color": "green",
+          "arrow": null
+        },
+        "hp": {
+          "value": 110,
+          "color": "gray",
+          "arrow": "down"
+        },
+        "rarity": {
+          "value": "Rare Holo",
+          "color": "yellow",
+          "arrow": null
+        },
+        "set": {
+          "value": "Impact des Destins 2016",
+          "color": "gray",
+          "arrow": "up"
+        },
+        "illustrator": {
+          "value": "Hitoshi Ariga",
+          "color": "gray",
+          "arrow": null
+        }
+      }
+    }
+  },
+  {
+    "card_id": "swsh4.5sv-SV008",
+    "row": {
+      "pokemon": "Coléodôme",
+      "clues": {
+        "pokedex": {
+          "value": 825,
+          "color": "gray",
+          "arrow": "down"
+        },
+        "type": {
+          "value": "Plante",
+          "color": "green",
+          "arrow": null
+        },
+        "stage": {
+          "value": "Niveau 1",
+          "color": "green",
+          "arrow": null
+        },
+        "hp": {
+          "value": 70,
+          "color": "yellow",
+          "arrow": "up"
+        },
+        "rarity": {
+          "value": "Rare Chromatique",
+          "color": "green",
+          "arrow": null
+        },
+        "set": {
+          "value": "Destinées Radieuses 2021",
+          "color": "gray",
+          "arrow": "down"
+        },
+        "illustrator": {
+          "value": "tetsuya koizumi",
+          "color": "gray",
+          "arrow": null
+        }
+      }
+    }
+  }
+]

@@ -135,3 +135,28 @@ def test_pikachu_history_never_recommends_pocket_or_common(french_catalog):
         assert next_card and next_card['series_id']!='tcgp'
         assert next_card['rarity'] not in ('Common','Uncommon','Rare Holo')
     assert all(c['rarity']=='Pikachu Rare' and c['pokedex']==[25] for c in valid)
+
+
+def test_coleodome_chromatic_rarity_preserves_dartrix(french_catalog):
+    attempts=[]
+    for entry in json.loads((GAME.parent/'coleodome-game.json').read_text()):
+        row,actual=resolve_capture(VisionResult.model_validate({'rows':[entry['row']]}),french_catalog[entry['card_id']],attempts,french_catalog)
+        assert actual['id']==entry['card_id']
+        attempts.append(dict(card_id=actual['id'],clues=row.clues.model_dump(),observed_card=actual))
+        valid,unknown=filter_cards(french_catalog.pokemon,attempts,french_catalog)
+        assert any(c['id']=='sma-SV3' for c in valid)
+        assert filter_cards(list(french_catalog.pokemon),attempts,french_catalog)==(valid,unknown)
+    assert actual['rarity']=='Shiny rare'
+    assert [c['id'] for c in valid]==['sma-SV3']
+    assert recommend(valid,attempts)['name']=='Efflèche'
+
+
+def test_coleodome_capture_through_api(logged,monkeypatch):
+    from backend.app.importer import import_data
+    import_data(ROOT/'data/catalog.fr.sqlite3',force=True);catalog.cache_clear()
+    logged.post('/api/games')
+    for entry in json.loads((GAME.parent/'coleodome-game.json').read_text()):
+        result=upload_result(logged,monkeypatch,[entry['row']])
+        assert result['status']=='done',result
+    assert result['game']['recommendation']['id']=='sma-SV3'
+    assert result['game']['remaining']==1

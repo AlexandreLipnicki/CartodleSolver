@@ -200,3 +200,36 @@ def test_unknown_cookie_does_not_choose_another_anonymous_identity(client):
     r=client.post('/api/session');assert r.status_code==200
     assert 'chosen-by-client' not in r.headers['set-cookie']
     assert client.get('/api/me').status_code==200
+
+
+def test_image_uses_french_low_resolution_when_high_is_missing(logged,monkeypatch,base_card):
+    import httpx
+    from backend.app.catalog import catalog
+    from backend.app.settings import settings
+    for p in (settings.storage/'images').glob('*'):p.unlink()
+    catalog()[base_card['id']]['image_path']='fr/xy/xy10/63'
+    original=httpx.AsyncClient;calls=[]
+    def handler(req):
+        calls.append(str(req.url))
+        return httpx.Response(404) if req.url.path.endswith('/high.webp') else httpx.Response(200,content=image_bytes())
+    monkeypatch.setattr(httpx,'AsyncClient',lambda **kwargs:original(transport=httpx.MockTransport(handler),**kwargs))
+    response=logged.get('/api/images/xy10-63')
+    assert response.status_code==200
+    assert calls==['https://assets.tcgdex.net/fr/xy/xy10/63/high.webp','https://assets.tcgdex.net/fr/xy/xy10/63/low.webp']
+    assert Image.open(io.BytesIO(response.content)).format=='WEBP'
+    for p in (settings.storage/'images').glob('*'):p.unlink()
+
+
+def test_shining_fates_shiny_artwork_uses_parent_set(logged,monkeypatch,base_card):
+    import httpx
+    from backend.app.catalog import catalog
+    from backend.app.settings import settings
+    for p in (settings.storage/'images').glob('*'):p.unlink()
+    catalog()[base_card['id']]['image_path']='fr/swsh/swsh4.5sv/SV008'
+    original=httpx.AsyncClient;calls=[]
+    def handler(req):
+        calls.append(str(req.url));return httpx.Response(200,content=image_bytes())
+    monkeypatch.setattr(httpx,'AsyncClient',lambda **kwargs:original(transport=httpx.MockTransport(handler),**kwargs))
+    assert logged.get('/api/images/xy10-63').status_code==200
+    assert calls==['https://assets.tcgdex.net/fr/swsh/swsh4.5/SV008/high.webp']
+    for p in (settings.storage/'images').glob('*'):p.unlink()

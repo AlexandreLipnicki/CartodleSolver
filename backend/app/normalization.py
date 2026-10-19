@@ -25,6 +25,11 @@ def rarity_names():
     aliases['rare galerie']='Rare Galerie';labels['Rare Galerie']='Rare Galerie'
     aliases['rare pikachu']='Pikachu Rare';aliases['pikachu rare']='Pikachu Rare'
     labels['Pikachu Rare']='Rare Pikachu'
+    for tail in ('',' V',' VMAX'):
+        canonical='Shiny rare'+tail
+        aliases[norm('Rare Chromatique'+tail)]=canonical
+        aliases[norm('Chromatique Rare'+tail)]=canonical
+        labels[canonical]='Rare Chromatique'+tail
     return aliases,labels
 
 

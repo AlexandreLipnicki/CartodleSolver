@@ -39,6 +39,7 @@ try{
   },null,{timeout:10000});
  }
  await visibleImages();
+ assert.equal((await page.locator('.section-heading').innerText()).replace(/\s+/g,' '),'Tentatives (1)');
  for(let i=1;i<=2;i++){
   await page.evaluate(async()=>{
    const canvas=document.createElement('canvas');canvas.width=20;canvas.height=20;
@@ -47,8 +48,11 @@ try{
   });
   await page.waitForFunction(n=>document.querySelectorAll('[data-testid="completed-attempt"]').length===n,i);
   await visibleImages();
-  for(let j=0;j<i;j++)assert.equal(await page.getByTestId('completed-attempt').nth(j).locator('img').getAttribute('src'),'/api/images/'+cards[j].id);
+  for(let j=0;j<i;j++)assert.equal(await page.getByTestId('completed-attempt').nth(j).locator('img').getAttribute('src'),'/api/images/'+cards[i-1-j].id);
  }
+ assert.deepEqual(await page.locator('.history-row .attempt-index').allTextContents(),['03','02','01']);
+ assert.equal(await page.locator('.history-row').first().getAttribute('data-testid'),'pending-attempt');
+ assert.match(await page.locator('.stats-row').innerText(),/cartes possibles/);
  await page.reload();await page.getByTestId('completed-attempt').first().waitFor();await visibleImages();
  for(const c of cards)assert.equal(requests.get('/api/images/'+c.id),1,'An already cached image was downloaded again');
  console.log('History images: two played cards and the pending card stay visible after successive pastes and reload; each image downloaded once.');

@@ -345,7 +345,7 @@ async def image(card_id:str,u=Depends(user)):
     c=catalog().get(card_id)
     if not c or not c.get('image_path'): return Response(status_code=404)
     folder=settings.storage/'images'; folder.mkdir(exist_ok=True)
-    key=hashlib.sha256(card_id.encode()).hexdigest(); cached=folder/f'{key}.webp'; missing=folder/f'{key}.missing'
+    key=hashlib.sha256(card_id.encode()).hexdigest(); cached=folder/f'{key}.webp'; missing=folder/f'{key}.v2.missing'
     if cached.exists(): return FileResponse(cached,media_type='image/webp',headers={'Cache-Control':'private, max-age=31536000, immutable'})
     if missing.exists() and time.time()-missing.stat().st_mtime<86400: return Response(status_code=404)
     throttle(('images',u.token_hash),120,60)
@@ -354,13 +354,19 @@ async def image(card_id:str,u=Depends(user)):
         parts=c['image_path'].split('/')
         if len(parts)!=4 or any(not p or p in ('.','..') for p in parts): return Response(status_code=404)
         from urllib.parse import quote
-        url='https://assets.tcgdex.net/'+'/'.join(quote(p,safe='') for p in parts)+'/high.webp'
+        # TCGdex stores the Shining Fates shiny subset under its parent artwork set.
+        if parts[:3]==['fr','swsh','swsh4.5sv']:parts[2]='swsh4.5'
+        base_url='https://assets.tcgdex.net/'+'/'.join(quote(p,safe='') for p in parts)
         async with httpx.AsyncClient(timeout=15,follow_redirects=False) as client:
-            async with client.stream('GET',url) as r:
-                r.raise_for_status(); data=bytearray()
-                async for chunk in r.aiter_bytes():
-                    data.extend(chunk)
-                    if len(data)>4*1024*1024: raise ValueError('Image trop grande')
+            for quality in ('high','low'):
+                async with client.stream('GET',base_url+'/'+quality+'.webp') as r:
+                    # Some French illustrations exist only at the lower resolution.
+                    if r.status_code==404 and quality=='high':continue
+                    r.raise_for_status(); data=bytearray()
+                    async for chunk in r.aiter_bytes():
+                        data.extend(chunk)
+                        if len(data)>4*1024*1024: raise ValueError('Image trop grande')
+                break
         from PIL import Image
         with Image.open(io.BytesIO(data)) as im:
             im.thumbnail((1000,1400)); temp=folder/f'{key}.{uuid.uuid4().hex}.tmp'; im.convert('RGB').save(temp,format='WEBP'); temp.replace(cached)

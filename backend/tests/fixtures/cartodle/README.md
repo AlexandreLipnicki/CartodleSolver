@@ -20,3 +20,7 @@ Test avec un vrai Ollama : `.venv/bin/python scripts/check-vision.py backend/tes
 `pikachu-game.json` transcrit les cinq lignes de la capture utilisateur. Le dernier Pikachu conserve un illustrateur incorrect : la partie n'est pas résolue. Les tests rejouent les valeurs OCR et vérifient les exclusions cumulées sur le catalogue complet.
 
 L'aide de https://holopocket.fr/ fournie par l'utilisateur indique : « Presque : même série d'extensions, un type en commun, PV à 20 près, même niveau de rareté. » Le jaune signifie donc même niveau, et non une distance numérique de un. Les groupes partiels de `config/rules.json` viennent uniquement des captures Pikachu et Ronflex. Les relations non documentées restent inconnues. Les cibles excluent Pokémon Pocket et les communes/peu communes, conformément au texte « une rare ou mieux » visible sur la capture CartoDle. Ces cartes restent lisibles comme essais historiques. Aucun test ne prétend interroger réellement Ollama ni vérifier directement le site, inaccessible depuis le cloud.
+
+# Partie Coléodôme
+
+`coleodome-game.json` transcrit la capture fournie le 19 octobre 2026 : Lucario puis Coléodôme chromatique. La rareté verte « Rare Chromatique » correspond à `Shiny rare` dans TCGdex ; elle est du même niveau que Rare Holo (jaune sur Lucario). Le filtrage garde Efflèche `sma-SV3`, 80 PV, puis le recommande. Tests du moteur et de l'API avec résultat vision simulé ; les pixels originaux et une inférence Ollama réelle ne sont pas testés.
