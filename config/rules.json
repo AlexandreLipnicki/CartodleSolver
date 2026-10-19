@@ -41,12 +41,14 @@
     "futuristic rare": "three-rainbow",
     "Black White Rare": "three-rainbow",
     "Rare Étoile d'Or": "three-rainbow",
-    "Crown": "crown"
+    "Crown": "crown",
+    "Shiny rare VMAX": "three-rainbow",
+    "Shiny Ultra Rare": "two-gold"
   },
   "rarity_order": {},
   "set_series_overrides": {},
   "series_proximity_verified": true,
-  "notes": "Niveaux des badges transcrits dans config/holopocket-rarities.json. Les deux libellés tronqués restent à confirmer. Les relations d’ordre ne viennent que des indices des parties, jamais de l’ordre alphabétique du menu.",
+  "notes": "Niveaux des badges transcrits dans config/holopocket-rarities.json. Les deux libellés tronqués ont été confirmés par l’utilisateur. Les relations d’ordre ne viennent que des indices des parties, jamais de l’ordre alphabétique du menu.",
   "excluded_series": [
     "tcgp"
   ],

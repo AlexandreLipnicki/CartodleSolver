@@ -60,3 +60,16 @@ def test_menu_does_not_invent_order_or_merge_missing_rarities():
     assert rarity('Amazing Rare')==rarity('Rare Magnifique')
     assert rarity('Rare Magnifique')!=rarity('Rare Secrète')
     assert rarity('Rare Chromatique V…')!=rarity('Shiny rare VMAX')
+
+
+def test_confirmed_chromatic_variants_keep_distinct_levels():
+    assert rarity('Ultra Rare Chromatique')==rarity('Shiny Ultra Rare')
+    assert rarity('Chromatique ultra rare')==rarity('Ultra Rare Chromatique')
+    assert rarity('Rare Chromatique VMAX')==rarity('Shiny rare VMAX')
+    a={'rarity':'Shiny Ultra Rare'}
+    b={'rarity':'Shiny rare VMAX'}
+    assert compare(a,b,'rarity',Clue(color='yellow')) is False
+    assert compare(a,b,'rarity',Clue(color='gray')) is True
+    assert compare(a,{'rarity':'Ultra Rare'},'rarity',Clue(color='yellow')) is True
+    assert compare(b,{'rarity':'Hyper Rare'},'rarity',Clue(color='yellow')) is True
+    assert rarity_direction(rarity('Shiny rare VMAX'),rarity('Shiny Ultra Rare'),{}) is None
