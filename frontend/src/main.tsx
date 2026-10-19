@@ -52,7 +52,7 @@ function HistoryClue({field,clue,card}:{field:Field;clue:Clue;card:Card}){
   {clue.arrow==='up'?<ArrowUp className="clue-arrow" size={21} aria-label="Supérieur"/>:clue.arrow==='down'?<ArrowDown className="clue-arrow" size={21} aria-label="Inférieur"/>:clue.color==='green'?<Check className="clue-check" size={13} aria-label="Correct"/>:null}
  </span>
 }
-function Logo(){return <div className="brand"><div className="brandmark"><ScanLine size={21}/></div><span>Carto<span className="brand-light">Solver</span></span></div>}
+function Logo(){return <div className="brand"><div className="brandmark"><ScanLine size={21}/></div><span>Cartodle<span className="brand-light">-Solver</span></span></div>}
 function App(){
  const [ready,setReady]=useState(false),[game,setGame]=useState<Game|null>(null)
  const [error,setError]=useState(''),[feedback,setFeedback]=useState(''),[busy,setBusy]=useState(false),[phase,setPhase]=useState('')
