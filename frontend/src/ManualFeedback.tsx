@@ -6,7 +6,7 @@ const fields:Field[]=['pokedex','type','stage','hp','rarity','set','illustrator'
 const labels:Record<Field,string>={pokedex:'Pokémon',type:'Type',stage:'Stade',hp:'PV',rarity:'Rareté',set:'Extension',illustrator:'Illustrateur'}
 const directional=new Set<Field>(['pokedex','hp','rarity','set'])
 const proximity=new Set<Field>(['hp','rarity','set'])
-const complete=(field:Field,clue?:Clue)=>!!clue&&(clue.color==='green'||!directional.has(field)||!!clue.arrow)
+const complete=(field:Field,clue?:Clue)=>!!clue&&(clue.color==='green'||field==='rarity'||!directional.has(field)||!!clue.arrow)
 
 type Props={values:Record<Field,string>;pokemon:string;confirmed:Field[];enabled:boolean;busy:boolean;onSubmit:(clues:Clues)=>Promise<void>}
 export function ManualFeedback({values,pokemon,confirmed,enabled,busy,onSubmit}:Props){
@@ -19,7 +19,7 @@ export function ManualFeedback({values,pokemon,confirmed,enabled,busy,onSubmit}:
   if(!active)return
   setDraft(old=>({...old,[active]:{color:value,arrow:value==='green'?null:old[active]?.arrow||null}}))
  }
- function arrow(value:'up'|'down'){
+ function arrow(value:Clue['arrow']){
   if(!active)return
   setDraft(old=>({...old,[active]:{color:old[active]?.color==='yellow'?'yellow':'gray',arrow:value}}))
  }
@@ -43,7 +43,7 @@ export function ManualFeedback({values,pokemon,confirmed,enabled,busy,onSubmit}:
     {proximity.has(active)&&<button type="button" className="choice-yellow" aria-pressed={selected?.color==='yellow'} disabled={busy} onClick={()=>color('yellow')}>≈ Proche</button>}
     <button type="button" className="choice-green" aria-pressed={selected?.color==='green'} disabled={busy} onClick={()=>color('green')}><Check size={15}/>Correct</button>
    </div></fieldset>
-   {directional.has(active)&&selected?.color!=='green'&&<fieldset><legend>La valeur recherchée est…</legend><div className="manual-options"><button type="button" aria-pressed={selected?.arrow==='down'} disabled={busy} onClick={()=>arrow('down')}><ArrowDown size={17}/>Plus petite</button><button type="button" aria-pressed={selected?.arrow==='up'} disabled={busy} onClick={()=>arrow('up')}><ArrowUp size={17}/>Plus grande</button></div></fieldset>}
+   {directional.has(active)&&selected?.color!=='green'&&<fieldset><legend>{active==='rarity'?'Flèche (facultative)':'La valeur recherchée est…'}</legend><div className="manual-options">{active==='rarity'&&<button type="button" aria-pressed={!selected?.arrow} disabled={busy} onClick={()=>arrow(null)}>Sans flèche</button>}<button type="button" aria-pressed={selected?.arrow==='down'} disabled={busy} onClick={()=>arrow('down')}><ArrowDown size={17}/>Plus petite</button><button type="button" aria-pressed={selected?.arrow==='up'} disabled={busy} onClick={()=>arrow('up')}><ArrowUp size={17}/>Plus grande</button></div></fieldset>}
    </div>
    {confirmed.some(f=>draft[f]?.color!=='green')&&<p className="manual-correction-note">Correction : les anciens indices des critères modifiés seront écartés. Les autres informations restent conservées.</p>}
    <div className="manual-actions"><span role="status">{count} / 7 critères renseignés</span><div><button type="button" className="manual-reset" disabled={busy} onClick={()=>{setDraft(initial());setActive(null)}}>Annuler la saisie</button>{count<7?<button type="button" className="primary" disabled={busy||!next||!complete(active,draft[active])} onClick={()=>next&&setActive(next)}>Critère suivant</button>:<button type="button" className="primary" disabled={busy} onClick={()=>void onSubmit(draft as Clues)}>{busy?'Recherche…':'Proposer la carte suivante'}</button>}</div></div>

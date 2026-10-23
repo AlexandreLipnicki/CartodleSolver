@@ -46,17 +46,26 @@ if(process.env.CARTO_TEST_REAL_PIPELINE==='1'){
  if(await editor.getByRole('button',{name:'Proche',exact:false}).count())throw Error('Type must not offer Proche');
  await tile('pokedex').click();
  if(await editor.getByRole('button',{name:'Invalide',exact:true}).getAttribute('aria-pressed')!=='true')throw Error('Gray must be preselected for directional fields too');
- if(await editor.getByRole('button',{name:'Critère suivant',exact:true}).isEnabled())throw Error('Direction must still be explicitly chosen');
-
+ if(await editor.getByRole('button',{name:'Critère suivant',exact:true}).isEnabled())throw Error('Pokédex still requires a direction');
+ if(await editor.getByRole('button',{name:'Sans flèche',exact:true}).count())throw Error('Only rarity can omit directions');
+ await tile('rarity').click();
+ await editor.getByRole('button',{name:'Proche',exact:false}).click();
+ await editor.getByRole('button',{name:'Plus grande',exact:false}).click();
+ await editor.getByRole('button',{name:'Sans flèche',exact:true}).click();
+ if(await tile('rarity').locator('.tile-arrow').count())throw Error('No arrow must clear rarity direction');
+ if(await tile('rarity').getAttribute('data-color')!=='yellow')throw Error('Removing rarity arrow must retain yellow');
+ if(!await editor.getByRole('button',{name:'Critère suivant',exact:true}).isEnabled())throw Error('Yellow rarity without an arrow must be complete');
  await tile('hp').click();
  await editor.getByRole('button',{name:'Proche',exact:false}).click();
  await editor.getByRole('button',{name:'Plus petite',exact:false}).click();
  if(await tile('hp').getAttribute('data-color')!=='yellow')throw Error('HP must become yellow');
+ if(await editor.getByRole('button',{name:'Sans flèche',exact:true}).count())throw Error('HP must still require a direction');
  await editor.getByRole('button',{name:'Correct',exact:true}).click();
  if(await tile('hp').locator('.tile-arrow').count())throw Error('Green must clear the arrow');
  await editor.getByRole('button',{name:'Invalide',exact:true}).click();
  if(await tile('hp').locator('.tile-arrow').count())throw Error('Leaving green must require a new arrow');
  const reference=JSON.parse(await readFile('backend/tests/fixtures/cartodle/lucario.expected.json','utf8')).rows[0];
+ reference.clues.rarity.arrow=null;
  for(const [field,clue] of Object.entries(reference.clues)){
   await tile(field).click();
   if(['type','stage','illustrator','pokedex'].includes(field)&&await editor.getByRole('button',{name:'Proche',exact:false}).count())throw Error('Unsupported yellow option');
