@@ -89,7 +89,7 @@ try{
  await stage.click();
  const editor=page.getByRole('region',{name:'Saisie manuelle'});
  assert.equal(await editor.getByRole('button',{name:'Correct',exact:true}).getAttribute('aria-pressed'),'true');
- await editor.getByRole('button',{name:'Incorrect',exact:true}).click();
+ await editor.getByRole('button',{name:'Invalide',exact:true}).click();
  assert.equal(await stage.getAttribute('data-color'),'gray');
  assert.match(await page.locator('.manual-correction-note').innerText(),/anciens indices/);
  for(const field of ['pokedex','type','hp','rarity','set','illustrator']){

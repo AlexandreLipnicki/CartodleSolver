@@ -5,12 +5,12 @@ import type {Field,Clue,Clues} from './main'
 const fields:Field[]=['pokedex','type','stage','hp','rarity','set','illustrator']
 const labels:Record<Field,string>={pokedex:'Pokémon',type:'Type',stage:'Stade',hp:'PV',rarity:'Rareté',set:'Extension',illustrator:'Illustrateur'}
 const directional=new Set<Field>(['pokedex','hp','rarity','set'])
-const proximity=new Set<Field>(['type','hp','rarity','set'])
+const proximity=new Set<Field>(['hp','rarity','set'])
 const complete=(field:Field,clue?:Clue)=>!!clue&&(clue.color==='green'||!directional.has(field)||!!clue.arrow)
 
 type Props={values:Record<Field,string>;pokemon:string;confirmed:Field[];enabled:boolean;busy:boolean;onSubmit:(clues:Clues)=>Promise<void>}
 export function ManualFeedback({values,pokemon,confirmed,enabled,busy,onSubmit}:Props){
- const initial=()=>Object.fromEntries(confirmed.map(f=>[f,{color:'green',arrow:null}])) as Partial<Clues>
+ const initial=()=>Object.fromEntries(fields.map(f=>[f,{color:confirmed.includes(f)?'green':'gray',arrow:null}])) as Partial<Clues>
  const [draft,setDraft]=useState<Partial<Clues>>(initial)
  const [active,setActive]=useState<Field|null>(null)
  const count=fields.filter(f=>complete(f,draft[f])).length
@@ -39,7 +39,7 @@ export function ManualFeedback({values,pokemon,confirmed,enabled,busy,onSubmit}:
   {active&&enabled&&<section className="manual-editor" aria-label="Saisie manuelle" onKeyDown={e=>{if(e.key==='Escape')setActive(null)}}>
    <div className="manual-editor-heading"><div><strong>{labels[active]}</strong><span>Reproduisez la couleur et la flèche affichées dans Cartodle.</span></div><button type="button" className="manual-close" aria-label="Fermer la saisie" disabled={busy} onClick={()=>setActive(null)}><X size={18}/></button></div>
    <div className="manual-controls"><fieldset><legend>Couleur de la case</legend><div className="manual-options">
-    <button type="button" className="choice-gray" aria-pressed={selected?.color==='gray'} disabled={busy} onClick={()=>color('gray')}>Incorrect</button>
+    <button type="button" className="choice-gray" aria-pressed={selected?.color==='gray'} disabled={busy} onClick={()=>color('gray')}>Invalide</button>
     {proximity.has(active)&&<button type="button" className="choice-yellow" aria-pressed={selected?.color==='yellow'} disabled={busy} onClick={()=>color('yellow')}>≈ Proche</button>}
     <button type="button" className="choice-green" aria-pressed={selected?.color==='green'} disabled={busy} onClick={()=>color('green')}><Check size={15}/>Correct</button>
    </div></fieldset>

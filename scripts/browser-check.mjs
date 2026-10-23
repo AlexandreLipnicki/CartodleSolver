@@ -41,20 +41,27 @@ if(process.env.CARTO_TEST_REAL_PIPELINE==='1'){
  const state=await page.request.get(base+'/api/game').then(r=>r.json());
  const tile=field=>page.locator(`.manual-tile[data-field="${field}"]`);
  const editor=page.getByRole('region',{name:'Saisie manuelle'});
+ await tile('type').click();
+ if(await editor.getByRole('button',{name:'Invalide',exact:true}).getAttribute('aria-pressed')!=='true')throw Error('Invalid must be preselected');
+ if(await editor.getByRole('button',{name:'Proche',exact:false}).count())throw Error('Type must not offer Proche');
+ await tile('pokedex').click();
+ if(await editor.getByRole('button',{name:'Invalide',exact:true}).getAttribute('aria-pressed')!=='true')throw Error('Gray must be preselected for directional fields too');
+ if(await editor.getByRole('button',{name:'Critère suivant',exact:true}).isEnabled())throw Error('Direction must still be explicitly chosen');
+
  await tile('hp').click();
  await editor.getByRole('button',{name:'Proche',exact:false}).click();
  await editor.getByRole('button',{name:'Plus petite',exact:false}).click();
  if(await tile('hp').getAttribute('data-color')!=='yellow')throw Error('HP must become yellow');
  await editor.getByRole('button',{name:'Correct',exact:true}).click();
  if(await tile('hp').locator('.tile-arrow').count())throw Error('Green must clear the arrow');
- await editor.getByRole('button',{name:'Incorrect',exact:true}).click();
+ await editor.getByRole('button',{name:'Invalide',exact:true}).click();
  if(await tile('hp').locator('.tile-arrow').count())throw Error('Leaving green must require a new arrow');
  const reference=JSON.parse(await readFile('backend/tests/fixtures/cartodle/lucario.expected.json','utf8')).rows[0];
  for(const [field,clue] of Object.entries(reference.clues)){
   await tile(field).click();
-  if(['stage','illustrator','pokedex'].includes(field)&&await editor.getByRole('button',{name:'Proche',exact:false}).count())throw Error('Unsupported yellow option');
+  if(['type','stage','illustrator','pokedex'].includes(field)&&await editor.getByRole('button',{name:'Proche',exact:false}).count())throw Error('Unsupported yellow option');
   if(['type','stage','illustrator'].includes(field)&&await editor.getByRole('button',{name:'Plus grande',exact:false}).count())throw Error('Unsupported direction');
-  if(field!=='pokedex')await editor.getByRole('button',{name:clue.color==='yellow'?'≈ Proche':'Incorrect',exact:true}).click();
+  if(field!=='pokedex')await editor.getByRole('button',{name:clue.color==='yellow'?'≈ Proche':'Invalide',exact:true}).click();
   // Direction alone on a previously untouched gray Pokémon tile is sufficient.
   if(clue.arrow)await editor.getByRole('button',{name:clue.arrow==='down'?'Plus petite':'Plus grande',exact:false}).click();
  }
