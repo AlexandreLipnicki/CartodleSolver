@@ -6,14 +6,14 @@ const errors=[];page.on('pageerror',e=>errors.push(e.message));
 const base=process.env.CARTO_BROWSER_URL||'http://127.0.0.1:8000';
 let manualPosts=0;page.on('request',r=>{if(r.url().endsWith('/api/game/attempts')&&r.method()==='POST')manualPosts++});
 await page.goto(base);
-await page.getByTestId('pending-attempt').filter({hasText:'Lucario'}).waitFor();
+await page.locator('[data-testid="pending-attempt"][data-card-id="xy10-63"]').waitFor();
 if(await page.locator('input[type="password"]').count())throw Error('A public app must not ask for an access code');
 for(const text of ['La bonne carte est','VOTRE PROCHAINE DÉDUCTION','La piste à suivre','Sélection déterministe','Espace privé','LE RITUEL']){if(await page.getByText(text,{exact:false}).count())throw Error('Decorative content still present: '+text)}
 await page.getByRole('button',{name:'Nouvelle partie',exact:true}).click();
 await page.getByRole('heading',{name:'Lucario',exact:true}).waitFor();
-await page.getByTestId('pending-attempt').filter({hasText:'Lucario'}).waitFor();
+await page.locator('[data-testid="pending-attempt"][data-card-id="xy10-63"]').waitFor();
 if(await page.getByRole('button').count()!==1)throw Error('Only Nouvelle partie should be actionable');
-await page.reload();await page.getByTestId('pending-attempt').filter({hasText:'Lucario'}).waitFor();
+await page.reload();await page.locator('[data-testid="pending-attempt"][data-card-id="xy10-63"]').waitFor();
 await page.screenshot({path:'storage/desktop.png',fullPage:true});
 console.log('New game and reload: Lucario is already in the investigation, awaiting capture.');
 async function paste(){await page.evaluate(async()=>{const blob=await new Promise(resolve=>{const c=document.createElement('canvas');c.width=20;c.height=20;c.getContext('2d').fillRect(0,0,20,20);c.toBlob(resolve)});const dt=new DataTransfer();dt.items.add(new File([blob],'capture.png',{type:'image/png'}));window.dispatchEvent(new ClipboardEvent('paste',{clipboardData:dt,bubbles:true}))})}
@@ -33,7 +33,7 @@ if(process.env.CARTO_TEST_REAL_PIPELINE==='1'){
   if(after.version!==before.version+1)throw Error('Paste did not automatically commit the expected card');
   if(after.history.at(-1).card.id!==before.pending.card.id)throw Error('Wrong expected card completed');
   if(after.solved){solved=true;break}
-  await page.getByTestId('pending-attempt').filter({hasText:after.pending.card.name}).waitFor();
+  await page.locator(`[data-testid="pending-attempt"][data-card-id="${after.pending.card.id}"]`).waitFor();
  }
  if(!solved)throw Error('Automatic full game did not finish');
  console.log('Native paste → real HTTP upload → Ollama test server → automatic commit → next card: full game passed.');
@@ -51,7 +51,7 @@ if(process.env.CARTO_TEST_REAL_PIPELINE==='1'){
   const cell=completed.locator(`[data-field="${field}"]`);
   if(await cell.getAttribute('data-color')!==clue.color)throw Error(field+': wrong background');
   if(await cell.getAttribute('data-arrow')!==(clue.arrow||'none'))throw Error(field+': wrong arrow');
-  if((await cell.locator('.clue-value').innerText())!==String(clue.value))throw Error(field+': wrong displayed value');
+  if((await cell.locator('.clue-reading').innerText())!==String(clue.value))throw Error(field+': wrong displayed value');
   if(await cell.locator('.clue-arrow').count()!==(clue.arrow?1:0))throw Error(field+': missing visible arrow');
   if(await cell.getAttribute('data-value-source')!=='capture')throw Error(field+': lost screenshot value');
   if(await cell.evaluate(el=>el.scrollWidth>el.clientWidth))throw Error(field+': text overflow');
@@ -60,7 +60,7 @@ if(process.env.CARTO_TEST_REAL_PIPELINE==='1'){
  const after=await page.request.get(base+'/api/game').then(r=>r.json());
  if(after.version!==state.version+1||after.history.length!==1)throw Error('Reference paste did not commit automatically');
  if(!after.pending||after.pending.card.pokedex[0]>=448||after.pending.card.hp>=110)throw Error('Reference arrows were not used for the next deduction');
- await page.getByTestId('pending-attempt').filter({hasText:after.pending.card.name}).waitFor();
+ await page.locator(`[data-testid="pending-attempt"][data-card-id="${after.pending.card.id}"]`).waitFor();
  const reloaded=await page.request.get(base+'/api/game').then(r=>r.json());
  if(JSON.stringify(reloaded.history[0].clues)!==JSON.stringify(after.history[0].clues))throw Error('Reference values were not persisted');
  await page.screenshot({path:'storage/history-reference.png',fullPage:true});

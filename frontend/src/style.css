@@ -56,3 +56,36 @@ body{background:#110b16}
 .rarity-badge--four-diamonds{letter-spacing:-1.5px;font-size:10px}
 .rarity-badge--crown{color:#a63cf0;min-width:23px}
 .rarity-badge--crown svg{fill:currentColor}
+
+/* Compact recommendation and Holopocket-style criteria. */
+.hero-panel{position:relative;grid-template-columns:160px 280px minmax(0,1fr);padding-bottom:35px;align-items:stretch}
+.art-column{min-height:0;padding:20px 15px;background:radial-gradient(ellipse at center,#35303e44,transparent 80%)}
+.art-column .card-visual{width:130px;height:182px;aspect-ratio:auto}
+.info-column{padding:22px 18px;border:0}
+.info-column h2{font-size:32px;margin:9px 0 5px}
+.card-chips{margin-top:12px}
+.card-details{margin-top:15px;gap:9px}
+.card-details>div{font-size:13px;grid-template-columns:75px minmax(0,1fr)}
+.constraints-column{padding:20px 18px;border:0;grid-column:auto}
+.criteria-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0}
+.criterion-tile{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:18px;min-height:101px;padding:11px 10px;background:#281e34;border:2px solid #40304f;border-radius:14px;min-width:0}
+.criterion-label{text-transform:uppercase;font-size:12px;font-weight:700;color:#bdb2c8;overflow-wrap:anywhere}
+.criterion-text{font-size:14px;font-weight:600;line-height:1.35;white-space:pre-line;overflow-wrap:anywhere}
+.criterion-tile.confirmed{background:#40d979;border-color:#40d979;color:#103e26}
+.criterion-tile.confirmed .criterion-label{color:#195332;padding-right:18px}
+.criterion-check{position:absolute;right:9px;top:10px;color:#195332}
+.hero-count{position:absolute;bottom:13px;left:20px;color:#aa99bb;font-size:14px}
+.hero-count strong{color:#e1d4ef;font-weight:600}
+.upload-panel{margin-top:18px}
+.history-table-head,.history-row{grid-template-columns:88px minmax(0,1fr);min-width:1000px}
+.history-table-head{padding:12px}
+.history-table-head>span:last-child{text-align:center;font-size:10px;letter-spacing:.5px}
+.history-table-head>div{padding:0 9px}
+.history-row{padding:12px;min-height:112px}
+.history-card{justify-content:center;gap:0}
+.history-card .card-visual.small,.history-card .card-visual.small>.card-image{width:60px;height:84px}
+.history-row .clue-cell{min-height:86px}
+.pokemon-name{display:block;font-weight:650;margin-bottom:3px}
+@media(max-width:1100px){.hero-panel{grid-template-columns:140px 250px minmax(0,1fr)}.criteria-list{grid-template-columns:repeat(3,minmax(0,1fr))}.criterion-tile{min-height:85px}}
+@media(max-width:800px){.hero-panel{grid-template-columns:130px minmax(0,1fr)}.constraints-column{grid-column:1/-1;padding-top:0}.criteria-list{grid-template-columns:repeat(4,minmax(0,1fr))}.card-details>div{grid-template-columns:85px minmax(0,1fr)}.art-column .card-visual{width:100px;height:140px}}
+@media(max-width:520px){.hero-panel{grid-template-columns:105px minmax(0,1fr)}.art-column{padding:18px 8px}.art-column .card-visual{width:85px;height:119px}.info-column{padding:18px 12px 18px 5px}.info-column h2{font-size:28px}.card-subtitle{font-size:13px}.card-chips{gap:4px}.card-details>div{grid-template-columns:1fr;gap:0;font-size:12px}.criteria-list{grid-template-columns:repeat(2,minmax(0,1fr))}.criterion-tile{min-height:88px}.constraints-column{padding:0 12px 12px}.hero-count{left:13px}.card-details{gap:7px}}

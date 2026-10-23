@@ -9,7 +9,7 @@ const cards=[['xy10-63','Lucario',448,110,'Impact des Destins'],['swsh8-142','Ma
 const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAB8AAAArCAIAAAAPJ8TVAAAAL0lEQVR4nO3MQQEAQAQAsHPtFVFBPSm8bAEW1fnW/L3abrfb7Xa73W632+32k/sArmUCPNddv0MAAAAASUVORK5CYII=','base64');
 let step=0;const requests=new Map();
 const clues=Object.fromEntries(['pokedex','type','stage','hp','rarity','set','illustrator'].map(f=>[f,{color:'gray',arrow:null}]));
-const game=()=>({id:'image-regression',version:step,total:100,remaining:100-step,uncertain:0,solved:false,probable_solution:false,recommendation:cards[step],pending:{card:cards[step],number:step+1,status:'awaiting_capture'},constraints:{},warnings:[],history:cards.slice(0,step).map((card,i)=>({id:i+1,card,clues,remaining:99-i,created:'2026-10-16'}))});
+const game=()=>({id:'image-regression',version:step,total:100,remaining:100-step,uncertain:1001,solved:false,probable_solution:false,recommendation:cards[step],pending:{card:cards[step],number:step+1,status:'awaiting_capture'},constraints:{type:{count:1,values:['Métal']}},warnings:['Règle de proximité non confirmée'],history:cards.slice(0,step).map((card,i)=>({id:i+1,card,clues:{...clues,stage:{color:'green',arrow:null,value:'Niveau 1'}},remaining:99-i,created:'2026-10-16'}))});
 const server=createServer(async(req,res)=>{
  const path=new URL(req.url,'http://localhost').pathname;
  const json=value=>{res.setHeader('Content-Type','application/json');res.end(JSON.stringify(value))};
@@ -50,9 +50,24 @@ try{
   await visibleImages();
   for(let j=0;j<i;j++)assert.equal(await page.getByTestId('completed-attempt').nth(j).locator('img').getAttribute('src'),'/api/images/'+cards[i-1-j].id);
  }
- assert.deepEqual(await page.locator('.history-row .attempt-index').allTextContents(),['03','02','01']);
+ assert.deepEqual(await page.locator('.history-row .history-card img').evaluateAll(imgs=>imgs.map(img=>img.getAttribute('src'))),cards.slice().reverse().map(c=>'/api/images/'+c.id));
  assert.equal(await page.locator('.history-row').first().getAttribute('data-testid'),'pending-attempt');
- assert.match(await page.locator('.stats-row').innerText(),/cartes possibles/);
+ assert.match(await page.locator('.hero-panel .hero-count').innerText(),/cartes possibles/);
+
+ assert.equal(await page.locator('.criterion-tile').count(),7);
+ assert.equal(await page.locator('.criterion-tile.confirmed').count(),1);
+ assert.equal(await page.locator('.criterion-tile[data-field="stage"]').getAttribute('data-confirmed'),'true');
+ assert.equal(await page.locator('.criterion-tile[data-field="type"]').getAttribute('data-confirmed'),'false');
+ assert.equal(await page.locator('.remaining-cell,.pending-status,.rule-warning,.stats-row,.attempt-index').count(),0);
+ assert.ok((await page.locator('.history-card').allTextContents()).every(text=>text.trim()===''));
+ assert.ok(!(await page.locator('main').innerText()).includes('cartes à vérifier'));
+ for(const width of [1440,390,320]){
+  await page.setViewportSize({width,height:1000});await page.evaluate(()=>document.fonts.ready);
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  const hero=await page.locator('.hero-panel').boundingBox();
+  if(width===1440)assert.ok(hero.height<370,`Hero too tall: ${hero.height}`);
+  await page.screenshot({path:`/tmp/cartosolver-compact-${width}.png`,fullPage:true});
+ }
  await page.reload();await page.getByTestId('completed-attempt').first().waitFor();await visibleImages();
  for(const c of cards)assert.equal(requests.get('/api/images/'+c.id),1,'An already cached image was downloaded again');
  console.log('History images: two played cards and the pending card stay visible after successive pastes and reload; each image downloaded once.');
