@@ -2,11 +2,12 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ArrowDown, ArrowUp, Check, Clipboard, LoaderCircle, Plus, ScanLine, AlertTriangle } from 'lucide-react'
 import './style.css'
+import { ManualFeedback } from './ManualFeedback'
 import { RarityBadge } from './RarityBadge'
 
-type Field = 'pokedex'|'type'|'stage'|'hp'|'rarity'|'set'|'illustrator'
-type Clue = {color:'green'|'yellow'|'gray';arrow:'up'|'down'|null;value?:string|number|null}
-type Clues = Record<Field,Clue>
+export type Field = 'pokedex'|'type'|'stage'|'hp'|'rarity'|'set'|'illustrator'
+export type Clue = {color:'green'|'yellow'|'gray';arrow:'up'|'down'|null;value?:string|number|null}
+export type Clues = Record<Field,Clue>
 type Card = {id:string;name:string|null;pokedex:number[];type_labels:string[];stage_label:string|null;hp:number|null;rarity_label:string|null;rarity?:string|null;set_name:string|null;series_name:string|null;release_date:string|null;illustrator:string|null;number:string;names:Record<string,string>}
 type Attempt = {id:number;card:Card;clues:Clues;remaining:number;created:string}
 type Summary = {min?:number|null;max?:number|null;values:(string|number)[];count:number;excluded?:(string|number)[]}
@@ -90,6 +91,18 @@ function App(){
   }catch(e){setError((e as Error).message);try{const fresh=await api<Game>('/game');if(mounted.current){gameRef.current=fresh;setGame(fresh)}}catch{}}finally{busyRef.current=false;if(mounted.current){setBusy(false);setPhase('')}}
  },[])
  useEffect(()=>{if(!ready)return;const paste=(e:ClipboardEvent)=>{const item=Array.from(e.clipboardData?.items||[]).find(i=>i.type.startsWith('image/'));const f=item?.getAsFile();if(f){e.preventDefault();void processFile(f)}};window.addEventListener('paste',paste);return()=>window.removeEventListener('paste',paste)},[ready,processFile])
+ async function submitManual(clues:Clues){
+  const current=gameRef.current
+  if(!current?.pending||busyRef.current)return
+  busyRef.current=true;setBusy(true);setError('');setFeedback('')
+  try{
+   const next=await api<Game>('/game/attempts',{method:'POST',body:JSON.stringify({game_id:current.id,expected_version:current.version,attempts:[{card_id:current.pending.card.id,clues}]})})
+   gameRef.current=next;setGame(next)
+  }catch(e){
+   setError((e as Error).message)
+   try{const fresh=await api<Game>('/game');gameRef.current=fresh;setGame(fresh)}catch{}
+  }finally{busyRef.current=false;setBusy(false)}
+ }
  const card=game?.recommendation
  if(!ready)return <div className="loading-screen"><LoaderCircle className="spin"/> Chargement…</div>
  return <div className="app">
@@ -104,15 +117,7 @@ function App(){
       {card?<div className="preview-meta"><p className="card-subtitle">{card.set_name||'Extension inconnue'} <span>·</span> {card.release_date?.slice(0,4)||'Année inconnue'}</p><div className="rarity-detail"><RarityBadge rarity={card.rarity} label={card.rarity_label}/><span>{card.rarity_label||'Rareté inconnue'}</span></div></div>:<p className="card-subtitle">{game?'Aucune proposition avec les indices actuels.':'Commencez avec Lucario.'}</p>}
      </div>
     </div>
-    <div className="constraints-column"><div className="criteria-list">{fields.map(f=>{
-     const confirmed=game?.history.slice().reverse().find(a=>a.clues[f].color==='green')
-     const text=card?historyValue(f,{color:'gray',arrow:null},card):'—'
-     return <div className={'criterion-tile'+(confirmed?' confirmed':'')} data-field={f} data-confirmed={!!confirmed} key={f}>
-      <span className="criterion-label">{f==='pokedex'?'Pokémon':labels[f]}</span>
-      {confirmed&&<Check className="criterion-check" size={17} aria-label="Critère validé"/>}
-      <span className="criterion-text">{card&&f==='pokedex'&&<strong className="pokemon-name">{card.name}</strong>}{text}</span>
-     </div>
-    })}</div></div>
+    <ManualFeedback key={(game?.id||'empty')+':'+(game?.version||0)} values={Object.fromEntries(fields.map(f=>[f,card?historyValue(f,{color:'gray',arrow:null},card):'—'])) as Record<Field,string>} pokemon={card?.name||''} confirmed={fields.filter(f=>game?.history.some(a=>a.clues[f].color==='green'))} enabled={!!game?.pending&&!game.solved} busy={busy} onSubmit={submitManual}/>
     {game&&<div className="hero-count"><strong>{game.remaining.toLocaleString('fr-FR')}</strong> cartes possibles</div>}
    </section>
    <section className="upload-panel" aria-live="polite"><div className="upload-icon">{busy&&phase?<LoaderCircle className="spin" size={21}/>:<Clipboard size={21}/>}</div><div className="upload-copy"><h3>{phase||(game?.solved?'Carte trouvée':'Collez votre résultat')}</h3><p>{game?.solved?'Nouvelle partie pour recommencer.':'PNG, JPG, WEBP · 8 Mo max.'}</p></div>{!game?.solved&&<span className="paste-shortcut"><kbd>Ctrl</kbd><span>+</span><kbd>V</kbd></span>}</section>

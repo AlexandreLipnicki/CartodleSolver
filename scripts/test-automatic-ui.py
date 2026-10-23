@@ -81,6 +81,8 @@ with tempfile.TemporaryDirectory(prefix='cartosolver-auto-browser-') as folder:
             assert len(rows)>=2,'Vision simulator was not exercised'
             reference_env=dict(env,CARTO_TEST_REAL_PIPELINE='0',CARTO_TEST_REFERENCE_CAPTURE='1')
             subprocess.run(['node','scripts/browser-check.mjs'],env=reference_env,cwd=ROOT,check=True,timeout=90)
+            manual_env=dict(env,CARTO_TEST_REAL_PIPELINE='0',CARTO_TEST_MANUAL='1')
+            subprocess.run(['node','scripts/browser-check.mjs'],env=manual_env,cwd=ROOT,check=True,timeout=90)
         finally:
             proc.terminate()
             try:proc.wait(timeout=10)

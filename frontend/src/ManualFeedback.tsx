@@ -1,0 +1,52 @@
+import {useState} from 'react'
+import {ArrowDown,ArrowUp,Check,Pencil,X} from 'lucide-react'
+import type {Field,Clue,Clues} from './main'
+
+const fields:Field[]=['pokedex','type','stage','hp','rarity','set','illustrator']
+const labels:Record<Field,string>={pokedex:'Pokémon',type:'Type',stage:'Stade',hp:'PV',rarity:'Rareté',set:'Extension',illustrator:'Illustrateur'}
+const directional=new Set<Field>(['pokedex','hp','rarity','set'])
+const proximity=new Set<Field>(['type','hp','rarity','set'])
+const complete=(field:Field,clue?:Clue)=>!!clue&&(clue.color==='green'||!directional.has(field)||!!clue.arrow)
+
+type Props={values:Record<Field,string>;pokemon:string;confirmed:Field[];enabled:boolean;busy:boolean;onSubmit:(clues:Clues)=>Promise<void>}
+export function ManualFeedback({values,pokemon,confirmed,enabled,busy,onSubmit}:Props){
+ const initial=()=>Object.fromEntries(confirmed.map(f=>[f,{color:'green',arrow:null}])) as Partial<Clues>
+ const [draft,setDraft]=useState<Partial<Clues>>(initial)
+ const [active,setActive]=useState<Field|null>(null)
+ const count=fields.filter(f=>complete(f,draft[f])).length
+ const selected=active?draft[active]:undefined
+ function color(value:Clue['color']){
+  if(!active)return
+  setDraft(old=>({...old,[active]:{color:value,arrow:value==='green'?null:old[active]?.arrow||null}}))
+ }
+ function arrow(value:'up'|'down'){
+  if(!active)return
+  setDraft(old=>({...old,[active]:{color:old[active]?.color==='yellow'?'yellow':'gray',arrow:value}}))
+ }
+ const next=fields.find(f=>!complete(f,draft[f])&&f!==active)
+ return <>
+  {enabled&&<p className="manual-hint"><Pencil size={14}/>Cliquez sur les cases pour saisir les résultats <span>ou collez une capture avec Ctrl + V</span></p>}
+  <div className="constraints-column"><div className="criteria-list">{fields.map(field=>{
+   const clue=draft[field]
+   const locked=confirmed.includes(field)
+   return <button type="button" key={field} className={'criterion-tile manual-tile'+(clue?' feedback-'+clue.color:'')+(clue?.color==='green'?' confirmed':'')+(active===field?' active':'')} data-field={field} data-confirmed={clue?.color==='green'} data-color={clue?.color||'unset'} disabled={!enabled||busy||locked} onClick={()=>setActive(field)} aria-label={labels[field]+' : '+values[field]+(locked?' · Déjà validé':' · Modifier le résultat')} aria-expanded={active===field}>
+    <span className="criterion-label">{labels[field]}</span>
+    {clue?.color==='green'?<Check className="criterion-check" size={17}/>:enabled&&!busy&&clue?.color!=='yellow'&&<Pencil className="tile-pencil" size={13}/>}
+    <span className="criterion-text">{field==='pokedex'&&pokemon&&<strong className="pokemon-name">{pokemon}</strong>}{values[field]}</span>
+    {clue?.color==='yellow'&&<span className="tile-proximity">≈</span>}
+    {clue?.arrow==='up'?<ArrowUp className="tile-arrow" size={24}/>:clue?.arrow==='down'?<ArrowDown className="tile-arrow" size={24}/>:null}
+   </button>
+  })}</div></div>
+  {active&&enabled&&<section className="manual-editor" aria-label="Saisie manuelle" onKeyDown={e=>{if(e.key==='Escape')setActive(null)}}>
+   <div className="manual-editor-heading"><div><strong>{labels[active]}</strong><span>Reproduisez la couleur et la flèche affichées dans Cartodle.</span></div><button type="button" className="manual-close" aria-label="Fermer la saisie" disabled={busy} onClick={()=>setActive(null)}><X size={18}/></button></div>
+   <div className="manual-controls"><fieldset><legend>Couleur de la case</legend><div className="manual-options">
+    <button type="button" className="choice-gray" aria-pressed={selected?.color==='gray'} disabled={busy} onClick={()=>color('gray')}>Incorrect</button>
+    {proximity.has(active)&&<button type="button" className="choice-yellow" aria-pressed={selected?.color==='yellow'} disabled={busy} onClick={()=>color('yellow')}>≈ Proche</button>}
+    <button type="button" className="choice-green" aria-pressed={selected?.color==='green'} disabled={busy} onClick={()=>color('green')}><Check size={15}/>Correct</button>
+   </div></fieldset>
+   {directional.has(active)&&selected?.color!=='green'&&<fieldset><legend>La valeur recherchée est…</legend><div className="manual-options"><button type="button" aria-pressed={selected?.arrow==='down'} disabled={busy} onClick={()=>arrow('down')}><ArrowDown size={17}/>Plus petite</button><button type="button" aria-pressed={selected?.arrow==='up'} disabled={busy} onClick={()=>arrow('up')}><ArrowUp size={17}/>Plus grande</button></div></fieldset>}
+   </div>
+   <div className="manual-actions"><span role="status">{count} / 7 critères renseignés</span><div><button type="button" className="manual-reset" disabled={busy} onClick={()=>{setDraft(initial());setActive(null)}}>Annuler la saisie</button>{count<7?<button type="button" className="primary" disabled={busy||!next||!complete(active,draft[active])} onClick={()=>next&&setActive(next)}>Critère suivant</button>:<button type="button" className="primary" disabled={busy} onClick={()=>void onSubmit(draft as Clues)}>{busy?'Recherche…':'Proposer la carte suivante'}</button>}</div></div>
+  </section>}
+ </>
+}

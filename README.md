@@ -5,7 +5,7 @@ React/TypeScript, FastAPI, SQLite et lecture d’images par Ollama. La déductio
 
 ## Démarrage sur Windows
 
-Prérequis : **Python 3.11+**, **Node.js 22 ou 24 LTS** (npm inclus) et Ollama avec un modèle vision. Le catalogue français SQLite est désormais inclus dans le dépôt. Python et Ollama seuls ne suffisent pas : Node est nécessaire pour construire l’interface ; le parsing TypeScript sert seulement à reconstruire les données sources.
+Prérequis : **Python 3.11+**, **Node.js 22 ou 24 LTS** (npm inclus) et Ollama avec un modèle vision pour l’analyse des captures. Le catalogue français SQLite est désormais inclus dans le dépôt. Python et Ollama seuls ne suffisent pas : Node est nécessaire pour construire l’interface ; le parsing TypeScript sert seulement à reconstruire les données sources.
 
 1. Téléchargez la dernière version du dépôt et conservez les fichiers `data/catalog.fr.sqlite3`, `data/catalog.fr.manifest.json` et `data/catalog.fr.quality.json` ensemble. **Aucun téléchargement ni ajout manuel de TCGdex n’est nécessaire.** Le catalogue contient 22 242 cartes avec un nom français, dont 18 838 Pokémon.
 2. Copiez `.env.example` en `.env` ; renseignez `CARTO_OLLAMA_MODEL` avec le nom exact d’un de vos modèles vision (`ollama list`). Le modèle par défaut peut être installé avec `ollama pull qwen2.5vl:7b`.
@@ -46,10 +46,10 @@ Pour le rechargement à chaud : backend avec `--reload`, puis `npm --prefix fron
 
 À la première visite, la partie est créée automatiquement.
 
-1. Cliquez sur **Nouvelle partie** pour recommencer. Lucario `xy10-63` apparaît immédiatement dans **Le fil de votre enquête**, avec ses sept résultats en attente. Aucun indice n’est inventé et le filtrage n’est pas modifié à ce stade.
+1. Cliquez sur **Nouvelle partie** pour recommencer. Lucario `xy10-63` apparaît immédiatement dans **Tentatives**, avec ses sept résultats en attente. Aucun indice n’est inventé et le filtrage n’est pas modifié à ce stade.
 2. Jouez la carte proposée dans CartoDle, copiez sa capture de résultat puis faites **Ctrl+V** sur CartoSolver. La page récupère l’image, le serveur lit les résultats, identifie la carte réellement jouée et utilise ses valeurs visibles comme référence pour la partie, enregistre l’essai et affiche automatiquement la suivante dans le fil. Recommencez avec la nouvelle carte.
 
-Il n’y a aucun formulaire de confirmation, sélection d’impression, saisie manuelle, bouton d’import ou correction à effectuer. Le navigateur n’envoie pas d’essai manuel après la lecture : le serveur enregistre lui-même le résultat et calcule la prochaine carte dans une transaction.
+Pour saisir les résultats sans reconnaissance d’image, cliquez directement sur les sept cases de la carte proposée. Choisissez Incorrect (gris), Proche (jaune, si applicable) ou Correct (vert), puis ↑/↓ pour le Pokédex, les PV, la rareté ou l’extension lorsque la case n’est pas verte. Une flèche seule sélectionne un résultat gris. Le vert retire la flèche ; Type ne possède aucune direction, et Stade/Illustrateur n’ont que gris ou vert. Les critères déjà verts dans l’historique restent verrouillés. Une fois les sept critères renseignés, cliquez sur **Proposer la carte suivante**. Aucun appel à Ollama n’est effectué par ce parcours. Le brouillon reste disponible après une erreur et peut être annulé. Un Ctrl+V reste traité automatiquement ; son succès remplace le brouillon par la nouvelle proposition.
 
 - Le premier essai est **Lucario `xy10-63`, Impact des Destins, 2016**, Métal, 110 PV, Niveau 1, Hitoshi Ariga. La rareté est **Rare Holo**, selon la correction CartoDle fournie par l’utilisateur dans `config/card-overrides.json` (la source TCGdex brute indique Rare).
 - L’impression attendue vient de la recommandation persistante, capturée au moment de l’upload. Ollama lit les couleurs, flèches et valeurs affichées ; il ne recherche pas une nouvelle carte dans le catalogue. Le nom et les valeurs lisibles sont contrôlés contre cette impression. L’identité repose sur ce contexte et les éléments visibles : une information absente de l’image ne peut pas être vérifiée visuellement.
