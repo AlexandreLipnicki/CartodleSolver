@@ -41,7 +41,7 @@ try{
  await visibleImages();
  assert.equal((await page.locator('.section-heading').innerText()).replace(/\s+/g,' '),'Tentatives (1)');
  assert.equal(await page.title(),'CartodleSolver');
- assert.equal(await page.locator('link[rel="icon"]').getAttribute('href'),'/favicon.ico');
+ assert.match(await page.locator('link[rel="icon"]').getAttribute('href'),/^\/favicon\.ico\?v=[a-f0-9]+$/);
  assert.equal((await page.request.get(base+'/favicon.ico')).status(),200);
  assert.equal(await page.locator('.criterion-tile.confirmed').count(),0);
  assert.equal(await page.locator('.criterion-tile[data-field="hp"] .criterion-text').innerText(),'110');

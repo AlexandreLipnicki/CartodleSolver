@@ -244,7 +244,9 @@ def test_public_favicon_and_local_font_are_served(client):
     assert response.status_code==200 and response.headers['content-type']=='image/x-icon'
     with Image.open(io.BytesIO(response.content)) as icon:
         assert icon.format=='ICO'
-        assert icon.ico.sizes()=={(16,16),(32,32),(48,48)}
+        assert icon.ico.sizes()
+    from backend.app.settings import ROOT
+    assert response.content==(ROOT/'frontend/public/favicon.ico').read_bytes()
     font=client.get('/fonts/bricolage-grotesque.ttf')
     assert font.status_code==200
     assert font.content[:4]==b'\x00\x01\x00\x00'
