@@ -96,25 +96,21 @@ function App(){
   <header className="header"><Logo/><div className="header-actions"><button className="primary new-game" onClick={newGame} disabled={busy}><Plus size={16}/>Nouvelle partie</button></div></header>
   <main className="workspace">
    <section className="hero-panel">
-    <div className="art-column">{card?<CardImage card={card}/>:<div className="card-fallback"><div className="orb"/><span>{game?'Aucune carte à proposer':'Une nouvelle énigme'}</span><small>{game?'Consultez les indices de votre partie.':'Lancez votre première partie'}</small></div>}</div>
-    <div className="info-column"><div className="eyebrow">{game?.solved?'CARTE TROUVÉE':game?.probable_solution?'SOLUTION PROBABLE':'CARTE À ESSAYER'}</div><h2>{card?.name|| (game?'Affinons les indices':'À vous de jouer.')}</h2><p className="card-subtitle">{card?<>{card.set_name||'Extension inconnue'} <span>·</span> {card.release_date?.slice(0,4)||'Année inconnue'}</>:game?'Aucune proposition avec les indices actuels.':<>Commencez avec Lucario.<br/>Chaque résultat guidera le prochain essai.</>}</p>
-    {card?<><div className="card-chips"><span>#{card.pokedex.join(' / ')}</span><span className="type-chip"><span className="metal-dot"/>{card.type_labels.join(' / ')}</span><span>{card.stage_label||'Stade inconnu'}</span><span>{card.hp} <small>PV</small></span></div><dl className="card-details"><div><dt>Rareté</dt><dd className="rarity-detail"><RarityBadge rarity={card.rarity} label={card.rarity_label}/><span>{card.rarity_label||'À vérifier'}</span></dd></div><div><dt>Illustrateur</dt><dd>{card.illustrator||'À vérifier'}</dd></div><div><dt>Collection</dt><dd>N° {card.number} <span className="muted">· {card.id}</span></dd></div></dl></>:<p className="hero-start muted">Cliquez sur Nouvelle partie en haut de la page.</p>}
+    <div className="recommendation-preview">
+     <div className="art-column">{card?<CardImage card={card}/>:<div className="card-fallback"><div className="orb"/><span>{game?'Aucune carte à proposer':'Une nouvelle énigme'}</span></div>}</div>
+     <div className="info-column">
+      <div className="eyebrow">{game?.solved?'CARTE TROUVÉE':game?.probable_solution?'SOLUTION PROBABLE':'CARTE À ESSAYER'}</div>
+      <h2>{card?.name|| (game?'Affinons les indices':'À vous de jouer.')}</h2>
+      {card?<div className="preview-meta"><p className="card-subtitle">{card.set_name||'Extension inconnue'} <span>·</span> {card.release_date?.slice(0,4)||'Année inconnue'}</p><div className="rarity-detail"><RarityBadge rarity={card.rarity} label={card.rarity_label}/><span>{card.rarity_label||'Rareté inconnue'}</span></div></div>:<p className="card-subtitle">{game?'Aucune proposition avec les indices actuels.':'Commencez avec Lucario.'}</p>}
+     </div>
     </div>
     <div className="constraints-column"><div className="criteria-list">{fields.map(f=>{
-     const summary=game?.constraints[f]
      const confirmed=game?.history.slice().reverse().find(a=>a.clues[f].color==='green')
-     let text='—'
-     if(confirmed)text=historyValue(f,confirmed.clues[f],confirmed.card)
-     else if(game?.history.length&&summary){
-      if(summary.count===0)text='À déterminer'
-      else if(summary.min!=null&&summary.max!=null)text=summary.min===summary.max?String(summary.min):`${summary.min} — ${summary.max}`
-      else text=summary.count<=2?summary.values.join(' · '):`${summary.count} possibilités`
-      if(f==='hp'&&summary.count>0)text+=' PV'
-     }
+     const text=card?historyValue(f,{color:'gray',arrow:null},card):'—'
      return <div className={'criterion-tile'+(confirmed?' confirmed':'')} data-field={f} data-confirmed={!!confirmed} key={f}>
       <span className="criterion-label">{f==='pokedex'?'Pokémon':labels[f]}</span>
       {confirmed&&<Check className="criterion-check" size={17} aria-label="Critère validé"/>}
-      <span className="criterion-text">{confirmed&&f==='pokedex'&&<strong className="pokemon-name">{confirmed.card.name}</strong>}{text}</span>
+      <span className="criterion-text">{card&&f==='pokedex'&&<strong className="pokemon-name">{card.name}</strong>}{text}</span>
      </div>
     })}</div></div>
     {game&&<div className="hero-count"><strong>{game.remaining.toLocaleString('fr-FR')}</strong> cartes possibles</div>}

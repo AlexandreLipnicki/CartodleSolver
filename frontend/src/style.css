@@ -89,3 +89,18 @@ body{background:#110b16}
 @media(max-width:1100px){.hero-panel{grid-template-columns:140px 250px minmax(0,1fr)}.criteria-list{grid-template-columns:repeat(3,minmax(0,1fr))}.criterion-tile{min-height:85px}}
 @media(max-width:800px){.hero-panel{grid-template-columns:130px minmax(0,1fr)}.constraints-column{grid-column:1/-1;padding-top:0}.criteria-list{grid-template-columns:repeat(4,minmax(0,1fr))}.card-details>div{grid-template-columns:85px minmax(0,1fr)}.art-column .card-visual{width:100px;height:140px}}
 @media(max-width:520px){.hero-panel{grid-template-columns:105px minmax(0,1fr)}.art-column{padding:18px 8px}.art-column .card-visual{width:85px;height:119px}.info-column{padding:18px 12px 18px 5px}.info-column h2{font-size:28px}.card-subtitle{font-size:13px}.card-chips{gap:4px}.card-details>div{grid-template-columns:1fr;gap:0;font-size:12px}.criteria-list{grid-template-columns:repeat(2,minmax(0,1fr))}.criterion-tile{min-height:88px}.constraints-column{padding:0 12px 12px}.hero-count{left:13px}.card-details{gap:7px}}
+
+/* Proposed card preview above a single row of its seven attributes. */
+.hero-panel{display:block;padding:20px 18px 16px}
+.recommendation-preview{display:flex;align-items:center;gap:22px;min-height:110px}
+.art-column{padding:0;background:none;flex-shrink:0}
+.art-column .card-visual{width:72px;height:101px}
+.info-column{padding:0;min-width:0}
+.info-column h2{font-size:32px;margin:7px 0 6px}
+.preview-meta{display:flex;align-items:center;flex-wrap:wrap;gap:10px 24px}
+.preview-meta .rarity-detail{font-size:14px}
+.constraints-column{margin-top:20px;padding:0;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#59466f transparent}
+.criteria-list{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;min-width:980px}
+.criterion-tile{min-height:106px;padding:12px 10px}
+.hero-count{position:static;margin:20px 0 0;font-size:14px}
+@media(max-width:680px){.hero-panel{padding:16px 12px}.recommendation-preview{gap:14px;min-height:100px}.art-column .card-visual{width:62px;height:87px}.info-column h2{font-size:27px}.preview-meta{gap:8px}.card-subtitle,.preview-meta .rarity-detail{font-size:13px}.constraints-column{margin-top:16px}.criteria-list{grid-template-columns:repeat(7,minmax(0,1fr));min-width:980px}.criterion-tile{min-height:100px}.hero-count{margin-top:15px}}

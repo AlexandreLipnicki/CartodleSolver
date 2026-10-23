@@ -381,6 +381,13 @@ async def image(card_id:str,u=Depends(user)):
 dist=ROOT/'frontend/dist'
 if dist.exists():
     app.mount('/assets',StaticFiles(directory=dist/'assets'),name='assets')
+    if (dist/'fonts').exists():
+        app.mount('/fonts',StaticFiles(directory=dist/'fonts'),name='fonts')
+
+@app.get('/favicon.ico')
+def favicon():
+    if not (dist/'favicon.ico').exists():raise HTTPException(404,'Icône indisponible.')
+    return FileResponse(dist/'favicon.ico',media_type='image/x-icon')
 
 @app.get('/')
 def index():

@@ -233,3 +233,19 @@ def test_shining_fates_shiny_artwork_uses_parent_set(logged,monkeypatch,base_car
     assert logged.get('/api/images/xy10-63').status_code==200
     assert calls==['https://assets.tcgdex.net/fr/swsh/swsh4.5/SV008/high.webp']
     for p in (settings.storage/'images').glob('*'):p.unlink()
+
+
+def test_public_favicon_and_local_font_are_served(client):
+    from backend.app.main import dist
+    if not (dist/'favicon.ico').exists():
+        import pytest
+        pytest.skip('Frontend build required for static assets')
+    response=client.get('/favicon.ico')
+    assert response.status_code==200 and response.headers['content-type']=='image/x-icon'
+    with Image.open(io.BytesIO(response.content)) as icon:
+        assert icon.format=='ICO'
+        assert icon.ico.sizes()=={(16,16),(32,32),(48,48)}
+    font=client.get('/fonts/bricolage-grotesque.ttf')
+    assert font.status_code==200
+    assert font.content[:4]==b'\x00\x01\x00\x00'
+    assert '<title>CartodleSolver</title>' in client.get('/').text

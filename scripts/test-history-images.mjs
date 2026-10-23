@@ -40,6 +40,15 @@ try{
  }
  await visibleImages();
  assert.equal((await page.locator('.section-heading').innerText()).replace(/\s+/g,' '),'Tentatives (1)');
+ assert.equal(await page.title(),'CartodleSolver');
+ assert.equal(await page.locator('link[rel="icon"]').getAttribute('href'),'/favicon.ico');
+ assert.equal((await page.request.get(base+'/favicon.ico')).status(),200);
+ assert.equal(await page.locator('.criterion-tile.confirmed').count(),0);
+ assert.equal(await page.locator('.criterion-tile[data-field="hp"] .criterion-text').innerText(),'110');
+ assert.match(await page.locator('.criterion-tile[data-field="pokedex"] .criterion-text').innerText(),/Lucario/);
+ for(const text of await page.locator('.criterion-text').allTextContents())assert.ok(text.trim()&&text.trim()!=='—');
+ assert.equal(await page.locator('.info-column .card-chips,.info-column .card-details').count(),0);
+
  for(let i=1;i<=2;i++){
   await page.evaluate(async()=>{
    const canvas=document.createElement('canvas');canvas.width=20;canvas.height=20;
@@ -55,6 +64,8 @@ try{
  assert.match(await page.locator('.hero-panel .hero-count').innerText(),/cartes possibles/);
 
  assert.equal(await page.locator('.criterion-tile').count(),7);
+ assert.equal(await page.locator('.criterion-tile[data-field="hp"] .criterion-text').innerText(),'90');
+ assert.match(await page.locator('.criterion-tile[data-field="pokedex"] .criterion-text').innerText(),/Cotovol/);
  assert.equal(await page.locator('.criterion-tile.confirmed').count(),1);
  assert.equal(await page.locator('.criterion-tile[data-field="stage"]').getAttribute('data-confirmed'),'true');
  assert.equal(await page.locator('.criterion-tile[data-field="type"]').getAttribute('data-confirmed'),'false');
@@ -64,9 +75,11 @@ try{
  for(const width of [1440,390,320]){
   await page.setViewportSize({width,height:1000});await page.evaluate(()=>document.fonts.ready);
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  const tops=await page.locator('.criterion-tile').evaluateAll(tiles=>tiles.map(tile=>tile.getBoundingClientRect().top));
+  assert.ok(tops.every(top=>Math.abs(top-tops[0])<1),'Criteria must stay on one row');
   const hero=await page.locator('.hero-panel').boundingBox();
   if(width===1440)assert.ok(hero.height<370,`Hero too tall: ${hero.height}`);
-  await page.screenshot({path:`/tmp/cartosolver-compact-${width}.png`,fullPage:true});
+  await page.screenshot({path:`/tmp/cartosolver-preview-${width}.png`,fullPage:true});
  }
  await page.reload();await page.getByTestId('completed-attempt').first().waitFor();await visibleImages();
  for(const c of cards)assert.equal(requests.get('/api/images/'+c.id),1,'An already cached image was downloaded again');
