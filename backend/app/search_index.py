@@ -74,6 +74,7 @@ class CandidateIndex:
             guess = attempt.get('observed_card') or by_id[attempt['card_id']]
             clues = Clues.model_validate(attempt['clues'])
             for field in FIELDS:
+                if field in attempt.get('ignored_fields',[]):continue
                 remaining &= self._mask(field, guess, getattr(clues, field), rule_key)
                 if not remaining:
                     return [], []

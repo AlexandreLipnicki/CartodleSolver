@@ -9,7 +9,7 @@ export type Field = 'pokedex'|'type'|'stage'|'hp'|'rarity'|'set'|'illustrator'
 export type Clue = {color:'green'|'yellow'|'gray';arrow:'up'|'down'|null;value?:string|number|null}
 export type Clues = Record<Field,Clue>
 type Card = {id:string;name:string|null;pokedex:number[];type_labels:string[];stage_label:string|null;hp:number|null;rarity_label:string|null;rarity?:string|null;set_name:string|null;series_name:string|null;release_date:string|null;illustrator:string|null;number:string;names:Record<string,string>}
-type Attempt = {id:number;card:Card;clues:Clues;remaining:number;created:string}
+type Attempt = {ignored_fields?:Field[];id:number;card:Card;clues:Clues;remaining:number;created:string}
 type Summary = {min?:number|null;max?:number|null;values:(string|number)[];count:number;excluded?:(string|number)[]}
 type Game = {id:string;version:number;total:number;remaining:number;uncertain:number;recommendation:Card|null;solved:boolean;probable_solution:boolean;pending:{card:Card;number:number;status:string}|null;constraints:Record<Field,Summary>;warnings:string[];history:Attempt[]}
 const fields:Field[]=['pokedex','type','stage','hp','rarity','set','illustrator']
@@ -43,12 +43,12 @@ function historyValue(field:Field,clue:Clue,card:Card):string{
   case 'illustrator':return card.illustrator||'—'
  }
 }
-function HistoryClue({field,clue,card}:{field:Field;clue:Clue;card:Card}){
+function HistoryClue({field,clue,card,ignored=false}:{field:Field;clue:Clue;card:Card;ignored?:boolean}){
  const value=historyValue(field,clue,card)
  const read=clue.value!==null&&clue.value!==undefined&&String(clue.value).trim()!==''
  const direction=clue.arrow==='up'?'Supérieur':clue.arrow==='down'?'Inférieur':''
  const description=[labels[field],value,colorLabels[clue.color],direction,read?'Lu sur la capture':'Valeur du catalogue'].filter(Boolean).join(' · ')
- return <span className={'clue-cell '+clue.color} data-field={field} data-color={clue.color} data-arrow={clue.arrow||'none'} data-value-source={read?'capture':'catalog'} title={description} aria-label={description}>
+ return <span className={'clue-cell '+clue.color+(ignored?' ignored-clue':'')} data-field={field} data-color={clue.color} data-arrow={clue.arrow||'none'} data-value-source={read?'capture':'catalog'} title={ignored?'Ancien indice écarté après correction · '+description:description} aria-label={ignored?'Indice écarté · '+description:description}>
   {field==='hp'&&clue.color==='yellow'&&<span className="clue-proximity" aria-label="Valeur proche">≈</span>}
   <span className="clue-value">{field==='pokedex'&&<strong className="pokemon-name">{card.name||card.names.en}</strong>}<span className="clue-reading">{value}</span></span>
   {clue.arrow==='up'?<ArrowUp className="clue-arrow" size={21} aria-label="Supérieur"/>:clue.arrow==='down'?<ArrowDown className="clue-arrow" size={21} aria-label="Inférieur"/>:clue.color==='green'?<Check className="clue-check" size={13} aria-label="Correct"/>:null}
@@ -93,10 +93,11 @@ function App(){
  useEffect(()=>{if(!ready)return;const paste=(e:ClipboardEvent)=>{const item=Array.from(e.clipboardData?.items||[]).find(i=>i.type.startsWith('image/'));const f=item?.getAsFile();if(f){e.preventDefault();void processFile(f)}};window.addEventListener('paste',paste);return()=>window.removeEventListener('paste',paste)},[ready,processFile])
  async function submitManual(clues:Clues){
   const current=gameRef.current
-  if(!current?.pending||busyRef.current)return
+  const played=current?.pending?.card||(current?.solved?current.recommendation:null)
+  if(!current||!played||busyRef.current)return
   busyRef.current=true;setBusy(true);setError('');setFeedback('')
   try{
-   const next=await api<Game>('/game/attempts',{method:'POST',body:JSON.stringify({game_id:current.id,expected_version:current.version,attempts:[{card_id:current.pending.card.id,clues}]})})
+   const next=await api<Game>(current.solved?'/game/last':'/game/attempts',{method:current.solved?'PUT':'POST',body:JSON.stringify({game_id:current.id,expected_version:current.version,attempts:[{card_id:played.id,clues}],reset_fields:fields.filter(f=>clues[f].color!=='green'&&current.history.some(a=>!a.ignored_fields?.includes(f)&&a.clues[f].color==='green'))})})
    gameRef.current=next;setGame(next)
   }catch(e){
    setError((e as Error).message)
@@ -117,13 +118,13 @@ function App(){
       {card?<div className="preview-meta"><p className="card-subtitle">{card.set_name||'Extension inconnue'} <span>·</span> {card.release_date?.slice(0,4)||'Année inconnue'}</p><div className="rarity-detail"><RarityBadge rarity={card.rarity} label={card.rarity_label}/><span>{card.rarity_label||'Rareté inconnue'}</span></div></div>:<p className="card-subtitle">{game?'Aucune proposition avec les indices actuels.':'Commencez avec Lucario.'}</p>}
      </div>
     </div>
-    <ManualFeedback key={(game?.id||'empty')+':'+(game?.version||0)} values={Object.fromEntries(fields.map(f=>[f,card?historyValue(f,{color:'gray',arrow:null},card):'—'])) as Record<Field,string>} pokemon={card?.name||''} confirmed={fields.filter(f=>game?.history.some(a=>a.clues[f].color==='green'))} enabled={!!game?.pending&&!game.solved} busy={busy} onSubmit={submitManual}/>
+    <ManualFeedback key={(game?.id||'empty')+':'+(game?.version||0)} values={Object.fromEntries(fields.map(f=>[f,card?historyValue(f,{color:'gray',arrow:null},card):'—'])) as Record<Field,string>} pokemon={card?.name||''} confirmed={fields.filter(f=>game?.history.some(a=>!a.ignored_fields?.includes(f)&&a.clues[f].color==='green'))} enabled={!!card&&!!game} busy={busy} onSubmit={submitManual}/>
     {game&&<div className="hero-count"><strong>{game.remaining.toLocaleString('fr-FR')}</strong> cartes possibles</div>}
    </section>
    <section className="upload-panel" aria-live="polite"><div className="upload-icon">{busy&&phase?<LoaderCircle className="spin" size={21}/>:<Clipboard size={21}/>}</div><div className="upload-copy"><h3>{phase||(game?.solved?'Carte trouvée':'Collez votre résultat')}</h3><p>{game?.solved?'Nouvelle partie pour recommencer.':'PNG, JPG, WEBP · 8 Mo max.'}</p></div>{!game?.solved&&<span className="paste-shortcut"><kbd>Ctrl</kbd><span>+</span><kbd>V</kbd></span>}</section>
    {error&&<div className="message error" role="alert"><AlertTriangle size={16}/><span>{error}</span></div>}
    {feedback&&<p className="capture-feedback" role="status">{feedback}</p>}
-   <section className="history-section"><div className="section-heading"><span>Tentatives <span className="count-pill">({(game?.history.length||0)+(game?.pending?1:0)})</span></span></div>{!game?<div className="empty-history"><div><h3>Lucario ouvrira votre enquête.</h3><p>Cliquez sur Nouvelle partie. Son essai apparaîtra ici immédiatement.</p></div></div>:<div className="history-table"><div className="history-table-head"><span>CARTE JOUÉE</span><div>{fields.map(f=><span key={f}>{f==='pokedex'?'Pokémon':labels[f]}</span>)}</div></div>{game.pending&&<div className="history-row pending-row" data-testid="pending-attempt" data-card-id={game.pending.card.id}><div className="history-card"><CardImage card={game.pending.card} small/></div><div className="clue-cells">{fields.map(f=><span title={labels[f]+' : en attente de capture'} className="clue-cell awaiting" key={f}>—</span>)}</div></div>}{[...game.history].reverse().map(a=><div className="history-row" data-testid="completed-attempt" data-card-id={a.card.id} key={a.id}><div className="history-card"><CardImage card={a.card} small/></div><div className="clue-cells">{fields.map(f=><HistoryClue key={f} field={f} clue={a.clues[f]} card={a.card}/>)}</div></div>)}</div>}</section>
+   <section className="history-section"><div className="section-heading"><span>Tentatives <span className="count-pill">({(game?.history.length||0)+(game?.pending?1:0)})</span></span></div>{!game?<div className="empty-history"><div><h3>Lucario ouvrira votre enquête.</h3><p>Cliquez sur Nouvelle partie. Son essai apparaîtra ici immédiatement.</p></div></div>:<div className="history-table"><div className="history-table-head"><span>CARTE JOUÉE</span><div>{fields.map(f=><span key={f}>{f==='pokedex'?'Pokémon':labels[f]}</span>)}</div></div>{game.pending&&<div className="history-row pending-row" data-testid="pending-attempt" data-card-id={game.pending.card.id}><div className="history-card"><CardImage card={game.pending.card} small/></div><div className="clue-cells">{fields.map(f=><span title={labels[f]+' : en attente de capture'} className="clue-cell awaiting" key={f}>—</span>)}</div></div>}{[...game.history].reverse().map(a=><div className="history-row" data-testid="completed-attempt" data-card-id={a.card.id} key={a.id}><div className="history-card"><CardImage card={a.card} small/></div><div className="clue-cells">{fields.map(f=><HistoryClue key={f} field={f} clue={a.clues[f]} card={a.card} ignored={a.ignored_fields?.includes(f)}/>)}</div></div>)}</div>}</section>
   </main><footer className="footer">Données TCGdex · Pokémon © Nintendo / Creatures / GAME FREAK</footer>
 
  </div>

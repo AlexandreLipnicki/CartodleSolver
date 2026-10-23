@@ -251,3 +251,43 @@ def test_public_favicon_and_local_font_are_served(client):
     assert font.status_code==200
     assert font.content[:4]==b'\x00\x01\x00\x00'
     assert '<title>CartodleSolver</title>' in client.get('/').text
+
+
+def test_reset_confirmed_field_reopens_candidates_and_undo_restores_history(logged,base_card):
+    from backend.app.catalog import catalog
+    from backend.app.db import CardRecord
+    from backend.app.engine import filter_cards
+    from backend.app.catalog import pokemon_cards
+    alternate=dict(base_card,id='water-lucario',types=['Water'],type_labels=['Eau'])
+    # Keep the verified initial Lucario rarity, so type is the only difference.
+    alternate['rarity']=catalog()['xy10-63']['rarity']
+    with Session.begin() as db:
+        db.add(CardRecord(id=alternate['id'],name=alternate['name'],set_id=alternate['set_id'],category='Pokemon',payload=json.dumps(alternate)))
+    catalog.cache_clear()
+    assert logged.post('/api/game/attempts',json=batch(logged)).status_code==200
+    before=logged.get('/api/game').json()
+    attempt=batch(logged,version=before['version'],card=alternate['id'])
+    assert logged.post('/api/game/attempts',json=attempt).status_code==409
+    attempt['reset_fields']=['type']
+    result=logged.post('/api/game/attempts',json=attempt)
+    assert result.status_code==200,result.text
+    game=result.json()
+    assert game['recommendation']['id']==alternate['id']
+    assert game['history'][0]['ignored_fields']==['type']
+    assert game['history'][0]['clues']['type']['color']=='green'
+    assert game['history'][1]['ignored_fields']==[]
+    assert logged.get('/api/game').json()['history']==game['history']
+    from backend.app.main import attempts_data,history
+    from backend.app.db import Game
+    with Session() as db:
+        attempts=attempts_data(history(db,db.get(Game,game['id'])))
+    assert filter_cards(pokemon_cards(),attempts,catalog())==filter_cards(list(pokemon_cards()),attempts,catalog())
+    undone=logged.delete('/api/game/last',params={'version':game['version'],'game_id':game['id']}).json()
+    assert undone['history'][0]['ignored_fields']==[]
+    assert undone['recommendation']['id']=='xy10-63'
+    # A failed correction must neither discard prior clues nor increment version.
+    invalid=batch(logged,version=undone['version'],card=alternate['id'],cs=clues(hp={'color':'gray','arrow':'up'}))
+    invalid['reset_fields']=['type']
+    assert logged.post('/api/game/attempts',json=invalid).status_code==409
+    assert logged.get('/api/game').json()['history']==undone['history']
+    assert logged.get('/api/game').json()['version']==undone['version']

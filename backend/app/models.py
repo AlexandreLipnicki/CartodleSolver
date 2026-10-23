@@ -48,3 +48,10 @@ class BatchInput(Strict):
     game_id: str = Field(min_length=1,max_length=100)
     attempts: list[AttemptInput] = Field(min_length=1, max_length=30)
     expected_version: int = Field(ge=0)
+    reset_fields: list[Literal['pokedex','type','stage','hp','rarity','set','illustrator']] = Field(default_factory=list,max_length=7)
+
+    @model_validator(mode='after')
+    def single_correction(self):
+        if self.reset_fields and len(self.attempts)!=1:
+            raise ValueError('Une correction de critère concerne un seul nouvel essai.')
+        return self

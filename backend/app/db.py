@@ -42,6 +42,7 @@ class Attempt(Base):
     game_id: Mapped[str] = mapped_column(ForeignKey('games.id'), index=True)
     card_id: Mapped[str] = mapped_column(String)
     observed_card: Mapped[str | None] = mapped_column(Text, nullable=True)
+    reset_fields: Mapped[str] = mapped_column(Text, default='[]',server_default='[]')
     clues: Mapped[str] = mapped_column(Text)
     remaining: Mapped[int] = mapped_column(Integer)
     created: Mapped[str] = mapped_column(String, default=now)
@@ -60,3 +61,5 @@ def init_db():
     with engine.begin() as db:
         if 'observed_card' not in {r[1] for r in db.exec_driver_sql('PRAGMA table_info(attempts)')}:
             db.exec_driver_sql('ALTER TABLE attempts ADD COLUMN observed_card TEXT')
+        if 'reset_fields' not in {r[1] for r in db.exec_driver_sql('PRAGMA table_info(attempts)')}:
+            db.exec_driver_sql("ALTER TABLE attempts ADD COLUMN reset_fields TEXT NOT NULL DEFAULT '[]'")

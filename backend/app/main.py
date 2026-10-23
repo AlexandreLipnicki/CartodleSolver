@@ -115,6 +115,10 @@ def attempts_data(rows):
             row=VisionRow(pokemon=snapshot.get('name') or attempt.card_id,card_id=attempt.card_id,clues=clues)
             snapshot=observed_card(row,snapshot,catalog())
         result.append(dict(card_id=attempt.card_id,clues=clues,observed_card=snapshot))
+    ignored=set()
+    for item,row in zip(reversed(result),reversed(rows)):
+        item['ignored_fields']=sorted(ignored)
+        ignored.update(json.loads(row.reset_fields or '[]'))
     return result
 
 def state(db,u):
@@ -129,7 +133,7 @@ def state(db,u):
                 recommendation=rec,solved=solved,
                 constraints=summarize(valid,uncertain,attempts,catalog()),
                 warnings=warnings(attempts),
-                history=[dict(id=a.id,card=item['observed_card'] or catalog().get(a.card_id),clues=item['clues'],remaining=a.remaining,created=a.created) for a,item in zip(hist,attempts)])
+                history=[dict(id=a.id,card=item['observed_card'] or catalog().get(a.card_id),clues=item['clues'],ignored_fields=item.get('ignored_fields',[]),remaining=a.remaining,created=a.created) for a,item in zip(hist,attempts)])
 
 def warnings(attempts):
     messages=[]
@@ -196,7 +200,10 @@ def apply_batch(db,u,body,replace=False,observed=None):
     if replace:
         if not hist: raise HTTPException(400,'Aucun essai à corriger.')
         db.delete(hist.pop())
-    current=attempts_data(hist); known={a['card_id']:a for a in current}
+    current=attempts_data(hist)
+    if body.reset_fields:
+        current=[dict(a,ignored_fields=sorted(set(a.get('ignored_fields',[]))|set(body.reset_fields))) for a in current]
+    known={a['card_id']:a for a in current}
     added=0
     for entry in body.attempts:
         c=catalog().get(entry.card_id)
@@ -219,7 +226,7 @@ def apply_batch(db,u,body,replace=False,observed=None):
             raise HTTPException(409,{'message':'Aucune carte du catalogue ne correspond à tous ces indices. '+diagnosis+' La lecture ou les données du catalogue peuvent être en cause. Aucun nouvel essai n’a été enregistré.',
                                      'card_id':entry.card_id,'fields':conflicts or ordered[:3], 'remaining_by_field':counts,
                                      'advice':'Recollez une capture recadrée du dernier résultat.'})
-        db.add(Attempt(game_id=g.id,card_id=entry.card_id,clues=entry.clues.model_dump_json(),observed_card=json.dumps(item['observed_card'],ensure_ascii=False) if item['observed_card'] else None,remaining=len(valid)))
+        db.add(Attempt(game_id=g.id,card_id=entry.card_id,reset_fields=json.dumps(body.reset_fields),clues=entry.clues.model_dump_json(),observed_card=json.dumps(item['observed_card'],ensure_ascii=False) if item['observed_card'] else None,remaining=len(valid)))
         current=trial; known[entry.card_id]=item; added+=1
     valid,uncertain=filter_cards(pokemon_cards(),current,catalog())
     rec=recommend(valid,current)

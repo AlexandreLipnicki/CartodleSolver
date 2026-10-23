@@ -189,11 +189,12 @@ def test_existing_attempt_schema_migration_preserves_rows(tmp_path,monkeypatch):
     module.Base.metadata.create_all(engine)
     with engine.begin() as db:
         db.exec_driver_sql('ALTER TABLE attempts DROP COLUMN observed_card')
+        db.exec_driver_sql('ALTER TABLE attempts DROP COLUMN reset_fields')
         db.exec_driver_sql("INSERT INTO attempts (id,game_id,card_id,clues,remaining,created) VALUES (1,'legacy','xy10-63','{}',10,'2026-01-01')")
     monkeypatch.setattr(module,'engine',engine)
     module.init_db();module.init_db()
     with engine.connect() as db:
-        assert db.exec_driver_sql('SELECT card_id,remaining,observed_card FROM attempts').fetchall()==[('xy10-63',10,None)]
+        assert db.exec_driver_sql('SELECT card_id,remaining,observed_card,reset_fields FROM attempts').fetchall()==[('xy10-63',10,None,'[]')]
     engine.dispose()
 
 

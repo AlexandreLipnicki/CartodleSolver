@@ -83,5 +83,28 @@ try{
  }
  await page.reload();await page.getByTestId('completed-attempt').first().waitFor();await visibleImages();
  for(const c of cards)assert.equal(requests.get('/api/images/'+c.id),1,'An already cached image was downloaded again');
+
+ const stage=page.locator('.manual-tile[data-field="stage"]');
+ assert.ok(await stage.isEnabled(),'Remembered green must remain editable');
+ await stage.click();
+ const editor=page.getByRole('region',{name:'Saisie manuelle'});
+ assert.equal(await editor.getByRole('button',{name:'Correct',exact:true}).getAttribute('aria-pressed'),'true');
+ await editor.getByRole('button',{name:'Incorrect',exact:true}).click();
+ assert.equal(await stage.getAttribute('data-color'),'gray');
+ assert.match(await page.locator('.manual-correction-note').innerText(),/anciens indices/);
+ for(const field of ['pokedex','type','hp','rarity','set','illustrator']){
+  await page.locator(`.manual-tile[data-field="${field}"]`).click();
+  await editor.getByRole('button',{name:'Correct',exact:true}).click();
+ }
+ let corrected;
+ await page.route('**/api/game/attempts',async route=>{
+  corrected=route.request().postDataJSON();
+  await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({...game(),version:step+1})});
+ });
+ await editor.getByRole('button',{name:'Proposer la carte suivante',exact:true}).click();
+ await page.waitForFunction(()=>!document.querySelector('.manual-editor'));
+ assert.deepEqual(corrected.reset_fields,['stage']);
+ assert.equal(corrected.attempts[0].clues.stage.color,'gray');
+ console.log('Remembered green can be edited; explicit per-field correction sent to the API.');
  console.log('History images: two played cards and the pending card stay visible after successive pastes and reload; each image downloaded once.');
 }finally{await browser.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve))}

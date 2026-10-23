@@ -124,12 +124,13 @@ def filter_cards(cards, attempts, by_id):
         return (sorted([c for c in valid if c['id'] not in observed]+extra_valid,key=lambda c:order[c['id']]),
                 sorted([c for c in uncertain if c['id'] not in observed]+extra_uncertain,key=lambda c:order[c['id']]))
     valid, uncertain = [], []
-    prepared=[(a.get('observed_card') or by_id[a['card_id']], Clues.model_validate(a['clues'])) for a in attempts]
+    prepared=[(a.get('observed_card') or by_id[a['card_id']], Clues.model_validate(a['clues']),set(a.get('ignored_fields',[]))) for a in attempts]
     for c in cards:
         c=observed.get(c['id'],c)
         unknown=not complete(c); incompatible=False
-        for guess, clues in prepared:
+        for guess, clues, ignored in prepared:
             for f in FIELDS:
+                if f in ignored:continue
                 check=compare(c,guess,f,getattr(clues,f))
                 if check is False: incompatible=True; break
                 # Unknown game rules do not eliminate metadata-complete cards.
@@ -199,6 +200,7 @@ def summarize(valid,uncertain,attempts,by_id=None):
         else: result[field]={'values':ordered[:12],'count':len(ordered)}
         excluded=set()
         for attempt in attempts:
+            if field in attempt.get('ignored_fields',[]):continue
             guess=attempt.get('observed_card') or (by_id or {}).get(attempt['card_id'])
             clue=attempt['clues'][field]
             if not guess or clue['color']=='green': continue
